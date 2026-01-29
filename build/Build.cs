@@ -134,14 +134,16 @@ class Build : NukeBuild
             {
                 DotNetRun(s => s
                     .SetProjectFile(BuildToolsProject)
+                    .SetProcessWorkingDirectory(BuildToolsDirectory)
                     .SetNoRestore(true)
                     .SetConfiguration(Configuration));
             }
             else
             {
-                // Run with explicit project file path
+                // Run with explicit project file path and working directory
                 DotNetRun(s => s
                     .SetProjectFile(BuildToolsDirectory / "JdhPro.BuildTools.csproj")
+                    .SetProcessWorkingDirectory(BuildToolsDirectory)
                     .SetNoRestore(true)
                     .SetConfiguration(Configuration));
             }
