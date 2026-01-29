@@ -76,6 +76,9 @@ class Build : NukeBuild
         .Description("Restore .NET and npm dependencies")
         .Executes(() =>
         {
+            Log.Information("Installing .NET workloads...");
+            DotNet("workload restore");
+
             Log.Information("Restoring .NET dependencies...");
             DotNetRestore(s => s
                 .SetProjectFile(Solution));
