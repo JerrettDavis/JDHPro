@@ -83,7 +83,7 @@ jobs:
           cat publish/wwwroot/index.html | grep "base href"
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: publish/wwwroot
 
