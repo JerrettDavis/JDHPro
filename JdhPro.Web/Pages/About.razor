@@ -1,0 +1,561 @@
+@page "/about"
+
+<PageTitle>About JDH Productions - Modern Software Solutions</PageTitle>
+
+<div class="min-h-screen bg-gray-950">
+    
+    @* Hero Section - Mission Statement *@
+    <section class="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 tech-grid-dark scan-line">
+        <!-- Coordinate Markers -->
+        <span class="coord-marker top-8 left-8">INIT.00</span>
+        <span class="coord-marker top-8 right-8">STAT.100</span>
+        <span class="coord-marker bottom-8 left-8">ORIGIN.BEGIN</span>
+        <span class="coord-marker bottom-8 right-8">RUNTIME.NOW</span>
+        
+        <!-- Animated geometric elements -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-1/4 right-1/3 w-80 h-80 border border-tech-cyan animate-pulse" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%); animation-duration: 5s;"></div>
+            <div class="absolute bottom-1/3 left-1/4 w-64 h-64 border border-tech-lime rotate-45 animate-pulse" style="animation-duration: 4s; animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="container relative z-10 mx-auto px-6 lg:px-8">
+            <div class="max-w-5xl">
+                <!-- Technical Badge -->
+                <div class="mb-8 reveal-up opacity-0">
+                    <span class="tech-badge">
+                        <span class="inline-block w-2 h-2 bg-tech-lime mr-2 animate-pulse"></span>
+                        ABOUT.SYSTEM
+                    </span>
+                </div>
+                
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-none mb-8 reveal-up reveal-delay-1 opacity-0">
+                    <span class="text-white">Building</span><br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#BFFF00] to-[#FF6B35]">
+                        Tomorrow's Systems,
+                    </span><br/>
+                    <span class="text-white">Today</span>
+                </h1>
+                
+                <!-- Subheading -->
+                <div class="data-line mb-12 reveal-up reveal-delay-2 opacity-0">
+                    <p class="text-xl md:text-2xl text-gray-300 font-light max-w-3xl">
+                        We transform complex technical challenges into 
+                        <span class="text-tech-cyan font-mono">elegant solutions</span> that drive real business value.
+                        Modern architecture. Maximum velocity. Minimal friction.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2">
+            <div class="flex flex-col items-center gap-2 animate-bounce">
+                <span class="text-xs font-mono text-tech-cyan uppercase tracking-wider">Read.Story</span>
+                <svg class="w-6 h-6 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    @* Origin Story Section *@
+    <section class="relative py-32 bg-white dark:bg-gray-950 tech-grid overflow-hidden">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <!-- Section Header -->
+                <div class="mb-16">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <span class="w-12 h-px bg-tech-orange"></span>
+                        <span class="font-mono text-sm uppercase tracking-widest text-tech-orange">Origin.Story</span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                        The.Beginning
+                    </h2>
+                </div>
+
+                <!-- Story Timeline -->
+                <div class="space-y-12">
+                    <!-- Timeline Entry 1 -->
+                    <div class="tech-card p-10 group">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-tech-cyan/10 border-2 border-tech-cyan clip-corner flex items-center justify-center">
+                                    <span class="text-2xl font-mono font-bold text-tech-cyan">01</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-mono">
+                                    Two.Teenagers.One.Vision
+                                </h3>
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                                    It started in their teens—two best friends with an insatiable curiosity for technology 
+                                    and a shared passion for building <span class="text-tech-cyan font-mono">cool stuff</span>. 
+                                    Late nights, endless experiments, and a conviction that technology could make a real difference.
+                                </p>
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    What began as tinkering quickly evolved into something more—a deep understanding that 
+                                    the best solutions come from combining <span class="text-tech-lime font-mono">cutting-edge technology</span> 
+                                    with a genuine desire to <span class="text-tech-orange font-mono">help people</span>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Entry 2 -->
+                    <div class="tech-card p-10 group">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-tech-lime/10 border-2 border-tech-lime clip-corner flex items-center justify-center">
+                                    <span class="text-2xl font-mono font-bold text-tech-lime">02</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-mono">
+                                    The.Cutting.Edge.Philosophy
+                                </h3>
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                                    They've always been driven by one principle: stay on the cutting edge. Not for the sake 
+                                    of being trendy, but because the latest tools and technologies often solve yesterday's 
+                                    problems in ways that were impossible before.
+                                </p>
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    <span class="text-tech-cyan font-mono">Learn. Apply. Iterate.</span> That's the rhythm. 
+                                    Every new framework, every emerging pattern, every innovative approach—studied, tested, 
+                                    and put into practice where it delivers real value.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Entry 3 -->
+                    <div class="tech-card p-10 group">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-tech-orange/10 border-2 border-tech-orange clip-corner flex items-center justify-center">
+                                    <span class="text-2xl font-mono font-bold text-tech-orange">03</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-mono">
+                                    From.Hobby.To.Career
+                                </h3>
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                                    What started as a passion became a profession. They built a career around creating 
+                                    <span class="text-tech-lime font-mono">modern, scalable, maintainable systems</span>—the 
+                                    kind that don't just work today, but continue to work tomorrow and beyond.
+                                </p>
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    Years of experience across industries, technologies, and challenges. The friendship remains 
+                                    (still best friends), but now with a track record of successful implementations and 
+                                    satisfied clients who benefit from systems that just <span class="text-tech-cyan font-mono">work</span>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* Core Values Section *@
+    <section class="relative py-32 bg-gray-950 text-white overflow-hidden">
+        <div class="absolute inset-0 tech-grid-dark opacity-50"></div>
+        <div class="absolute inset-0 scan-line"></div>
+        
+        <div class="container relative z-10 mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center gap-3 mb-4">
+                    <span class="w-12 h-px bg-tech-lime"></span>
+                    <span class="font-mono text-sm uppercase tracking-widest text-tech-lime">Core.Values</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">
+                    What.Drives.Us
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Our principles guide every decision, every line of code, every client interaction.
+                </p>
+            </div>
+
+            <!-- Values Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Value 1 -->
+                <div class="tech-card bg-gray-900 p-8 group">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 border-2 border-tech-cyan clip-corner mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 font-mono">Cutting.Edge</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Always learning, always evolving. We stay ahead of the curve so your solutions 
+                        leverage the latest technologies and best practices.
+                    </p>
+                </div>
+
+                <!-- Value 2 -->
+                <div class="tech-card bg-gray-900 p-8 group">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 border-2 border-tech-lime clip-corner mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-tech-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 font-mono">People.First</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Technology should serve people, not the other way around. We build solutions that 
+                        genuinely help users and teams accomplish their goals.
+                    </p>
+                </div>
+
+                <!-- Value 3 -->
+                <div class="tech-card bg-gray-900 p-8 group">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 border-2 border-tech-orange clip-corner mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-tech-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 font-mono">Quality.Over.Speed</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        No shortcuts. No hacks. We build systems that are maintainable, scalable, and 
+                        built to last—not just quick fixes that break tomorrow.
+                    </p>
+                </div>
+
+                <!-- Value 4 -->
+                <div class="tech-card bg-gray-900 p-8 group">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 border-2 border-tech-cyan clip-corner mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 font-mono">Developer.Velocity</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Fast iteration cycles. Efficient workflows. Clear documentation. We maximize the 
+                        speed at which your team can ship features with confidence.
+                    </p>
+                </div>
+
+                <!-- Value 5 -->
+                <div class="tech-card bg-gray-900 p-8 group">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 border-2 border-tech-lime clip-corner mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-tech-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 font-mono">Ops.Simplicity</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Deployments shouldn't be scary. We design systems that are easy to operate, 
+                        monitor, and debug—reducing operational overhead and stress.
+                    </p>
+                </div>
+
+                <!-- Value 6 -->
+                <div class="tech-card bg-gray-900 p-8 group">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 border-2 border-tech-orange clip-corner mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-tech-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 font-mono">Cost.Conscious</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Every dollar matters. We architect solutions that minimize maintenance costs and 
+                        cloud bills while maximizing value and performance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* Technical Approach Section *@
+    <section class="relative py-32 bg-white dark:bg-gray-950 tech-grid">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <!-- Section Header -->
+                <div class="mb-16 text-center">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <span class="w-12 h-px bg-tech-cyan"></span>
+                        <span class="font-mono text-sm uppercase tracking-widest text-tech-cyan">Technical.Excellence</span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                        How.We.Work
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                        Our approach to building software that stands the test of time.
+                    </p>
+                </div>
+
+                <!-- Approach Cards -->
+                <div class="space-y-8">
+                    <!-- Approach 1 -->
+                    <div class="tech-card p-8 md:p-12">
+                        <div class="grid md:grid-cols-[200px_1fr] gap-8 items-start">
+                            <div class="flex flex-col items-start">
+                                <div class="inline-flex items-center gap-2 mb-4">
+                                    <span class="text-4xl font-mono font-bold text-tech-cyan">01</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white font-mono">
+                                    Modern<br/>Architecture
+                                </h3>
+                            </div>
+                            <div class="space-y-4">
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    We leverage proven architectural patterns—<span class="text-tech-cyan font-mono">Clean Architecture</span>, 
+                                    <span class="text-tech-lime font-mono">SOLID principles</span>, 
+                                    <span class="text-tech-orange font-mono">Domain-Driven Design</span>—to create 
+                                    systems that are both flexible and robust.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Proper separation of concerns. Clear boundaries. Testable components. Code that tells a story.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approach 2 -->
+                    <div class="tech-card p-8 md:p-12">
+                        <div class="grid md:grid-cols-[200px_1fr] gap-8 items-start">
+                            <div class="flex flex-col items-start">
+                                <div class="inline-flex items-center gap-2 mb-4">
+                                    <span class="text-4xl font-mono font-bold text-tech-lime">02</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white font-mono">
+                                    Scalability<br/>First
+                                </h3>
+                            </div>
+                            <div class="space-y-4">
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    Systems designed to scale—not just in traffic, but in <span class="text-tech-cyan font-mono">complexity</span>, 
+                                    <span class="text-tech-lime font-mono">features</span>, and <span class="text-tech-orange font-mono">team size</span>. 
+                                    From day one, we think about tomorrow's growth.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Horizontal scaling. Stateless services. Caching strategies. Database optimization. Cloud-native patterns.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approach 3 -->
+                    <div class="tech-card p-8 md:p-12">
+                        <div class="grid md:grid-cols-[200px_1fr] gap-8 items-start">
+                            <div class="flex flex-col items-start">
+                                <div class="inline-flex items-center gap-2 mb-4">
+                                    <span class="text-4xl font-mono font-bold text-tech-orange">03</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white font-mono">
+                                    Maintainability<br/>Matters
+                                </h3>
+                            </div>
+                            <div class="space-y-4">
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    We write code that <span class="text-tech-cyan font-mono">future developers</span> (including ourselves) 
+                                    will thank us for. Clear naming. Comprehensive documentation. Automated tests. No magic, no surprises.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Low technical debt. High cohesion. Loose coupling. Code reviews. Continuous refactoring.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approach 4 -->
+                    <div class="tech-card p-8 md:p-12">
+                        <div class="grid md:grid-cols-[200px_1fr] gap-8 items-start">
+                            <div class="flex flex-col items-start">
+                                <div class="inline-flex items-center gap-2 mb-4">
+                                    <span class="text-4xl font-mono font-bold text-tech-cyan">04</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white font-mono">
+                                    DevOps<br/>Simplified
+                                </h3>
+                            </div>
+                            <div class="space-y-4">
+                                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    <span class="text-tech-lime font-mono">CI/CD pipelines</span> that just work. 
+                                    <span class="text-tech-cyan font-mono">Infrastructure as Code</span>. 
+                                    <span class="text-tech-orange font-mono">Automated deployments</span>. 
+                                    We eliminate the friction between code and production.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Container orchestration. Automated testing. Monitoring and observability. Fast feedback loops.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 p-8 border-2 border-gray-200 dark:border-gray-800 clip-corner">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-mono text-tech-cyan mb-2">10+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 font-mono uppercase">Years.Experience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-mono text-tech-lime mb-2">100%</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 font-mono uppercase">Client.Satisfaction</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-mono text-tech-orange mb-2">Zero</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 font-mono uppercase">Critical.Outages</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-mono text-tech-cyan mb-2">24/7</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 font-mono uppercase">System.Reliability</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* Expertise Section *@
+    <section class="relative py-32 bg-gray-950 text-white overflow-hidden">
+        <div class="absolute inset-0 tech-grid-dark opacity-50"></div>
+        <div class="absolute inset-0 scan-line"></div>
+        
+        <div class="container relative z-10 mx-auto px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <!-- Section Header -->
+                <div class="mb-16 text-center">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <span class="w-12 h-px bg-tech-orange"></span>
+                        <span class="font-mono text-sm uppercase tracking-widest text-tech-orange">Capabilities.Array</span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-bold mb-6">
+                        What.We.Do
+                    </h2>
+                </div>
+
+                <!-- Expertise Grid -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Expertise Item -->
+                    <div class="flex items-start gap-4 p-6 bg-gray-900/50 border border-gray-800 clip-corner-sm hover:border-tech-cyan transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-tech-cyan/10 border border-tech-cyan clip-corner-sm flex items-center justify-center">
+                            <span class="text-tech-cyan font-mono font-bold">TC</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 font-mono">Technical.Consulting</h3>
+                            <p class="text-gray-400 text-sm">Strategic guidance on architecture, technology choices, and technical roadmaps.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-6 bg-gray-900/50 border border-gray-800 clip-corner-sm hover:border-tech-lime transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-tech-lime/10 border border-tech-lime clip-corner-sm flex items-center justify-center">
+                            <span class="text-tech-lime font-mono font-bold">AD</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 font-mono">Application.Development</h3>
+                            <p class="text-gray-400 text-sm">Custom software solutions from concept to deployment—web, mobile, cloud-native.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-6 bg-gray-900/50 border border-gray-800 clip-corner-sm hover:border-tech-orange transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-tech-orange/10 border border-tech-orange clip-corner-sm flex items-center justify-center">
+                            <span class="text-tech-orange font-mono font-bold">AI</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 font-mono">AI.Workflow.Design</h3>
+                            <p class="text-gray-400 text-sm">Integrate AI tools and automation to enhance productivity and streamline operations.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-6 bg-gray-900/50 border border-gray-800 clip-corner-sm hover:border-tech-cyan transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-tech-cyan/10 border border-tech-cyan clip-corner-sm flex items-center justify-center">
+                            <span class="text-tech-cyan font-mono font-bold">PE</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 font-mono">Process.Engineering</h3>
+                            <p class="text-gray-400 text-sm">Analyze, optimize, and automate business processes for maximum efficiency.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-6 bg-gray-900/50 border border-gray-800 clip-corner-sm hover:border-tech-lime transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-tech-lime/10 border border-tech-lime clip-corner-sm flex items-center justify-center">
+                            <span class="text-tech-lime font-mono font-bold">SA</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 font-mono">System.Architecture</h3>
+                            <p class="text-gray-400 text-sm">Design scalable, resilient systems that grow with your business needs.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-6 bg-gray-900/50 border border-gray-800 clip-corner-sm hover:border-tech-orange transition-colors">
+                        <div class="flex-shrink-0 w-12 h-12 bg-tech-orange/10 border border-tech-orange clip-corner-sm flex items-center justify-center">
+                            <span class="text-tech-orange font-mono font-bold">DO</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-2 font-mono">DevOps.Automation</h3>
+                            <p class="text-gray-400 text-sm">CI/CD pipelines, infrastructure as code, and deployment automation that works.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Link -->
+                <div class="mt-16 text-center">
+                    <a href="/services" class="inline-flex items-center gap-2 font-mono text-lg text-tech-cyan hover:text-tech-lime transition-colors group">
+                        <span>Explore.All.Services</span>
+                        <svg class="w-6 h-6 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* CTA Section *@
+    <section class="relative py-32 bg-gradient-to-br from-[#00F0FF] via-[#BFFF00] to-[#FF6B35] overflow-hidden">
+        <!-- Animated patterns -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0 tech-grid"></div>
+        </div>
+        
+        <div class="container relative z-10 mx-auto px-6 lg:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <span class="inline-block px-6 py-2 bg-gray-950 text-white font-mono text-sm font-bold uppercase tracking-widest mb-8 clip-corner-sm">
+                    Ready.To.Start
+                </span>
+                
+                <h2 class="text-5xl md:text-7xl font-bold text-gray-950 mb-8 font-mono">
+                    Let's.Build<br/>Something.Exceptional
+                </h2>
+                
+                <p class="text-xl md:text-2xl text-gray-900 mb-12 max-w-2xl mx-auto font-light">
+                    Have a project in mind? Let's talk about how we can help you build systems that scale, 
+                    perform, and stand the test of time.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/contact" class="inline-block px-12 py-6 bg-gray-950 text-white font-mono font-bold uppercase text-sm tracking-widest hover:scale-105 hover:shadow-2xl transition-all clip-corner">
+                        Start.Conversation
+                    </a>
+                    
+                    <a href="/services" class="inline-block px-12 py-6 bg-white text-gray-950 font-mono font-bold uppercase text-sm tracking-widest hover:scale-105 hover:shadow-2xl transition-all clip-corner">
+                        View.Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<style>
+    /* Smooth scroll animations */
+    @@media (prefers-reduced-motion: no-preference) {
+        .reveal-up {
+            animation: reveal-up 0.8s ease-out forwards;
+        }
+    }
+</style>

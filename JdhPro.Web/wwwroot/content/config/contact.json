@@ -1,0 +1,7 @@
+{
+  "provider": "mailto",
+  "mailto": {
+    "to": "contact@jdhpro.com",
+    "subject": "Website Contact from {name}"
+  }
+}

@@ -1,0 +1,385 @@
+@page "/contact"
+@using JdhPro.Web.Models
+@using JdhPro.Web.Services
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.JSInterop
+@inject ContentService ContentService
+@inject ContactProviderFactory ContactProviderFactory
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Contact Us - JDH Productions</PageTitle>
+
+<div class="min-h-screen bg-gray-950 tech-grid-dark">
+    
+    @* Hero Section *@
+    <section class="relative py-20 overflow-hidden border-b border-tech-cyan/30">
+        @* Animated scan lines *@
+        <div class="scan-line"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <div class="inline-block">
+                    <span class="text-tech-cyan font-mono text-sm uppercase tracking-wider">/// Contact.System</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
+                    LET'S BUILD<br/>
+                    <span class="text-tech-cyan">SOMETHING.AMAZING</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                    Tell us about your project and we'll get back to you within 24 hours
+                </p>
+                <div class="flex items-center justify-center gap-4 pt-4">
+                    <div class="w-2 h-2 rounded-full bg-tech-lime hex-pulse"></div>
+                    <span class="text-tech-lime font-mono text-sm">SYSTEM.ACTIVE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* Contact Form Section *@
+    <section class="py-16 md:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-3 gap-12">
+                    
+                    @* Main Contact Form *@
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-900 border border-tech-cyan/30 clip-corner p-8 md:p-12 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-tech-cyan/5 blur-3xl"></div>
+                            <div class="relative z-10">
+                            
+                            @if (!_formSubmitted)
+                            {
+                                <EditForm Model="@_contactForm" OnValidSubmit="@HandleSubmit">
+                                    <DataAnnotationsValidator />
+                                    
+                                    <div class="space-y-6">
+                                        @* Name Field *@
+                                        <div>
+                                            <label for="name" class="block text-sm font-bold text-white font-mono uppercase tracking-wide mb-2">
+                                                Name <span class="text-tech-orange">*</span>
+                                            </label>
+                                            <InputText 
+                                                id="name"
+                                                @bind-Value="_contactForm.Name" 
+                                                class="w-full px-4 py-3 bg-gray-950 border border-tech-cyan/30 text-white font-mono clip-corner-sm focus:outline-none focus:border-tech-cyan transition-all duration-200"
+                                                placeholder="Your.Full.Name" 
+                                                disabled="@_isSubmitting" />
+                                            <ValidationMessage For="@(() => _contactForm.Name)" class="text-tech-orange text-sm mt-1 font-mono" />
+                                        </div>
+
+                                        @* Email Field *@
+                                        <div>
+                                            <label for="email" class="block text-sm font-bold text-white font-mono uppercase tracking-wide mb-2">
+                                                Email <span class="text-tech-orange">*</span>
+                                            </label>
+                                            <InputText 
+                                                id="email"
+                                                type="email"
+                                                @bind-Value="_contactForm.Email" 
+                                                class="w-full px-4 py-3 bg-gray-950 border border-tech-lime/30 text-white font-mono clip-corner-sm focus:outline-none focus:border-tech-lime transition-all duration-200"
+                                                placeholder="your.email@example.com" 
+                                                disabled="@_isSubmitting" />
+                                            <ValidationMessage For="@(() => _contactForm.Email)" class="text-tech-orange text-sm mt-1 font-mono" />
+                                        </div>
+
+                                        @* Company Field *@
+                                        <div>
+                                            <label for="company" class="block text-sm font-bold text-white font-mono uppercase tracking-wide mb-2">
+                                                Company <span class="text-gray-500 text-xs">(Optional)</span>
+                                            </label>
+                                            <InputText 
+                                                id="company"
+                                                @bind-Value="_contactForm.Company" 
+                                                class="w-full px-4 py-3 bg-gray-950 border border-tech-orange/30 text-white font-mono clip-corner-sm focus:outline-none focus:border-tech-orange transition-all duration-200"
+                                                placeholder="Your.Company.Name" 
+                                                disabled="@_isSubmitting" />
+                                        </div>
+
+                                        @* Service Dropdown *@
+                                        <div>
+                                            <label for="service" class="block text-sm font-bold text-white font-mono uppercase tracking-wide mb-2">
+                                                Service <span class="text-gray-500 text-xs">(Optional)</span>
+                                            </label>
+                                            <InputSelect 
+                                                id="service"
+                                                @bind-Value="_contactForm.Service" 
+                                                class="w-full px-4 py-3 bg-gray-950 border border-tech-cyan/30 text-white font-mono clip-corner-sm focus:outline-none focus:border-tech-cyan transition-all duration-200"
+                                                disabled="@_isSubmitting">
+                                                <option value="">-- Select.Service --</option>
+                                                @foreach (var service in _services)
+                                                {
+                                                    <option value="@service.Title">@service.Title</option>
+                                                }
+                                            </InputSelect>
+                                        </div>
+
+                                        @* Message Field *@
+                                        <div>
+                                            <label for="message" class="block text-sm font-bold text-white font-mono uppercase tracking-wide mb-2">
+                                                Message <span class="text-tech-orange">*</span>
+                                            </label>
+                                            <InputTextArea 
+                                                id="message"
+                                                @bind-Value="_contactForm.Message" 
+                                                rows="6"
+                                                class="w-full px-4 py-3 bg-gray-950 border border-tech-lime/30 text-white font-mono clip-corner-sm focus:outline-none focus:border-tech-lime transition-all duration-200 resize-none"
+                                                placeholder="Tell us about your project, goals, and how we can help..."
+                                                disabled="@_isSubmitting" />
+                                            <ValidationMessage For="@(() => _contactForm.Message)" class="text-tech-orange text-sm mt-1 font-mono" />
+                                        </div>
+
+                                        @* Error Message *@
+                                        @if (!string.IsNullOrEmpty(_errorMessage))
+                                        {
+                                            <div class="p-4 bg-tech-orange/10 border border-tech-orange/50 clip-corner-sm">
+                                                <div class="flex items-start">
+                                                    <svg class="w-5 h-5 text-tech-orange mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                    <p class="text-sm text-tech-orange font-mono">@_errorMessage</p>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @* Submit Button *@
+                                        <button 
+                                            type="submit" 
+                                            disabled="@_isSubmitting"
+                                            class="w-full btn-tech disabled:opacity-50 disabled:cursor-not-allowed text-lg flex items-center justify-center gap-3">
+                                            @if (_isSubmitting)
+                                            {
+                                                <svg class="animate-spin h-5 w-5 text-gray-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                <span>SENDING...</span>
+                                            }
+                                            else
+                                            {
+                                                <span>SEND.MESSAGE</span>
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                                </svg>
+                                            }
+                                        </button>
+                                    </div>
+                                </EditForm>
+                            }
+                            else
+                            {
+                                @* Success Message *@
+                                <div class="text-center py-12">
+                                    <div class="inline-flex items-center justify-center w-20 h-20 clip-corner border-2 border-tech-lime bg-tech-lime/10 mb-6 hex-pulse">
+                                        <svg class="w-10 h-10 text-tech-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-3xl font-bold text-white mb-4 font-mono">MESSAGE.SENT</h3>
+                                    <p class="text-xl text-gray-400 mb-8">We'll be in touch soon.</p>
+                                    <button 
+                                        @onclick="ResetForm"
+                                        class="inline-flex items-center px-6 py-3 bg-tech-cyan/10 border border-tech-cyan/30 hover:bg-tech-cyan hover:text-gray-950 text-tech-cyan font-mono font-bold clip-corner-sm transition-all duration-200">
+                                        SEND.ANOTHER
+                                    </button>
+                                </div>
+                            }
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Sidebar - Contact Info *@
+                    <div class="lg:col-span-1">
+                        <div class="space-y-6 sticky top-8">
+                            
+                            @* Direct Contact Card *@
+                            <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-tech-lime/30 text-white clip-corner p-8 relative overflow-hidden">
+                                <div class="scan-line"></div>
+                                <h3 class="text-2xl font-bold mb-6 font-mono text-tech-lime relative z-10">GET.IN.TOUCH</h3>
+                                
+                                <div class="space-y-6 relative z-10">
+                                    @* Email *@
+                                    <div class="flex items-start">
+                                        <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                        </svg>
+                                        <div>
+                                            <p class="text-sm text-gray-400 mb-1 font-mono">EMAIL.DIRECT</p>
+                                            <a href="mailto:contact@jdhpro.com" class="text-white font-mono hover:text-tech-cyan transition-colors duration-200 break-all">
+                                                contact@jdhpro.com
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    @* Response Time *@
+                                    <div class="flex items-start">
+                                        <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0 text-tech-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        <div>
+                                            <p class="text-sm text-gray-400 mb-1 font-mono">RESPONSE.TIME</p>
+                                            <p class="text-white font-mono">Within.24h</p>
+                                        </div>
+                                    </div>
+
+                                    @* Business Hours *@
+                                    <div class="flex items-start">
+                                        <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0 text-tech-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                        </svg>
+                                        <div>
+                                            <p class="text-sm text-gray-400 mb-1 font-mono">BUSINESS.HOURS</p>
+                                            <p class="text-white font-mono">Mon-Fri.9am-5pm.EST</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Trust Building Card *@
+                            <div class="bg-gray-900 border border-tech-cyan/20 clip-corner p-6">
+                                <h4 class="text-lg font-bold text-white mb-4 font-mono">WHY.WORK.WITH.US</h4>
+                                <ul class="space-y-3 text-sm text-gray-400 font-mono">
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-tech-lime mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Fast.Response.Times</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-tech-cyan mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Technical.Excellence</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-tech-orange mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Tailored.Solutions</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-tech-lime mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Proven.Track.Record</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@code {
+    private ContactFormModel _contactForm = new();
+    private List<Service> _services = new();
+    private bool _isSubmitting = false;
+    private bool _formSubmitted = false;
+    private string _errorMessage = string.Empty;
+    private IContactProvider? _contactProvider;
+
+    [SupplyParameterFromQuery(Name = "service")]
+    public string? PreSelectedService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _services = await ContentService.GetServicesAsync();
+        _contactProvider = await ContactProviderFactory.GetProviderAsync();
+        
+        if (!string.IsNullOrEmpty(PreSelectedService))
+        {
+            var matchingService = _services.FirstOrDefault(s => 
+                s.Title.Equals(PreSelectedService, StringComparison.OrdinalIgnoreCase) ||
+                s.Id.Equals(PreSelectedService, StringComparison.OrdinalIgnoreCase));
+            
+            if (matchingService != null)
+            {
+                _contactForm.Service = matchingService.Title;
+            }
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        _isSubmitting = true;
+        _errorMessage = string.Empty;
+        
+        try
+        {
+            if (_contactProvider == null)
+            {
+                _contactProvider = await ContactProviderFactory.GetProviderAsync();
+            }
+
+            var message = new ContactMessage
+            {
+                Name = _contactForm.Name,
+                Email = _contactForm.Email,
+                Company = _contactForm.Company,
+                Service = _contactForm.Service,
+                Message = _contactForm.Message
+            };
+
+            var result = await _contactProvider.SendContactAsync(message);
+
+            if (result.Success)
+            {
+                // Handle mailto provider (opens email client)
+                if (_contactProvider.ProviderName == "mailto" && !string.IsNullOrEmpty(result.Message))
+                {
+                    await JSRuntime.InvokeVoidAsync("open", result.Message, "_blank");
+                }
+
+                _formSubmitted = true;
+            }
+            else
+            {
+                _errorMessage = result.Message;
+                if (!string.IsNullOrEmpty(result.ErrorDetails))
+                {
+                    Console.WriteLine($"Contact error details: {result.ErrorDetails}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "An unexpected error occurred. Please try again or contact us directly at contact@jdhpro.com";
+            Console.WriteLine($"Contact form error: {ex.Message}");
+        }
+        finally
+        {
+            _isSubmitting = false;
+        }
+    }
+
+    private void ResetForm()
+    {
+        _contactForm = new ContactFormModel();
+        _formSubmitted = false;
+        _errorMessage = string.Empty;
+    }
+
+    private class ContactFormModel
+    {
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name must be less than 100 characters")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        public string Email { get; set; } = string.Empty;
+
+        [StringLength(100, ErrorMessage = "Company name must be less than 100 characters")]
+        public string Company { get; set; } = string.Empty;
+
+        public string Service { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Message is required")]
+        [StringLength(2000, MinimumLength = 10, ErrorMessage = "Message must be between 10 and 2000 characters")]
+        public string Message { get; set; } = string.Empty;
+    }
+}

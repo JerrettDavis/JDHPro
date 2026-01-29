@@ -1,0 +1,303 @@
+name: Build, Test, and Deploy
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  NODE_VERSION: '20.x'
+
+jobs:
+  # Job 1: Run Blog Syndication
+  blog-syndication:
+    name: Syndicate Blog Posts
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore BuildTools dependencies
+        run: dotnet restore JdhPro.BuildTools/JdhPro.BuildTools.csproj
+
+      - name: Run blog syndication
+        run: dotnet run --project JdhPro.BuildTools/JdhPro.BuildTools.csproj
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify posts.json generated
+        run: |
+          if [ ! -f "JdhPro.Web/wwwroot/data/posts.json" ]; then
+            echo "Error: posts.json was not generated"
+            exit 1
+          fi
+          echo "posts.json generated successfully"
+          ls -lh JdhPro.Web/wwwroot/data/posts.json
+
+      - name: Upload posts.json artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-posts
+          path: JdhPro.Web/wwwroot/data/posts.json
+          retention-days: 30
+
+  # Job 2: Build and Test Web Project
+  build:
+    name: Build and Unit Test
+    runs-on: ubuntu-latest
+    needs: blog-syndication
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download posts.json artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: blog-posts
+          path: JdhPro.Web/wwwroot/data/
+
+      - name: Restore .NET dependencies
+        run: dotnet restore
+
+      - name: Install Node dependencies (Tailwind)
+        working-directory: JdhPro.Web
+        run: npm ci
+
+      - name: Build Tailwind CSS
+        working-directory: JdhPro.Web
+        run: npm run build
+
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run unit tests (if any)
+        run: dotnet test --configuration Release --no-build --verbosity normal --filter "FullyQualifiedName!~E2E" --logger "trx;LogFileName=test-results.trx"
+        continue-on-error: true
+
+      - name: Upload unit test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-test-results
+          path: "**/test-results.trx"
+          retention-days: 30
+
+  # Job 3: E2E Tests
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download posts.json artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: blog-posts
+          path: JdhPro.Web/wwwroot/data/
+
+      - name: Restore .NET dependencies
+        run: dotnet restore
+
+      - name: Install Node dependencies
+        working-directory: JdhPro.Web
+        run: npm ci
+
+      - name: Build Tailwind CSS
+        working-directory: JdhPro.Web
+        run: npm run build
+
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Build E2E test project
+        run: dotnet build JdhPro.Tests.E2E/JdhPro.Tests.E2E.csproj --configuration Release
+
+      - name: Install Playwright browsers
+        run: |
+          pwsh JdhPro.Tests.E2E/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
+
+      - name: Start Web Application
+        working-directory: JdhPro.Web
+        run: |
+          dotnet run --no-build --configuration Release &
+          echo "Waiting for app to start..."
+          sleep 10
+          curl -f http://localhost:5233 || (echo "App failed to start" && exit 1)
+        env:
+          ASPNETCORE_ENVIRONMENT: Production
+          ASPNETCORE_URLS: http://localhost:5233
+
+      - name: Run E2E tests
+        run: |
+          dotnet test JdhPro.Tests.E2E/JdhPro.Tests.E2E.csproj \
+            --configuration Release \
+            --no-build \
+            --logger "trx;LogFileName=e2e-test-results.trx" \
+            --logger "console;verbosity=detailed"
+        env:
+          BaseUrl: http://localhost:5233
+          Headless: true
+        continue-on-error: true
+
+      - name: Upload E2E test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-test-results
+          path: |
+            JdhPro.Tests.E2E/**/test-results/
+            JdhPro.Tests.E2E/**/*.trx
+          retention-days: 30
+
+      - name: Upload screenshots on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-screenshots
+          path: JdhPro.Tests.E2E/test-results/screenshots/
+          retention-days: 30
+
+      - name: Upload videos on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-videos
+          path: JdhPro.Tests.E2E/test-results/videos/
+          retention-days: 30
+
+  # Job 4: Publish (only on main branch)
+  publish:
+    name: Publish Application
+    runs-on: ubuntu-latest
+    needs: [build, e2e-tests]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download posts.json artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: blog-posts
+          path: JdhPro.Web/wwwroot/data/
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Install Node dependencies
+        working-directory: JdhPro.Web
+        run: npm ci
+
+      - name: Build Tailwind CSS for production
+        working-directory: JdhPro.Web
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Publish application
+        run: |
+          dotnet publish JdhPro.Web/JdhPro.Web.csproj \
+            --configuration Release \
+            --output ./publish \
+            /p:DebugType=None \
+            /p:DebugSymbols=false
+
+      - name: Verify posts.json in published output
+        run: |
+          if [ ! -f "./publish/wwwroot/data/posts.json" ]; then
+            echo "Error: posts.json not found in published output"
+            exit 1
+          fi
+          echo "posts.json verified in published output"
+          ls -lh ./publish/wwwroot/data/
+
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-app
+          path: ./publish/
+          retention-days: 30
+
+      # Add your deployment step here
+      # Example: Deploy to Azure Static Web Apps, GitHub Pages, etc.
+      # - name: Deploy to Azure Static Web Apps
+      #   uses: Azure/static-web-apps-deploy@v1
+      #   with:
+      #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+      #     app_location: "./publish/wwwroot"
+      #     skip_app_build: true
+
+  # Job 5: Test Summary
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [build, e2e-tests]
+    if: always()
+    
+    steps:
+      - name: Download unit test results
+        uses: actions/download-artifact@v4
+        with:
+          name: unit-test-results
+          path: ./test-results/unit/
+        continue-on-error: true
+
+      - name: Download E2E test results
+        uses: actions/download-artifact@v4
+        with:
+          name: e2e-test-results
+          path: ./test-results/e2e/
+        continue-on-error: true
+
+      - name: Publish test summary
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: ./test-results/**/*.trx
+          reporter: dotnet-trx
+          fail-on-error: false

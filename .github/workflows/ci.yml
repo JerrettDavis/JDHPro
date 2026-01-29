@@ -1,0 +1,273 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  NODE_VERSION: '20.x'
+
+jobs:
+  # Job 1: Build and Test with Nuke
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for GitVersion
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache .NET packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Cache npm packages
+        uses: actions/cache@v4
+        with:
+          path: JdhPro.Web/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('JdhPro.Web/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Make build script executable
+        run: chmod +x build.sh
+
+      - name: Run Nuke CI Build
+        run: ./build.sh CI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: artifacts/test-results/**/*.trx
+          retention-days: 30
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: build-artifacts
+          path: artifacts/
+          retention-days: 7
+
+  # Job 2: E2E Tests (Optional - requires running app)
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Make build script executable
+        run: chmod +x build.sh
+
+      - name: Run Nuke Compile
+        run: ./build.sh Compile
+
+      - name: Install Playwright browsers
+        run: pwsh JdhPro.Tests.E2E/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
+
+      - name: Start Web Application
+        working-directory: JdhPro.Web
+        run: |
+          dotnet run --no-build --configuration Release &
+          echo "Waiting for app to start..."
+          sleep 10
+          curl -f http://localhost:5233 || (echo "App failed to start" && exit 1)
+        env:
+          ASPNETCORE_ENVIRONMENT: Production
+          ASPNETCORE_URLS: http://localhost:5233
+
+      - name: Run E2E Tests
+        run: ./build.sh TestE2E
+        continue-on-error: true
+
+      - name: Upload E2E test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-test-results
+          path: |
+            artifacts/test-results/**/*.trx
+            JdhPro.Tests.E2E/test-results/
+          retention-days: 30
+
+  # Job 3: Publish (only on main branch)
+  publish:
+    name: Publish for Deployment
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.nuget/packages
+            JdhPro.Web/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/*.csproj', 'JdhPro.Web/package-lock.json') }}
+
+      - name: Make build script executable
+        run: chmod +x build.sh
+
+      - name: Run Nuke Publish
+        run: ./build.sh PublishGitHubPages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GitHubPages: true
+          RepositoryName: jdhpro
+
+      - name: Verify Publish
+        run: ./build.sh VerifyPublish
+
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-site
+          path: publish/wwwroot/
+          retention-days: 30
+
+      - name: Build Summary
+        run: |
+          echo "## 🚀 Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Build successful**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Published Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- Site ready for deployment" >> $GITHUB_STEP_SUMMARY
+          echo "- Location: \`publish/wwwroot/\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Calculate sizes
+          TOTAL_SIZE=$(du -sh publish/wwwroot | cut -f1)
+          WASM_SIZE=$(du -sh publish/wwwroot/_framework/*.wasm 2>/dev/null | awk '{sum+=$1}END{print sum/1024"M"}' || echo "N/A")
+          
+          echo "### Size Information" >> $GITHUB_STEP_SUMMARY
+          echo "- Total size: $TOTAL_SIZE" >> $GITHUB_STEP_SUMMARY
+          echo "- WASM files: $WASM_SIZE" >> $GITHUB_STEP_SUMMARY
+
+  # Job 4: Deploy to GitHub Pages
+  deploy-github-pages:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: publish
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: published-site
+          path: ./publish
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./publish
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Deployment Summary
+        run: |
+          echo "## 🌐 Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Deployed to GitHub Pages**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **URL:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+
+  # Job 5: Test Summary
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [build, e2e-tests]
+    if: always()
+    
+    steps:
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        with:
+          name: test-results
+          path: ./test-results/
+        continue-on-error: true
+
+      - name: Download E2E test results
+        uses: actions/download-artifact@v4
+        with:
+          name: e2e-test-results
+          path: ./test-results/e2e/
+        continue-on-error: true
+
+      - name: Publish test summary
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: ./test-results/**/*.trx
+          reporter: dotnet-trx
+          fail-on-error: false

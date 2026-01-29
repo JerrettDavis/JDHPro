@@ -1,0 +1,285 @@
+@page "/"
+@using JdhPro.Web.Components.Sections
+
+<PageTitle>JDH Productions | Technical Engineering Excellence</PageTitle>
+
+<!-- Hero Section - Neo-Technical with Grid Overlay -->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 tech-grid-dark scan-line">
+    <!-- Coordinate Markers -->
+    <span class="coord-marker top-8 left-8">00.00</span>
+    <span class="coord-marker top-8 right-8">100.00</span>
+    <span class="coord-marker bottom-8 left-8">00.100</span>
+    <span class="coord-marker bottom-8 right-8">100.100</span>
+    
+    <!-- Animated geometric elements -->
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 border-2 border-tech-cyan animate-pulse" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%); animation-duration: 4s;"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-48 h-48 border-2 border-tech-lime rotate-12 animate-pulse" style="animation-duration: 3s; animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="container relative z-10 mx-auto px-6 lg:px-8">
+        <div class="max-w-5xl">
+            <!-- Technical Badge -->
+            <div class="mb-8 reveal-up opacity-0">
+                <span class="tech-badge">
+                    <span class="inline-block w-2 h-2 bg-tech-lime mr-2 animate-pulse"></span>
+                    SYSTEM.ONLINE
+                </span>
+            </div>
+            
+            <!-- Main Headline -->
+            <h1 class="text-6xl md:text-8xl font-bold leading-none mb-8 reveal-up reveal-delay-1 opacity-0">
+                <span class="text-white">Engineering</span><br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#BFFF00] to-[#FF6B35]">
+                    Tomorrow's
+                </span><br/>
+                <span class="text-white">Solutions</span>
+            </h1>
+            
+            <!-- Subheading with Data Line -->
+            <div class="data-line mb-12 reveal-up reveal-delay-2 opacity-0">
+                <p class="text-xl md:text-2xl text-gray-300 font-light max-w-2xl">
+                    Precision-engineered technical solutions for complex challenges.
+                    <span class="text-tech-cyan font-mono">AI-powered</span>, 
+                    <span class="text-tech-lime font-mono">scalable</span>, 
+                    <span class="text-tech-orange font-mono">battle-tested</span>.
+                </p>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 reveal-up reveal-delay-3 opacity-0">
+                <button 
+                    data-testid="start-project-cta"
+                    onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })"
+                    class="btn-tech">
+                    Initialize Project
+                </button>
+                
+                <button 
+                    onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' })"
+                    class="px-8 py-4 font-mono font-bold text-sm uppercase tracking-wide border-2 border-tech-cyan text-tech-cyan hover:bg-tech-cyan hover:text-gray-950 transition-all duration-300 clip-corner-sm">
+                    View Services
+                </button>
+            </div>
+            
+            <!-- Technical Stats -->
+            <div class="mt-16 grid grid-cols-3 gap-8 max-w-2xl reveal-up reveal-delay-4 opacity-0">
+                <div class="border-l-2 border-tech-cyan pl-4">
+                    <div class="text-3xl font-bold font-mono text-tech-cyan">10+</div>
+                    <div class="text-sm text-gray-400 font-mono uppercase tracking-wide">Years.Experience</div>
+                </div>
+                <div class="border-l-2 border-tech-lime pl-4">
+                    <div class="text-3xl font-bold font-mono text-tech-lime">100%</div>
+                    <div class="text-sm text-gray-400 font-mono uppercase tracking-wide">Client.Satisfaction</div>
+                </div>
+                <div class="border-l-2 border-tech-orange pl-4">
+                    <div class="text-3xl font-bold font-mono text-tech-orange">24/7</div>
+                    <div class="text-sm text-gray-400 font-mono uppercase tracking-wide">System.Support</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2">
+        <div class="flex flex-col items-center gap-2 animate-bounce">
+            <span class="text-xs font-mono text-tech-cyan uppercase tracking-wider">Scroll</span>
+            <svg class="w-6 h-6 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section - Modular Technical Cards -->
+<section id="services" class="relative py-32 bg-white dark:bg-gray-950 tech-grid">
+    <div class="container mx-auto px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="mb-20">
+            <div class="inline-flex items-center gap-3 mb-4">
+                <span class="w-12 h-px bg-tech-cyan"></span>
+                <span class="font-mono text-sm uppercase tracking-widest text-tech-cyan">Services.Array</span>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                Technical<br/>Capabilities
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
+                Modular engineering solutions designed for scalability, performance, and innovation.
+            </p>
+        </div>
+        
+        <!-- Service Cards Grid -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <div data-testid="service-card" class="tech-card p-10 group">
+                <div class="mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-900 dark:bg-white mb-4 clip-corner">
+                        <span class="text-2xl font-bold font-mono text-tech-cyan dark:text-gray-900">TC</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-tech-cyan transition-colors">
+                        Technical Consulting
+                    </h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                    Expert guidance to optimize your technology stack and infrastructure. Strategic decision-making that aligns with your business goals and maximizes ROI.
+                </p>
+                <a href="/services" class="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wide text-tech-cyan hover:gap-4 transition-all">
+                    Access.Module
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div data-testid="service-card" class="tech-card p-10 group">
+                <div class="mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-900 dark:bg-white mb-4 clip-corner">
+                        <span class="text-2xl font-bold font-mono text-tech-lime dark:text-gray-900">AD</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-tech-lime transition-colors">
+                        Application Development
+                    </h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                    Tailored software solutions built from the ground up. From concept to deployment, we deliver scalable, maintainable applications that exceed expectations.
+                </p>
+                <a href="/services" class="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wide text-tech-lime hover:gap-4 transition-all">
+                    Access.Module
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div data-testid="service-card" class="tech-card p-10 group">
+                <div class="mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-900 dark:bg-white mb-4 clip-corner">
+                        <span class="text-2xl font-bold font-mono text-tech-orange dark:text-gray-900">AI</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-tech-orange transition-colors">
+                        AI Workflow Design
+                    </h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                    Harness artificial intelligence to streamline operations and boost productivity. Cutting-edge AI tools integrated seamlessly into your workflows.
+                </p>
+                <a href="/services" class="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wide text-tech-orange hover:gap-4 transition-all">
+                    Access.Module
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div data-testid="service-card" class="tech-card p-10 group">
+                <div class="mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-900 dark:bg-white mb-4 clip-corner">
+                        <span class="text-2xl font-bold font-mono text-tech-cyan dark:text-gray-900">PE</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-tech-cyan transition-colors">
+                        Process Engineering
+                    </h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                    Systematic analysis and optimization of your business processes. Identify bottlenecks, eliminate waste, implement efficient solutions.
+                </p>
+                <a href="/services" class="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wide text-tech-cyan hover:gap-4 transition-all">
+                    Access.Module
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Value Props - Technical Metrics -->
+<section class="relative py-32 bg-gray-950 text-white scan-line overflow-hidden">
+    <!-- Background Grid -->
+    <div class="absolute inset-0 tech-grid-dark"></div>
+    
+    <div class="container relative z-10 mx-auto px-6 lg:px-8">
+        <div class="text-center mb-20">
+            <div class="inline-flex items-center gap-3 mb-4">
+                <span class="w-12 h-px bg-tech-lime"></span>
+                <span class="font-mono text-sm uppercase tracking-widest text-tech-lime">System.Advantages</span>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                Why Choose<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#BFFF00]">JDH Productions</span>
+            </h2>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-12">
+            <div class="text-center group">
+                <div class="inline-flex items-center justify-center w-24 h-24 border-2 border-tech-cyan mb-8 clip-corner group-hover:scale-110 transition-transform">
+                    <span class="text-4xl font-bold font-mono text-tech-cyan">EX</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Cutting-Edge Expertise</h3>
+                <p class="text-gray-400 leading-relaxed">
+                    Latest technologies, frameworks, and industry best practices. We continuously evolve to deliver solutions that give you a competitive advantage.
+                </p>
+            </div>
+            
+            <div class="text-center group">
+                <div class="inline-flex items-center justify-center w-24 h-24 border-2 border-tech-lime mb-8 clip-corner group-hover:scale-110 transition-transform">
+                    <span class="text-4xl font-bold font-mono text-tech-lime">TS</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Tailored Solutions</h3>
+                <p class="text-gray-400 leading-relaxed">
+                    No two businesses are alike. Custom solutions that perfectly align with your goals, culture, and vision for maximum impact.
+                </p>
+            </div>
+            
+            <div class="text-center group">
+                <div class="inline-flex items-center justify-center w-24 h-24 border-2 border-tech-orange mb-8 clip-corner group-hover:scale-110 transition-transform">
+                    <span class="text-4xl font-bold font-mono text-tech-orange">PR</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Proven Results</h3>
+                <p class="text-gray-400 leading-relaxed">
+                    Track record of successful implementations that drive measurable business outcomes and exceed expectations. Results speak louder than promises.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA - Final Call to Action -->
+<div id="contact">
+    <section class="relative py-32 bg-gradient-to-br from-[#00F0FF] via-[#BFFF00] to-[#FF6B35] overflow-hidden">
+        <!-- Animated patterns -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0 tech-grid"></div>
+        </div>
+        
+        <div class="container relative z-10 mx-auto px-6 lg:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <span class="inline-block px-6 py-2 bg-gray-950 text-white font-mono text-sm font-bold uppercase tracking-widest mb-8 clip-corner-sm">
+                    Ready.To.Initialize
+                </span>
+                
+                <h2 class="text-5xl md:text-7xl font-bold text-gray-950 mb-8">
+                    Let's Build<br/>Something Exceptional
+                </h2>
+                
+                <p class="text-xl md:text-2xl text-gray-900 mb-12 max-w-2xl mx-auto font-light">
+                    Transform your business with precision-engineered technical solutions. Start your project today.
+                </p>
+                
+                <a href="/contact" class="inline-block px-12 py-6 bg-gray-950 text-white font-mono font-bold uppercase text-sm tracking-widest hover:scale-105 hover:shadow-2xl transition-all clip-corner">
+                    Contact.Initialize
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    /* Page-specific animations */
+    @@keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

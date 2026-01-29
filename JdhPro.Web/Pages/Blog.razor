@@ -1,0 +1,169 @@
+@page "/blog"
+@namespace JdhPro.Web.Pages.Blog
+@using JdhPro.Web.Models
+@using JdhPro.Web.Services
+@using JdhPro.Web.Components.Blog
+@inject ContentService ContentService
+@inject NavigationManager Navigation
+
+<PageTitle>Blog - JDH Productions</PageTitle>
+
+<div class="min-h-screen bg-gray-950 tech-grid-dark">
+    
+    @* Hero Section *@
+    <section class="relative py-20 overflow-hidden border-b border-tech-cyan/30">
+        <div class="scan-line"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <div class="inline-block">
+                    <span class="text-tech-lime font-mono text-sm uppercase tracking-wider">/// Blog.Archive</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
+                    TECHNICAL.INSIGHTS
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                    Deep dives into software development, tooling, and engineering practices
+                </p>
+                <div class="flex items-center justify-center gap-4 pt-4">
+                    <div class="w-2 h-2 rounded-full bg-tech-cyan hex-pulse"></div>
+                    <span class="text-tech-cyan font-mono text-sm">@_posts.Count POSTS.INDEXED</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* Filter/Tag Section *@
+    @if (_tags.Any())
+    {
+        <section class="py-8 border-b border-gray-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="text-sm font-mono text-gray-500 uppercase">Filter by tag:</span>
+                        
+                        <button @onclick="ClearFilter" 
+                                class="@GetFilterButtonClass(null)">
+                            ALL
+                        </button>
+
+                        @foreach (var tag in _tags.Take(12))
+                        {
+                            <button @onclick="() => FilterByTag(tag)" 
+                                    class="@GetFilterButtonClass(tag)">
+                                #@tag
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+    @* Posts Content *@
+    <section class="py-16 md:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                
+                @if (_isLoading)
+                {
+                    <div class="flex justify-center items-center py-20">
+                        <div class="w-16 h-16 border-4 border-tech-cyan/20 border-t-tech-cyan clip-corner animate-spin"></div>
+                    </div>
+                }
+                else if (_filteredPosts.Any())
+                {
+                    @* Active Filter Indicator *@
+                    @if (!string.IsNullOrEmpty(_activeFilter))
+                    {
+                        <div class="mb-8 flex items-center gap-4">
+                            <span class="text-gray-400 font-mono text-sm">Showing posts tagged with:</span>
+                            <span class="inline-flex items-center gap-2 text-tech-lime bg-tech-lime/10 px-3 py-1 border border-tech-lime/30 font-mono">
+                                #@_activeFilter
+                                <button @onclick="ClearFilter" class="hover:text-white transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </span>
+                        </div>
+                    }
+
+                    <PostList Posts="@_filteredPosts" GridCols="2" />
+                }
+                else
+                {
+                    <div class="text-center py-20">
+                        <div class="inline-block mb-6">
+                            <div class="w-20 h-20 border-2 border-tech-cyan/30 clip-corner flex items-center justify-center">
+                                <svg class="w-10 h-10 text-tech-cyan/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white font-mono mb-2">NO.POSTS.FOUND</h3>
+                        <p class="text-gray-400 mb-6">No posts match the selected filter</p>
+                        <button @onclick="ClearFilter" 
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-tech-cyan/10 border border-tech-cyan/30 hover:bg-tech-cyan hover:text-gray-950 text-tech-cyan font-mono font-bold text-sm uppercase tracking-wide clip-corner-sm transition-all duration-200">
+                            <span>Clear.Filter</span>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<style>
+    .hex-pulse {
+        animation: pulse-hex 2s ease-in-out infinite;
+    }
+
+    @@keyframes pulse-hex {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.2); }
+    }
+</style>
+
+@code {
+    private bool _isLoading = true;
+    private List<BlogPost> _posts = new();
+    private List<BlogPost> _filteredPosts = new();
+    private List<string> _tags = new();
+    private string? _activeFilter;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _isLoading = true;
+        _posts = await ContentService.GetAllPostsAsync();
+        _filteredPosts = _posts;
+        _tags = await ContentService.GetAllTagsAsync();
+        _isLoading = false;
+    }
+
+    private void FilterByTag(string tag)
+    {
+        _activeFilter = tag;
+        _filteredPosts = _posts.Where(p => p.Tags.Any(t => t.Equals(tag, StringComparison.OrdinalIgnoreCase)))
+                              .ToList();
+    }
+
+    private void ClearFilter()
+    {
+        _activeFilter = null;
+        _filteredPosts = _posts;
+    }
+
+    private string GetFilterButtonClass(string? tag)
+    {
+        var isActive = (tag == null && _activeFilter == null) || (tag == _activeFilter);
+        
+        var baseClasses = "inline-flex items-center text-xs font-mono px-3 py-1 transition-all duration-200";
+        var activeClasses = isActive 
+            ? "bg-tech-cyan text-gray-950 border border-tech-cyan" 
+            : "text-gray-400 bg-gray-800/50 border border-gray-700 hover:border-tech-cyan/50 hover:text-tech-cyan";
+        
+        return $"{baseClasses} {activeClasses}";
+    }
+}

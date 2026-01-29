@@ -1,0 +1,53 @@
+﻿@inherits LayoutComponentBase
+@using JdhPro.Web.Components.Layout
+
+<div class="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+    <Header />
+    
+    <main class="flex-grow">
+        <div class="page-transition">
+            @Body
+        </div>
+    </main>
+    
+    <Footer />
+</div>
+
+<style>
+    .page-transition {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    :global(.dark) ::-webkit-scrollbar-track {
+        background: #0f172a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #00D4FF, #6366F1);
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #00e5ff, #7c7ff5);
+    }
+</style>

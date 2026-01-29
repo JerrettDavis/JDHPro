@@ -1,0 +1,50 @@
+﻿@page "/"
+@using JdhPro.Web.Components.Sections
+
+<PageTitle>JDH Productions - Engineering Tomorrow's Solutions</PageTitle>
+
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-accent">
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            Engineering Tomorrow's<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">Solutions, Today</span>
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed">
+            Transforming businesses through technical excellence and AI-powered innovation
+        </p>
+        
+        <button data-testid="start-project-cta" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })"
+                class="bg-secondary hover:bg-secondary/90 text-primary font-bold py-4 px-12 rounded-full shadow-2xl hover:shadow-secondary/50 transition-all duration-300 hover:-translate-y-1 text-lg inline-flex items-center gap-3">
+            Start Your Project
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+        </button>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- Services Grid Section -->
+<ServicesGrid />
+
+<!-- Value Propositions Section -->
+<ValueProps />
+
+<!-- Contact CTA Section -->
+<div id="contact">
+    <ContactCTA />
+</div>

@@ -1,0 +1,387 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import distinctive fonts - IBM Plex Sans (geometric, technical) + JetBrains Mono (code) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply font-sans text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-gray-900 dark:text-white;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+
+  h6 {
+    @apply text-base md:text-lg;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-900 text-white px-6 py-3 rounded-lg font-medium 
+           hover:bg-primary-800 transition-colors duration-200 
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           dark:bg-primary-700 dark:hover:bg-primary-600;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-500 text-primary-900 px-6 py-3 rounded-lg font-medium 
+           hover:bg-secondary-600 transition-colors duration-200 
+           focus:outline-none focus:ring-2 focus:ring-secondary-400 focus:ring-offset-2
+           dark:text-gray-900;
+  }
+
+  .btn-accent {
+    @apply bg-accent-500 text-white px-6 py-3 rounded-lg font-medium 
+           hover:bg-accent-600 transition-colors duration-200 
+           focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary-900 text-primary-900 px-6 py-3 rounded-lg font-medium 
+           hover:bg-primary-900 hover:text-white transition-colors duration-200 
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           dark:border-primary-400 dark:text-primary-400 dark:hover:bg-primary-400 dark:hover:text-gray-900;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+           bg-white dark:bg-gray-800 text-gray-900 dark:text-white
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent 
+           transition-colors duration-200;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-900 via-secondary-500 to-accent-500 
+           bg-clip-text text-transparent;
+  }
+
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-primary-900 to-primary-700;
+  }
+
+  .bg-gradient-secondary {
+    @apply bg-gradient-to-r from-secondary-500 to-secondary-600;
+  }
+
+  .bg-gradient-accent {
+    @apply bg-gradient-to-r from-accent-500 to-accent-600;
+  }
+
+  .bg-grid-white\/5 {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.05)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+  }
+}
+
+/* Prose styling customization */
+@layer components {
+  .prose {
+    @apply text-gray-700 dark:text-gray-300;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-bold text-gray-900 dark:text-white mt-6 mb-3;
+  }
+  
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+  
+  .prose ul {
+    @apply mb-4 space-y-2;
+  }
+  
+  .prose li {
+    @apply leading-relaxed;
+  }
+  
+  .prose a {
+    @apply text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium;
+  }
+  
+  .prose strong {
+    @apply font-semibold text-gray-900 dark:text-white;
+  }
+
+  /* Header & Footer component styles */
+  .nav-link {
+    @apply px-4 py-2 text-sm font-medium text-gray-700 dark:text-white/90 rounded-lg 
+           hover:bg-gray-100 dark:hover:bg-white/10 transition-all duration-200 relative overflow-hidden;
+  }
+
+  .nav-link-text {
+    @apply relative z-10;
+  }
+
+  .nav-link::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-secondary-500/20 to-accent-500/20 transform scale-x-0 transition-transform duration-300 origin-left;
+  }
+  
+  .nav-link:hover::before {
+    @apply scale-x-100;
+  }
+
+  .nav-link.active {
+    @apply bg-gradient-to-r from-secondary-500/20 to-accent-500/20 text-gray-900 dark:text-white border-b-2 border-secondary-500;
+  }
+
+  .mobile-nav-link {
+    @apply block px-4 py-3 text-base font-medium text-gray-700 dark:text-white rounded-lg 
+           hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-200;
+  }
+
+  .mobile-nav-link.active {
+    @apply bg-gradient-to-r from-secondary-500/30 to-accent-500/30 border-l-4 border-secondary-500;
+  }
+
+  .cta-button {
+    @apply relative px-6 py-2.5 bg-gradient-to-r from-secondary-500 to-accent-500 text-primary-900 font-semibold rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300 shadow-lg;
+  }
+
+  .cta-button-glow {
+    @apply absolute inset-0 bg-white/20 transform scale-x-0 transition-transform duration-300 origin-left;
+  }
+  
+  .cta-button:hover .cta-button-glow {
+    @apply scale-x-100;
+  }
+
+  .social-link {
+    @apply w-10 h-10 rounded-lg bg-white/5 dark:bg-white/5 flex items-center justify-center 
+           text-gray-600 dark:text-white/70 hover:bg-gradient-to-br hover:from-secondary-500/20 hover:to-accent-500/20 
+           hover:text-gray-900 dark:hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-secondary-500/20;
+  }
+
+  .footer-link {
+    @apply flex items-center space-x-2 text-gray-600 dark:text-white/70 
+           hover:text-secondary-600 dark:hover:text-secondary-500 transition-colors duration-200 text-sm;
+  }
+
+  .footer-link-icon {
+    @apply transform transition-transform duration-200 text-secondary-500/50;
+  }
+  
+  .footer-link:hover .footer-link-icon {
+    @apply translate-x-1 text-secondary-500;
+  }
+}
+
+/* ===== NEO-TECHNICAL DESIGN SYSTEM ===== */
+
+/* Technical Grid Backgrounds */
+.tech-grid {
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.tech-grid-dark {
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Scan Line Animation */
+.scan-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00F0FF, transparent);
+  animation: scan 4s ease-in-out infinite;
+  z-index: 10;
+}
+
+@keyframes scan {
+  0%, 100% { transform: translateX(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(200%); }
+}
+
+/* Technical Color Utilities */
+.text-tech-cyan { color: #00F0FF; }
+.text-tech-lime { color: #BFFF00; }
+.text-tech-orange { color: #FF6B35; }
+.bg-tech-cyan { background-color: #00F0FF; }
+.bg-tech-lime { background-color: #BFFF00; }
+.bg-tech-orange { background-color: #FF6B35; }
+.border-tech-cyan { border-color: #00F0FF; }
+.border-tech-lime { border-color: #BFFF00; }
+
+/* Clip-path Angles (Neo-Brutalist) */
+.clip-corner {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.clip-corner-sm {
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+/* Technical Button Styles */
+.btn-tech {
+  @apply relative overflow-hidden px-8 py-4 font-bold tracking-wide uppercase text-sm
+         bg-gradient-to-r from-[#00F0FF] to-[#BFFF00] text-gray-950
+         transition-all duration-300 hover:shadow-2xl hover:shadow-[#00F0FF]/50
+         hover:scale-105 transform;
+  font-family: 'JetBrains Mono', monospace;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.btn-tech::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-tech:hover::before {
+  left: 100%;
+}
+
+/* Technical Card */
+.tech-card {
+  @apply relative bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800
+         transition-all duration-300 hover:shadow-2xl;
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+}
+
+.tech-card:hover {
+  border-color: #00F0FF;
+  box-shadow: 0 25px 50px -12px rgba(0, 240, 255, 0.2);
+}
+
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00F0FF 0%, #BFFF00 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tech-card:hover::before {
+  opacity: 1;
+}
+
+/* Coordinate Marker */
+.coord-marker {
+  @apply absolute font-mono text-xs opacity-30;
+  color: #00F0FF;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Staggered Reveal Animation */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-up {
+  animation: reveal-up 0.8s ease-out forwards;
+}
+
+.reveal-delay-1 { animation-delay: 0.1s; }
+.reveal-delay-2 { animation-delay: 0.2s; }
+.reveal-delay-3 { animation-delay: 0.3s; }
+.reveal-delay-4 { animation-delay: 0.4s; }
+
+/* Glitch Effect */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Data Viz Lines */
+.data-line {
+  @apply relative;
+}
+
+.data-line::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 50%;
+  width: 16px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00F0FF);
+}
+
+/* Tech Badge */
+.tech-badge {
+  @apply inline-flex items-center justify-center px-4 py-2 font-mono text-sm font-bold
+         bg-gray-900 dark:bg-white text-tech-cyan dark:text-gray-900
+         border border-tech-cyan;
+  font-family: 'JetBrains Mono', monospace;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+

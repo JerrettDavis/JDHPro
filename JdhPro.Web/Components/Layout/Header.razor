@@ -1,0 +1,136 @@
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 @(isScrolled ? "backdrop-blur-lg bg-white/80 dark:bg-primary/80 shadow-lg" : "bg-transparent")">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo/Brand -->
+            <div class="flex-shrink-0">
+                <a href="/" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <span class="text-white font-bold text-xl">J</span>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-900 dark:text-white">
+                        JDH Productions
+                    </span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-1">
+                <NavLink href="/" class="nav-link" Match="NavLinkMatch.All">
+                    <span class="nav-link-text">Home</span>
+                </NavLink>
+                <NavLink href="/services" class="nav-link">
+                    <span class="nav-link-text">Services</span>
+                </NavLink>
+                <NavLink href="/blog" class="nav-link">
+                    <span class="nav-link-text">Blog</span>
+                </NavLink>
+                <NavLink href="/about" class="nav-link">
+                    <span class="nav-link-text">About</span>
+                </NavLink>
+            </div>
+
+            <!-- CTA Button (Desktop) -->
+            <div class="hidden md:block">
+                <a href="/contact" class="cta-button">
+                    <span class="relative z-10">Contact Us</span>
+                    <div class="cta-button-glow"></div>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button data-testid="mobile-menu-button" @onclick="ToggleMobileMenu" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-secondary transition-colors duration-200">
+                <span class="sr-only">Open main menu</span>
+                @if (!mobileMenuOpen)
+                {
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                }
+                else
+                {
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                }
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div data-testid="mobile-menu" class="@(mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0") md:hidden overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-2 pt-2 pb-6 space-y-2 bg-white/95 dark:bg-primary/40 backdrop-blur-xl rounded-2xl mb-4 border border-gray-200 dark:border-white/10">
+                <NavLink href="/" class="mobile-nav-link" Match="NavLinkMatch.All" @onclick="CloseMobileMenu">
+                    Home
+                </NavLink>
+                <NavLink href="/services" class="mobile-nav-link" @onclick="CloseMobileMenu">
+                    Services
+                </NavLink>
+                <NavLink href="/blog" class="mobile-nav-link" @onclick="CloseMobileMenu">
+                    Blog
+                </NavLink>
+                <NavLink href="/about" class="mobile-nav-link" @onclick="CloseMobileMenu">
+                    About
+                </NavLink>
+                <div class="pt-4">
+                    <a href="/contact" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-secondary to-accent text-primary-900 font-semibold rounded-lg hover:shadow-lg hover:shadow-secondary/50 transform hover:scale-105 transition-all duration-300" @onclick="CloseMobileMenu">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Spacer to prevent content from hiding under fixed header -->
+<div class="h-20"></div>
+
+<style>
+    .cta-button:hover {
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+    }
+
+    :global(html) {
+        scroll-behavior: smooth;
+    }
+</style>
+
+@code {
+    private bool mobileMenuOpen = false;
+    private bool isScrolled = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("eval", @"
+                let isScrolled = false;
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.scrollY > 20;
+                    if (scrolled !== isScrolled) {
+                        isScrolled = scrolled;
+                        DotNet.invokeMethodAsync('JdhPro.Web', 'UpdateHeaderScroll', scrolled);
+                    }
+                });
+            ");
+        }
+    }
+
+    private void ToggleMobileMenu()
+    {
+        mobileMenuOpen = !mobileMenuOpen;
+    }
+
+    private void CloseMobileMenu()
+    {
+        mobileMenuOpen = false;
+    }
+
+    [JSInvokable]
+    public static void UpdateHeaderScroll(bool scrolled)
+    {
+        // This would need to be implemented with a proper state management solution
+        // For now, the CSS handles the backdrop blur
+    }
+}

@@ -1,0 +1,149 @@
+@page "/blog/{slug}"
+@namespace JdhPro.Web.Pages.BlogPostPage
+@using JdhPro.Web.Models
+@using JdhPro.Web.Services
+@using JdhPro.Web.Components.Blog
+@inject ContentService ContentService
+@inject NavigationManager Navigation
+
+<PageTitle>@(_post?.Title ?? "Post Not Found") - JDH Productions</PageTitle>
+
+<div class="min-h-screen bg-gray-950 tech-grid-dark">
+    
+    @if (_isLoading)
+    {
+        <section class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-center items-center py-20">
+                    <div class="w-16 h-16 border-4 border-tech-cyan/20 border-t-tech-cyan clip-corner animate-spin"></div>
+                </div>
+            </div>
+        </section>
+    }
+    else if (_post != null)
+    {
+        <section class="py-12 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <PostDetail Post="@_post" />
+                </div>
+            </div>
+        </section>
+
+        @* Related Posts Section *@
+        @if (_relatedPosts.Any())
+        {
+            <section class="py-16 border-t border-tech-cyan/30">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-6xl mx-auto space-y-8">
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-2xl md:text-3xl font-bold text-white font-mono">RELATED.POSTS</h2>
+                            <div class="flex-1 h-px bg-gradient-to-r from-tech-cyan/30 to-transparent"></div>
+                        </div>
+                        
+                        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            @foreach (var (relatedPost, index) in _relatedPosts.Select((p, i) => (p, i)))
+                            {
+                                var accentColor = GetAccentColor(index);
+                                <PostCard Post="@relatedPost" AccentColor="@accentColor" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+    else
+    {
+        @* 404 Not Found *@
+        <section class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-2xl mx-auto text-center space-y-8">
+                    <div class="inline-block">
+                        <div class="w-32 h-32 border-4 border-tech-orange/30 clip-corner flex items-center justify-center">
+                            <span class="text-6xl font-bold text-tech-orange font-mono">404</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h1 class="text-4xl md:text-5xl font-bold text-white font-mono">
+                            POST.NOT.FOUND
+                        </h1>
+                        <p class="text-xl text-gray-400">
+                            The blog post you're looking for doesn't exist or has been moved.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="/blog" 
+                           class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-tech-cyan/10 border border-tech-cyan/30 hover:bg-tech-cyan hover:text-gray-950 text-tech-cyan font-mono font-bold text-sm uppercase tracking-wide clip-corner-sm transition-all duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                            </svg>
+                            <span>Back.To.Blog</span>
+                        </a>
+                        
+                        <a href="/" 
+                           class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-800/50 border border-gray-700 hover:border-tech-lime/50 text-gray-400 hover:text-tech-lime font-mono font-bold text-sm uppercase tracking-wide transition-all duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            <span>Go.Home</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public string Slug { get; set; } = string.Empty;
+
+    private bool _isLoading = true;
+    private Models.BlogPost? _post;
+    private List<Models.BlogPost> _relatedPosts = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _isLoading = true;
+        
+        _post = await ContentService.GetPostBySlugAsync(Slug);
+        
+        if (_post != null)
+        {
+            // Get related posts (posts with similar tags)
+            var allPosts = await ContentService.GetAllPostsAsync();
+            _relatedPosts = allPosts
+                .Where(p => p.Id != _post.Id) // Exclude current post
+                .Where(p => p.Tags.Any(tag => _post.Tags.Contains(tag, StringComparer.OrdinalIgnoreCase)))
+                .OrderByDescending(p => p.Tags.Count(tag => _post.Tags.Contains(tag, StringComparer.OrdinalIgnoreCase)))
+                .ThenByDescending(p => p.Date)
+                .Take(3)
+                .ToList();
+        }
+        
+        _isLoading = false;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // Handle navigation between blog posts
+        if (!_isLoading)
+        {
+            await OnInitializedAsync();
+        }
+    }
+
+    private string GetAccentColor(int index)
+    {
+        return (index % 3) switch
+        {
+            0 => "tech-cyan",
+            1 => "tech-lime",
+            _ => "tech-orange"
+        };
+    }
+}

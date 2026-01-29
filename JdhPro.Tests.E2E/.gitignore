@@ -1,0 +1,13 @@
+# Test Results
+test-results/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Playwright
+.playwright/
+
+# Build outputs
+bin/
+obj/

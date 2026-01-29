@@ -1,0 +1,25 @@
+var posts = new List<BlogPost>
+{
+    new BlogPost
+    {
+        Id = "test",
+        Title = "Test Post",
+        Date = DateTime.Now,
+        Categories = new List<string> { "Programming", "Programming/Automation" },
+        Tags = new List<string>(),
+        Content = "Test",
+        ContentHtml = "Test",
+        Stub = "Test",
+        WordCount = 1,
+        Source = "test"
+    }
+};
+
+var filter = new SyndicationFilters
+{
+    IncludedCategories = new List<string> { "Programming", "Software Engineering" }
+};
+
+var filterService = new PostFilterService(loggerFactory.CreateLogger<PostFilterService>());
+var filtered = filterService.FilterPosts(posts, filter);
+Console.WriteLine($"Test filter result: {filtered.Count} posts");

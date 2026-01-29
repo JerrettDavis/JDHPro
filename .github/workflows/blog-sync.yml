@@ -1,0 +1,118 @@
+name: Blog Syndication
+
+on:
+  # Run daily at 2 AM UTC to fetch new blog posts
+  schedule:
+    - cron: '0 2 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run on pushes that modify blog syndication code
+  push:
+    paths:
+      - 'JdhPro.BuildTools/**'
+      - 'content/**'
+      - '.github/workflows/blog-sync.yml'
+
+env:
+  DOTNET_VERSION: '10.0.x'
+
+jobs:
+  sync-blog:
+    name: Fetch and Syndicate Blog Posts
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache .NET dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Restore BuildTools dependencies
+        run: dotnet restore JdhPro.BuildTools/JdhPro.BuildTools.csproj
+
+      - name: Run blog syndication
+        run: dotnet run --project JdhPro.BuildTools/JdhPro.BuildTools.csproj --no-restore
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "📝 Blog posts updated:"
+            git status --short
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "✅ No new blog posts found"
+          fi
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add JdhPro.Web/wwwroot/data/posts.json
+          git commit -m "chore: update blog syndication [skip ci]"
+          git push
+        continue-on-error: true
+
+      - name: Create Pull Request (alternative to direct push)
+        if: steps.check_changes.outputs.changes == 'true' && failure()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update blog syndication"
+          title: "🤖 Update Blog Posts"
+          body: |
+            ## Blog Syndication Update
+            
+            This PR updates the blog posts syndicated from jerrettdavis.com.
+            
+            ### Changes
+            - Updated `posts.json` with latest blog posts
+            
+            ### Automation
+            This PR was automatically created by the Blog Syndication workflow.
+            
+            **Auto-merge:** ✅ Safe to merge automatically if tests pass.
+          branch: bot/blog-sync-${{ github.run_number }}
+          delete-branch: true
+          labels: |
+            automated
+            blog-sync
+            dependencies
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Blog Syndication Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check_changes.outputs.changes }}" == "true" ]; then
+            echo "✅ **Blog posts updated successfully**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "New posts have been syndicated from jerrettdavis.com" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ **No changes detected**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "No new blog posts found since last run" >> $GITHUB_STEP_SUMMARY
+          fi

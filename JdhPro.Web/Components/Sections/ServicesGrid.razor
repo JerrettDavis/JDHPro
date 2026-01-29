@@ -1,0 +1,67 @@
+<div class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-primary dark:text-white mb-4">Our Services</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Comprehensive solutions designed to drive your business forward
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            @foreach (var service in Services)
+            {
+                <div data-testid="service-card" class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-700">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-secondary/20 to-accent/20 mb-4">
+                        <span class="text-2xl font-bold text-primary dark:text-white">@service.Icon</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-primary dark:text-white mb-3">@service.Title</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">@service.Description</p>
+                    <a href="/services" 
+                       class="inline-flex items-center text-secondary font-semibold hover:text-accent transition-colors duration-200">
+                        Learn More
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private class Service
+    {
+        public string Icon { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+    }
+
+    private List<Service> Services = new()
+    {
+        new Service
+        {
+            Icon = "TC",
+            Title = "Technical Consulting",
+            Description = "Expert guidance to optimize your technology stack and infrastructure. We help you make informed decisions that align with your business goals and maximize ROI."
+        },
+        new Service
+        {
+            Icon = "AD",
+            Title = "Custom Application Development",
+            Description = "Tailored software solutions built from the ground up to meet your specific requirements. From concept to deployment, we deliver scalable, maintainable applications."
+        },
+        new Service
+        {
+            Icon = "AI",
+            Title = "AI-Assisted Workflow Design",
+            Description = "Harness the power of artificial intelligence to streamline operations and boost productivity. We integrate cutting-edge AI tools into your existing workflows."
+        },
+        new Service
+        {
+            Icon = "PE",
+            Title = "Process Engineering",
+            Description = "Systematic analysis and optimization of your business processes. We identify bottlenecks, eliminate waste, and implement efficient solutions that drive measurable results."
+        }
+    };
+}

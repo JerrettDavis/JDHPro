@@ -1,0 +1,6 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Tailwind output
+wwwroot/css/app.min.css
