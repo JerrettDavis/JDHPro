@@ -139,9 +139,9 @@ class Build : NukeBuild
             }
             else
             {
-                // Run from the BuildTools directory
+                // Run with explicit project file path
                 DotNetRun(s => s
-                    .SetProcessWorkingDirectory(BuildToolsDirectory)
+                    .SetProjectFile(BuildToolsDirectory / "JdhPro.BuildTools.csproj")
                     .SetNoRestore(true)
                     .SetConfiguration(Configuration));
             }
@@ -248,9 +248,9 @@ class Build : NukeBuild
             }
             else
             {
-                // Run from the E2E tests directory
+                // Test with explicit project file path
                 DotNetTest(s => s
-                    .SetProcessWorkingDirectory(E2ETestsDirectory)
+                    .SetProjectFile(E2ETestsDirectory / "JdhPro.Tests.E2E.csproj")
                     .SetConfiguration(Configuration)
                     .EnableNoBuild()
                     .EnableNoRestore()
@@ -286,9 +286,9 @@ class Build : NukeBuild
             }
             else
             {
-                // Publish from the Web directory
+                // Publish with explicit project file path
                 DotNetPublish(s => s
-                    .SetProcessWorkingDirectory(WebProjectDirectory)
+                    .SetProject(WebProjectDirectory / "JdhPro.Web.csproj")
                     .SetConfiguration(Configuration)
                     .SetOutput(PublishDirectory)
                     .EnableNoBuild()
