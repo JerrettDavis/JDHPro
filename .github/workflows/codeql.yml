@@ -71,11 +71,3 @@ jobs:
           category: "/language:${{ matrix.language }}"
           # Upload results even if there are errors
           upload: always
-
-      - name: Upload analysis results
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ../results/${{ matrix.language }}.sarif
-          category: "/language:${{ matrix.language }}"
-        continue-on-error: true
