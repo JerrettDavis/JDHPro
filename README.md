@@ -2,9 +2,9 @@
 
 > Modern, high-performance static website built with Blazor WebAssembly and Tailwind CSS
 
-[![Build](https://img.shields.io/github/actions/workflow/status/USERNAME/jdhpro/ci.yml?branch=main&label=build&logo=github)](https://github.com/USERNAME/jdhpro/actions/workflows/ci.yml)
-[![CodeQL](https://img.shields.io/github/actions/workflow/status/USERNAME/jdhpro/codeql.yml?branch=main&label=codeql&logo=github)](https://github.com/USERNAME/jdhpro/actions/workflows/codeql.yml)
-[![Deploy](https://img.shields.io/github/deployments/USERNAME/jdhpro/github-pages?label=deploy&logo=github)](https://github.com/USERNAME/jdhpro/deployments)
+[![Build](https://img.shields.io/github/actions/workflow/status/JerrettDavis/JDHPro/ci.yml?branch=main&label=build&logo=github)](https://github.com/JerrettDavis/JDHPro/actions/workflows/ci.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/JerrettDavis/JDHPro/codeql.yml?branch=main&label=codeql&logo=github)](https://github.com/JerrettDavis/JDHPro/actions/workflows/codeql.yml)
+[![Deploy](https://img.shields.io/github/deployments/JerrettDavis/JDHPro/github-pages?label=deploy&logo=github)](https://github.com/JerrettDavis/JDHPro/deployments)
 [![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![Blazor](https://img.shields.io/badge/Blazor-WASM-512BD4?logo=blazor)](https://blazor.net/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
@@ -47,7 +47,7 @@ JDH Productions is a professional services company specializing in software deve
 ## 📁 Project Structure
 
 ```
-jdhpro/
+JDHPro/
 ├── .github/
 │   └── workflows/           # CI/CD pipelines
 │       ├── deploy-vercel.yml
@@ -101,8 +101,8 @@ npm --version     # Should be 10.x or higher
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/jdhpro.git
-cd jdhpro
+git clone https://github.com/JerrettDavis/JDHPro.git
+cd JDHPro
 
 # Quick start with Nuke (recommended)
 ./build.sh CI
@@ -407,7 +407,7 @@ dotnet test
 
 For comprehensive testing documentation, see:
 - **[JdhPro.Tests.E2E/TESTING_GUIDE.md](JdhPro.Tests.E2E/TESTING_GUIDE.md)** - Complete testing guide
-- **[E2E_TESTS_SUMMARY.md](E2E_TESTS_SUMMARY.md)** - Implementation summary
+- **[JdhPro.Tests.E2E/README.md](JdhPro.Tests.E2E/README.md)** - Testing overview
 
 ### CI/CD Testing
 
@@ -427,7 +427,7 @@ Tests automatically run in GitHub Actions pipeline:
 
 ## 🌐 Deployment
 
-For detailed deployment instructions, see **[DEPLOYMENT.md](DEPLOYMENT.md)**.
+For detailed build and deployment instructions, see **[BUILD.md](BUILD.md)**.
 
 ### Supported Platforms
 
@@ -647,7 +647,7 @@ We welcome contributions! Here's how to get started:
 1. **Fork the repository**
 2. **Clone your fork:**
    ```bash
-   git clone https://github.com/yourusername/jdhpro.git
+   git clone https://github.com/yourusername/JDHPro.git
    ```
 3. **Create a feature branch:**
    ```bash
@@ -729,11 +729,9 @@ For licensing inquiries, please contact: licensing@jdhproductions.com
 
 ## 📚 Additional Documentation
 
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Comprehensive deployment guide for all platforms
-- **[CI-CD-SETUP.md](CI-CD-SETUP.md)** - CI/CD configuration and setup
-- **[SETUP_COMPLETE.md](SETUP_COMPLETE.md)** - Initial project setup documentation
-- **[CONTACT_PAGE_SUMMARY.md](CONTACT_PAGE_SUMMARY.md)** - Contact page implementation details
-- **[E2E_TESTS_SUMMARY.md](E2E_TESTS_SUMMARY.md)** - E2E testing implementation summary
+- **[BUILD.md](BUILD.md)** - Comprehensive Nuke build system documentation
+- **[JdhPro.BuildTools/README.md](JdhPro.BuildTools/README.md)** - Blog syndication tool
+- **[JdhPro.Tests.E2E/README.md](JdhPro.Tests.E2E/README.md)** - E2E testing overview
 - **[JdhPro.Tests.E2E/TESTING_GUIDE.md](JdhPro.Tests.E2E/TESTING_GUIDE.md)** - Comprehensive testing guide
 
 ## 🔗 Useful Links
