@@ -28,13 +28,13 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install WASM workload
-        run: dotnet workload install wasm-tools
 
       - name: Cache .NET packages
         uses: actions/cache@v4
@@ -92,6 +92,9 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -148,6 +151,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
