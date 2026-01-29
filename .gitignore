@@ -73,7 +73,6 @@ bld/
 
 # Node modules (Tailwind)
 node_modules/
-package-lock.json
 
 # Blazor
 wwwroot/css/app.css
