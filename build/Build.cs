@@ -80,8 +80,17 @@ class Build : NukeBuild
             DotNet("workload restore");
 
             Log.Information("Restoring .NET dependencies...");
-            DotNetRestore(s => s
-                .SetProjectFile(Solution));
+            if (Solution != null)
+            {
+                DotNetRestore(s => s
+                    .SetProjectFile(Solution));
+            }
+            else
+            {
+                // Restore all projects in the directory
+                DotNetRestore(s => s
+                    .SetProcessWorkingDirectory(RootDirectory));
+            }
 
             Log.Information("Restoring npm dependencies...");
             NpmInstall(s => s
@@ -145,11 +154,23 @@ class Build : NukeBuild
         {
             Log.Information("Compiling solution...");
             
-            DotNetBuild(s => s
-                .SetProjectFile(Solution)
-                .SetConfiguration(Configuration)
-                .EnableNoRestore()
-                .SetVerbosity(DotNetVerbosity.minimal));
+            if (Solution != null)
+            {
+                DotNetBuild(s => s
+                    .SetProjectFile(Solution)
+                    .SetConfiguration(Configuration)
+                    .EnableNoRestore()
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
+            else
+            {
+                // Build all projects in the directory
+                DotNetBuild(s => s
+                    .SetProcessWorkingDirectory(RootDirectory)
+                    .SetConfiguration(Configuration)
+                    .EnableNoRestore()
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
 
             Log.Information("✅ Compilation completed");
         });
@@ -162,15 +183,31 @@ class Build : NukeBuild
         {
             Log.Information("Running unit tests...");
             
-            DotNetTest(s => s
-                .SetProjectFile(Solution)
-                .SetConfiguration(Configuration)
-                .EnableNoBuild()
-                .EnableNoRestore()
-                .SetFilter("FullyQualifiedName!~E2E")
-                .SetResultsDirectory(TestResultsDirectory)
-                .SetLoggers("trx;LogFileName=unit-tests.trx")
-                .SetVerbosity(DotNetVerbosity.minimal));
+            if (Solution != null)
+            {
+                DotNetTest(s => s
+                    .SetProjectFile(Solution)
+                    .SetConfiguration(Configuration)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetFilter("FullyQualifiedName!~E2E")
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .SetLoggers("trx;LogFileName=unit-tests.trx")
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
+            else
+            {
+                // Test all projects in the directory
+                DotNetTest(s => s
+                    .SetProcessWorkingDirectory(RootDirectory)
+                    .SetConfiguration(Configuration)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetFilter("FullyQualifiedName!~E2E")
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .SetLoggers("trx;LogFileName=unit-tests.trx")
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
 
             Log.Information("✅ Unit tests completed");
         });
