@@ -78,7 +78,7 @@ jobs:
 
       - name: Create Pull Request (alternative to direct push)
         if: steps.check_changes.outputs.changes == 'true' && failure()
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore: update blog syndication"
