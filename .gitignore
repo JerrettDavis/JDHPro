@@ -94,5 +94,6 @@ artifacts/
 .env.*.local
 
 # Nuke
-.nuke/
+.nuke/*
+!.nuke
 *.tmp
