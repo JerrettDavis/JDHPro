@@ -18,5 +18,5 @@ Scenario: Services grid displays all services
 
 Scenario: Start Your Project CTA works
   Given I navigate to the homepage
-  When I click "Start Your Project"
+  When I click "Initialize Project"
   Then I should be scrolled to the contact section

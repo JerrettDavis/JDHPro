@@ -5,12 +5,12 @@ Feature: Contact Page
 
 Scenario: Contact page loads
   Given I navigate to "/contact"
-  Then I should see "Let's Build Something Amazing"
+  Then I should see "LET'S BUILD"
   And I should see a contact form
 
 Scenario: Contact form validation
   Given I navigate to "/contact"
-  When I click "Send Message" without filling the form
+  When I click "SEND.MESSAGE" without filling the form
   Then I should see validation errors
 
 Scenario: Contact form with service preselection
