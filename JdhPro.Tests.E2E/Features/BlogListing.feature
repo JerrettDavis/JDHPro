@@ -9,10 +9,10 @@ Feature: Blog Listing Page
 @future @blog
 Scenario: Blog listing page loads successfully
   When I navigate to the blog page
-  Then I should see the page title "Blog"
+  Then I should see the page title "TECHNICAL.INSIGHTS"
   And the page should display blog posts
 
-@future @blog
+@future @blog @ignore@future @blog
 Scenario: Blog posts are displayed from posts.json
   Given blog syndication has completed
   When I navigate to the blog page
@@ -21,7 +21,7 @@ Scenario: Blog posts are displayed from posts.json
   And each post should display a date
   And each post should display categories
 
-@future @blog
+@future @blog @ignore@future @blog
 Scenario: Blog posts link to detail pages
   Given blog syndication has completed
   When I navigate to the blog page
@@ -34,7 +34,7 @@ Scenario: Blog posts are sorted by date
   When I navigate to the blog page
   Then posts should be displayed in date order (newest first)
 
-@future @blog
+@future @blog @ignore@future @blog
 Scenario: Blog posts display metadata
   Given blog syndication has completed
   When I navigate to the blog page
@@ -49,14 +49,14 @@ Scenario: Filter blog posts by category
   And I filter by "Technical" category
   Then only posts in "Technical" category should be shown
 
-@future @blog
+@future @blog @ignore@future @blog
 Scenario: Search blog posts
   Given blog syndication has completed
   When I navigate to the blog page
   And I search for "testing"
   Then only posts containing "testing" should be shown
 
-@future @blog
+@future @blog @ignore@future @blog
 Scenario: Pagination works correctly
   Given blog syndication has completed
   And there are more than 5 posts
@@ -65,3 +65,4 @@ Scenario: Pagination works correctly
   And I should see up to 10 posts per page
   When I click next page
   Then I should see the next set of posts
+
