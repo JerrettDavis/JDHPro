@@ -5,7 +5,7 @@ Feature: Services Page
 
 Scenario: Services page loads
   Given I navigate to "/services"
-  Then I should see the page title "Our Services"
+  Then I should see the page title "OUR.SERVICES"
   And I should see 4 detailed service sections
 
 Scenario: Service content is displayed
@@ -13,4 +13,4 @@ Scenario: Service content is displayed
   Then each service should have a title
   And each service should have a description
   And each service should have benefits
-  And each service should have a "Discuss This Service" button
+  And each service should have a "Discuss.Service" button

@@ -159,7 +159,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.GivenAsync("I navigate to \"/services\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 8
-  await testRunner.ThenAsync("I should see the page title \"Our Services\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+  await testRunner.ThenAsync("I should see the page title \"OUR.SERVICES\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 9
   await testRunner.AndAsync("I should see 4 detailed service sections", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -202,7 +202,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.AndAsync("each service should have benefits", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 16
-  await testRunner.AndAsync("each service should have a \"Discuss This Service\" button", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+  await testRunner.AndAsync("each service should have a \"Discuss.Service\" button", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
