@@ -332,6 +332,20 @@ class Build : NukeBuild
                 content = content.Replace(
                     "<base href=\"/\" />", 
                     $"<base href=\"/{RepositoryName}/\" />");
+                
+                // Fix blazor.webassembly.js reference to use hashed version
+                // The import map handles module imports, but the script tag needs the actual file
+                var importMapMatch = System.Text.RegularExpressions.Regex.Match(content, 
+                    @"""\./_framework/blazor\.webassembly\.js"":\s*""\./_framework/blazor\.webassembly\.([^""]+)\.js""");
+                if (importMapMatch.Success)
+                {
+                    var hashedFile = $"_framework/blazor.webassembly.{importMapMatch.Groups[1].Value}.js";
+                    content = System.Text.RegularExpressions.Regex.Replace(content,
+                        @"<script src=""_framework/blazor\.webassembly\.js""",
+                        $@"<script src=""{hashedFile}""");
+                    Log.Information($"✅ Updated blazor.webassembly.js script reference to {hashedFile}");
+                }
+                
                 File.WriteAllText(indexHtml, content);
                 
                 // Also update 404.html
@@ -339,9 +353,21 @@ class Build : NukeBuild
                 content = content.Replace(
                     "<base href=\"/\" />", 
                     $"<base href=\"/{RepositoryName}/\" />");
+                    
+                // Fix blazor.webassembly.js in 404.html too
+                importMapMatch = System.Text.RegularExpressions.Regex.Match(content, 
+                    @"""\./_framework/blazor\.webassembly\.js"":\s*""\./_framework/blazor\.webassembly\.([^""]+)\.js""");
+                if (importMapMatch.Success)
+                {
+                    var hashedFile = $"_framework/blazor.webassembly.{importMapMatch.Groups[1].Value}.js";
+                    content = System.Text.RegularExpressions.Regex.Replace(content,
+                        @"<script src=""_framework/blazor\.webassembly\.js""",
+                        $@"<script src=""{hashedFile}""");
+                }
+                
                 File.WriteAllText(notFoundHtml, content);
                 
-                Log.Information("✅ Updated base href in index.html and 404.html");
+                Log.Information("✅ Updated base href and script references in index.html and 404.html");
             }
             
             Log.Information("✅ GitHub Pages optimizations applied");
