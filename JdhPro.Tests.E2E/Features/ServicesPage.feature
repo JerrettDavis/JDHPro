@@ -5,7 +5,7 @@ Feature: Services Page
 
 Scenario: Services page loads
   Given I navigate to "/services"
-  Then I should see the page title "OUR.SERVICES"
+  Then I should see the page title "Our Services"
   And I should see 4 detailed service sections
 
 Scenario: Service content is displayed

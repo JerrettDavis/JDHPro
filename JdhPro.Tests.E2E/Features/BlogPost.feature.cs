@@ -436,7 +436,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.AndAsync("I should see a \"Next Post\" link (if available)", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 63
-  await testRunner.WhenAsync("I click \"Next Post\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+  await testRunner.WhenAsync("I click the \"Next Post\" link in the blog post", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 64
   await testRunner.ThenAsync("I should navigate to the next blog post", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

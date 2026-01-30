@@ -70,13 +70,6 @@ public class ProjectsSteps
         _context.Page!.Url.Should().Contain(expectedUrlPart, $"URL should contain '{expectedUrlPart}'");
     }
 
-    [Then(@"the page should load within (.*) seconds")]
-    public void ThenThePageShouldLoadWithinSeconds(int maxSeconds)
-    {
-        _stopwatch.Elapsed.TotalSeconds.Should().BeLessThanOrEqualTo(maxSeconds,
-            $"Page should load within {maxSeconds} seconds but took {_stopwatch.Elapsed.TotalSeconds:F2}s");
-    }
-
     private void SetupConsoleListeners()
     {
         if (_context.Page == null) return;

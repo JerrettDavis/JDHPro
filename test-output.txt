@@ -1,0 +1,849 @@
+Test run for C:\git\jdhpro\JdhPro.Tests.E2E\bin\Release\net10.0\JdhPro.Tests.E2E.dll (.NETCoreApp,Version=v10.0)
+VSTest version 18.0.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+C:\git\jdhpro\JdhPro.Tests.E2E\bin\Release\net10.0\JdhPro.Tests.E2E.dll
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.2)
+[xUnit.net 00:00:00.45]   Discovering: JdhPro.Tests.E2E
+[xUnit.net 00:00:00.62]   Discovered:  JdhPro.Tests.E2E
+[xUnit.net 00:00:00.64]   Starting:    JdhPro.Tests.E2E
+-> Loading plugin C:\git\jdhpro\JdhPro.Tests.E2E\bin\Release\net10.0\JdhPro.Tests.E2E.dll
+-> Loading plugin C:\git\jdhpro\JdhPro.Tests.E2E\bin\Release\net10.0\Reqnroll.Microsoft.Extensions.DependencyInjection.ReqnrollPlugin.dll
+-> Loading plugin C:\git\jdhpro\JdhPro.Tests.E2E\bin\Release\net10.0\Reqnroll.xUnit.ReqnrollPlugin.dll
+-> Using reqnroll.json
+Starting E2E Test Run...
+Ensure Playwright browsers are installed: pwsh bin/Debug/net9.0/playwright.ps1 install
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+     Warning:
+     The component "Fluent Assertions" is governed by the rules defined in the Xceed License Agreement and
+     the Xceed Fluent Assertions Community License. You may use Fluent Assertions free of charge for
+     non-commercial use only. An active subscription is required to use Fluent Assertions for commercial use.
+     Please contact Xceed Sales mailto:sales@xceed.com to acquire a subscription at a very low cost.
+     A paid commercial license supports the development and continued increasing support of
+     Fluent Assertions users under both commercial and community licenses. Help us
+     keep Fluent Assertions at the forefront of unit testing.
+     For more information, visit https://xceed.com/products/unit-testing/fluent-assertions/
+Screenshot saved: test-results/screenshots/Homepage_loads_successfully_20260129_211408.png
+  Passed Homepage loads successfully [6 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 3.7s
+ Given I navigate to the homepage
+ -> duration: HomepageSteps.GivenINavigateToTheHomepage(): 2.6s
+ Then I should see the hero heading "Engineering Tomorrow's"
+ And I should see the tagline containing "technical excellence"
+ -> duration: Scenario: Homepage loads successfully: 6.4s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 0.3s
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Services_grid_displays_all_services_20260129_211411.png
+  Passed Services grid displays all services [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.4s
+ Given I navigate to the homepage
+ -> duration: HomepageSteps.GivenINavigateToTheHomepage(): 2.1s
+ Then I should see 4 service cards
+ And I should see "Technical Consulting"
+ And I should see "Custom Application Development"
+ And I should see "AI-Assisted Workflow Design"
+ And I should see "Process Engineering"
+ -> duration: Scenario: Services grid displays all services: 2.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 207.4ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Start_Your_Project_CTA_works_20260129_211414.png
+HTML saved: test-results/screenshots/Start_Your_Project_CTA_works_20260129_211414.html
+Current URL: http://localhost:5233/
+Test Error: Ambiguous step definitions found for step 'When I click "Start Your Project"': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.BlogPostSteps.WhenIClick(String), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.HomepageSteps.WhenIClick(String)
+[xUnit.net 00:00:13.78]     Start Your Project CTA works [FAIL]
+[xUnit.net 00:00:13.78]       Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'When I click "Start Your Project"': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.BlogPostSteps.WhenIClick(String), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.HomepageSteps.WhenIClick(String)
+[xUnit.net 00:00:13.78]       Stack Trace:
+[xUnit.net 00:00:13.78]            at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+[xUnit.net 00:00:13.78]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+[xUnit.net 00:00:13.78]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:00:13.78]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:00:13.78]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:00:13.78]            at JdhPro.Tests.E2E.Features.HomepageFeature.ScenarioCleanupAsync()
+[xUnit.net 00:00:13.78]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\Homepage.feature(22,0): at JdhPro.Tests.E2E.Features.HomepageFeature.StartYourProjectCTAWorks()
+[xUnit.net 00:00:13.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:13.78]       Output:
+[xUnit.net 00:00:13.78]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.4s
+[xUnit.net 00:00:13.78]         Given I navigate to the homepage
+[xUnit.net 00:00:13.78]         -> duration: HomepageSteps.GivenINavigateToTheHomepage(): 2.1s
+[xUnit.net 00:00:13.78]         When I click "Start Your Project"
+[xUnit.net 00:00:13.78]         -> binding error: Ambiguous step definitions found for step 'When I click "Start Your Project"': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.BlogPostSteps.WhenIClick(String), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.HomepageSteps.WhenIClick(String)
+[xUnit.net 00:00:13.78]         Then I should be scrolled to the contact section
+[xUnit.net 00:00:13.78]         -> skipped because of previous errors
+[xUnit.net 00:00:13.78]         -> duration: Scenario: Start Your Project CTA works: 2.5s
+[xUnit.net 00:00:13.78]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 236.2ms
+-> duration: Feature: Homepage: 12.2s
+  Failed Start Your Project CTA works [2 s]
+  Error Message:
+   Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'When I click "Start Your Project"': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.BlogPostSteps.WhenIClick(String), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.HomepageSteps.WhenIClick(String)
+  Stack Trace:
+     at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.HomepageFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.HomepageFeature.StartYourProjectCTAWorks() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\Homepage.feature:line 22
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.4s
+ Given I navigate to the homepage
+ -> duration: HomepageSteps.GivenINavigateToTheHomepage(): 2.1s
+ When I click "Start Your Project"
+ -> binding error: Ambiguous step definitions found for step 'When I click "Start Your Project"': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.BlogPostSteps.WhenIClick(String), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.HomepageSteps.WhenIClick(String)
+ Then I should be scrolled to the contact section
+ -> skipped because of previous errors
+ -> duration: Scenario: Start Your Project CTA works: 2.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 236.2ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Blazor_WASM_initializes_properly_20260129_211417.png
+  Passed Blazor WASM initializes properly [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.3s
+ Given I am on a fast internet connection
+ When I navigate to the homepage
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.2s
+ Then Blazor should be available in the browser
+ And the Blazor runtime should be loaded
+ -> duration: Scenario: Blazor WASM initializes properly: 2.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 187.6ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/No_console_errors_during_page_load_20260129_211419.png
+  Passed No console errors during page load [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.4s
+ Given I am on a fast internet connection
+ When I navigate to the homepage
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.2s
+ Then there should be no JavaScript errors
+ And there should be no console errors
+ -> duration: Scenario: No console errors during page load: 2.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 177.3ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Multiple_page_loads_are_consistent_20260129_211428.png
+  Passed Multiple page loads are consistent [8 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.4s
+ Given I am on a fast internet connection
+ When I load the homepage 3 times
+ -> duration: PerformanceSteps.WhenILoadTheHomepageTimes(3): 8.0s
+ Then all load times should be similar
+ And there should be no performance degradation
+ -> duration: Scenario: Multiple page loads are consistent: 8.4s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 240.4ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Page_metrics_are_acceptable_20260129_211431.png
+  Passed Page metrics are acceptable [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.4s
+ Given I am on a fast internet connection
+ When I navigate to the homepage
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.2s
+ Then the time to interactive should be less than 6 seconds
+ And the first contentful paint should be less than 2 seconds
+ -> duration: Scenario: Page metrics are acceptable: 2.6s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 214.3ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Static_assets_load_correctly_20260129_211434.png
+  Passed Static assets load correctly [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.4s
+ Given I am on a fast internet connection
+ When I navigate to the homepage
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.2s
+ Then all images should load successfully
+ And the CSS should be loaded
+ And the JavaScript should be loaded
+ -> duration: Scenario: Static assets load correctly: 2.6s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 0.3s
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Homepage_loads_within_acceptable_time_20260129_211437.png
+HTML saved: test-results/screenshots/Homepage_loads_within_acceptable_time_20260129_211437.html
+Current URL: http://localhost:5233/
+Test Error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:36.52]     Homepage loads within acceptable time [FAIL]
+[xUnit.net 00:00:36.52]       Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:36.52]       Stack Trace:
+[xUnit.net 00:00:36.52]            at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+[xUnit.net 00:00:36.52]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+[xUnit.net 00:00:36.52]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:00:36.52]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:00:36.52]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:00:36.52]            at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ScenarioCleanupAsync()
+[xUnit.net 00:00:36.52]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\Performance.feature(17,0): at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.HomepageLoadsWithinAcceptableTime()
+[xUnit.net 00:00:36.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:36.52]       Output:
+[xUnit.net 00:00:36.52]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+[xUnit.net 00:00:36.52]         Given I am on a fast internet connection
+[xUnit.net 00:00:36.52]         When I navigate to the homepage
+[xUnit.net 00:00:36.52]         -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.2s
+[xUnit.net 00:00:36.52]         Then the page should load within 5 seconds
+[xUnit.net 00:00:36.52]         -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:36.52]         And the DOM should be ready within 3 seconds
+[xUnit.net 00:00:36.52]         -> skipped because of previous errors
+[xUnit.net 00:00:36.52]         -> duration: Scenario: Homepage loads within acceptable time: 2.7s
+[xUnit.net 00:00:36.52]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 241.4ms
+  Failed Homepage loads within acceptable time [2 s]
+  Error Message:
+   Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+  Stack Trace:
+     at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.HomepageLoadsWithinAcceptableTime() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\Performance.feature:line 17
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+ Given I am on a fast internet connection
+ When I navigate to the homepage
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.2s
+ Then the page should load within 5 seconds
+ -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+ And the DOM should be ready within 3 seconds
+ -> skipped because of previous errors
+ -> duration: Scenario: Homepage loads within acceptable time: 2.7s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 241.4ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Contact_page_loads_within_acceptable_time_20260129_211440.png
+HTML saved: test-results/screenshots/Contact_page_loads_within_acceptable_time_20260129_211441.html
+Current URL: http://localhost:5233/contact
+Test Error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:40.10]     Contact page loads within acceptable time [FAIL]
+[xUnit.net 00:00:40.11]       Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:40.11]       Stack Trace:
+[xUnit.net 00:00:40.11]            at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+[xUnit.net 00:00:40.11]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+[xUnit.net 00:00:40.11]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:00:40.11]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:00:40.11]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:00:40.11]            at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ScenarioCleanupAsync()
+[xUnit.net 00:00:40.11]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\Performance.feature(27,0): at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ContactPageLoadsWithinAcceptableTime()
+[xUnit.net 00:00:40.11]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:40.11]       Output:
+[xUnit.net 00:00:40.11]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+[xUnit.net 00:00:40.11]         Given I am on a fast internet connection
+[xUnit.net 00:00:40.11]         When I navigate to the contact page
+[xUnit.net 00:00:40.11]         -> duration: PerformanceSteps.WhenINavigateToTheContactPage(): 3.0s
+[xUnit.net 00:00:40.11]         Then the page should load within 5 seconds
+[xUnit.net 00:00:40.11]         -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:40.11]         And the DOM should be ready within 3 seconds
+[xUnit.net 00:00:40.11]         -> skipped because of previous errors
+[xUnit.net 00:00:40.11]         -> duration: Scenario: Contact page loads within acceptable time: 3.5s
+[xUnit.net 00:00:40.11]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 121.4ms
+  Failed Contact page loads within acceptable time [3 s]
+  Error Message:
+   Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+  Stack Trace:
+     at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ContactPageLoadsWithinAcceptableTime() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\Performance.feature:line 27
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+ Given I am on a fast internet connection
+ When I navigate to the contact page
+ -> duration: PerformanceSteps.WhenINavigateToTheContactPage(): 3.0s
+ Then the page should load within 5 seconds
+ -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+ And the DOM should be ready within 3 seconds
+ -> skipped because of previous errors
+ -> duration: Scenario: Contact page loads within acceptable time: 3.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 121.4ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Services_page_loads_within_acceptable_time_20260129_211444.png
+HTML saved: test-results/screenshots/Services_page_loads_within_acceptable_time_20260129_211444.html
+Current URL: http://localhost:5233/services
+Test Error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:43.55]     Services page loads within acceptable time [FAIL]
+[xUnit.net 00:00:43.55]       Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:43.55]       Stack Trace:
+[xUnit.net 00:00:43.55]            at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+[xUnit.net 00:00:43.55]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+[xUnit.net 00:00:43.55]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:00:43.55]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:00:43.55]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:00:43.55]            at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ScenarioCleanupAsync()
+[xUnit.net 00:00:43.55]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\Performance.feature(22,0): at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ServicesPageLoadsWithinAcceptableTime()
+[xUnit.net 00:00:43.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:43.55]       Output:
+[xUnit.net 00:00:43.55]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+[xUnit.net 00:00:43.55]         Given I am on a fast internet connection
+[xUnit.net 00:00:43.55]         When I navigate to the services page
+[xUnit.net 00:00:43.55]         -> duration: PerformanceSteps.WhenINavigateToTheServicesPage(): 2.8s
+[xUnit.net 00:00:43.55]         Then the page should load within 5 seconds
+[xUnit.net 00:00:43.55]         -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:00:43.55]         And the DOM should be ready within 3 seconds
+[xUnit.net 00:00:43.55]         -> skipped because of previous errors
+[xUnit.net 00:00:43.55]         -> duration: Scenario: Services page loads within acceptable time: 3.3s
+[xUnit.net 00:00:43.55]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 159.3ms
+  Failed Services page loads within acceptable time [3 s]
+  Error Message:
+   Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+  Stack Trace:
+     at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.PerformanceAndLoadingFeature.ServicesPageLoadsWithinAcceptableTime() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\Performance.feature:line 22
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+ Given I am on a fast internet connection
+ When I navigate to the services page
+ -> duration: PerformanceSteps.WhenINavigateToTheServicesPage(): 2.8s
+ Then the page should load within 5 seconds
+ -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+ And the DOM should be ready within 3 seconds
+ -> skipped because of previous errors
+ -> duration: Scenario: Services page loads within acceptable time: 3.3s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 159.3ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/App_loader_disappears_after_startup_20260129_211447.png
+  Passed App loader disappears after startup [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+ Given I am on a fast internet connection
+ When I navigate to the homepage
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.3s
+ Then the loading indicator should disappear
+ And the page should be fully interactive
+ -> duration: Scenario: App loader disappears after startup: 2.8s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 235.7ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Page_is_responsive_and_mobile-friendly_20260129_211450.png
+  Passed Page is responsive and mobile-friendly [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+ Given I am on a fast internet connection
+ When I navigate to the homepage on mobile
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepageOnMobile(): 2.3s
+ Then the page should have viewport meta tag
+ And the page should be mobile-friendly
+ -> duration: Scenario: Page is responsive and mobile-friendly: 2.8s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 0.8s
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/First_paint_happens_quickly_20260129_211453.png
+  Passed First paint happens quickly [2 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.5s
+ Given I am on a fast internet connection
+ When I navigate to the homepage
+ -> duration: PerformanceSteps.WhenINavigateToTheHomepage(): 2.3s
+ Then the first paint should occur within 2 seconds
+ -> duration: Scenario: First paint happens quickly: 2.8s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 248.0ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Navigation_between_pages_is_smooth_20260129_211504.png
+-> duration: Feature: Performance and Loading: 50.3s
+  Passed Navigation between pages is smooth [10 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.6s
+ Given I am on a fast internet connection
+ Given I am on the homepage
+ -> duration: PerformanceSteps.GivenIAmOnTheHomepage(): 2.3s
+ When I navigate to the services page
+ -> duration: PerformanceSteps.WhenINavigateToTheServicesPage(): 2.7s
+ And I navigate to the contact page
+ -> duration: PerformanceSteps.WhenINavigateToTheContactPage(): 2.8s
+ And I navigate back to the homepage
+ -> duration: PerformanceSteps.WhenINavigateBackToTheHomepage(): 2.2s
+ Then all pages should load quickly
+ And there should be no console errors
+ -> duration: Scenario: Navigation between pages is smooth: 10.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 264.1ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Header_navigation_links_work_20260129_211510.png
+  Passed Header navigation links work [5 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 1.3s
+ Given I navigate to the homepage
+ -> duration: HomepageSteps.GivenINavigateToTheHomepage(): 2.3s
+ When I click "Services" in the navigation
+ -> duration: NavigationSteps.WhenIClickInTheNavigation("Services"): 1.8s
+ Then I should be on the "/services" page
+ -> duration: Scenario: Header navigation links work: 5.4s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 168.6ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Mobile_menu_works_20260129_211515.png
+-> duration: Feature: Navigation: 11.9s
+  Passed Mobile menu works [5 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 2.5s
+ Given I am on a mobile device
+ And I navigate to the homepage
+ -> duration: HomepageSteps.GivenINavigateToTheHomepage(): 2.3s
+ When I click the mobile menu button
+ -> duration: NavigationSteps.WhenIClickTheMobileMenuButton(): 0.6s
+ Then I should see the mobile navigation menu
+ -> duration: Scenario: Mobile menu works: 5.4s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 1.0s
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Services_page_loads_20260129_211520.png
+HTML saved: test-results/screenshots/Services_page_loads_20260129_211520.html
+Current URL: http://localhost:5233/services
+Test Error: Expected title "
+                    Our Services
+                " to contain "OUR.SERVICES".
+[xUnit.net 00:01:19.69]     Services page loads [FAIL]
+[xUnit.net 00:01:19.69]       Expected title "
+                    Our Services
+                " to contain "OUR.SERVICES".
+[xUnit.net 00:01:19.69]       Stack Trace:
+[xUnit.net 00:01:19.69]            at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+[xUnit.net 00:01:19.69]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:01:19.69]            at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+[xUnit.net 00:01:19.69]            at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+[xUnit.net 00:01:19.69]            at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+[xUnit.net 00:01:19.69]            at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+[xUnit.net 00:01:19.69]            at FluentAssertions.Primitives.StringAssertions`1.Contain(String expected, String because, Object[] becauseArgs)
+[xUnit.net 00:01:19.69]         C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ServicesSteps.cs(29,0): at JdhPro.Tests.E2E.StepDefinitions.ServicesSteps.ThenIShouldSeeThePageTitle(String expectedTitle)
+[xUnit.net 00:01:19.69]            at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+[xUnit.net 00:01:19.69]            at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+[xUnit.net 00:01:19.69]            at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+[xUnit.net 00:01:19.69]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:19.69]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:19.69]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+[xUnit.net 00:01:19.69]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:19.69]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:01:19.69]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:01:19.69]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:01:19.69]            at JdhPro.Tests.E2E.Features.ServicesPageFeature.ScenarioCleanupAsync()
+[xUnit.net 00:01:19.69]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\ServicesPage.feature(9,0): at JdhPro.Tests.E2E.Features.ServicesPageFeature.ServicesPageLoads()
+[xUnit.net 00:01:19.69]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:19.69]       Output:
+[xUnit.net 00:01:19.69]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.7s
+[xUnit.net 00:01:19.69]         Given I navigate to "/services"
+[xUnit.net 00:01:19.69]         -> duration: ContactSteps.GivenINavigateTo("/services"): 2.7s
+[xUnit.net 00:01:19.69]         Then I should see the page title "OUR.SERVICES"
+[xUnit.net 00:01:19.69]         -> error: Expected title "
+                    Our Services
+                " to contain "OUR.SERVICES". (0.2s)
+[xUnit.net 00:01:19.69]         And I should see 4 detailed service sections
+[xUnit.net 00:01:19.69]         -> skipped because of previous errors
+[xUnit.net 00:01:19.69]         -> duration: Scenario: Services page loads: 3.5s
+[xUnit.net 00:01:19.69]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 170.9ms
+  Failed Services page loads [3 s]
+  Error Message:
+   Expected title "
+                    Our Services
+                " to contain "OUR.SERVICES".
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.StringAssertions`1.Contain(String expected, String because, Object[] becauseArgs)
+   at JdhPro.Tests.E2E.StepDefinitions.ServicesSteps.ThenIShouldSeeThePageTitle(String expectedTitle) in C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ServicesSteps.cs:line 29
+   at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+   at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+   at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.ServicesPageFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.ServicesPageFeature.ServicesPageLoads() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\ServicesPage.feature:line 9
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.7s
+ Given I navigate to "/services"
+ -> duration: ContactSteps.GivenINavigateTo("/services"): 2.7s
+ Then I should see the page title "OUR.SERVICES"
+ -> error: Expected title "
+                    Our Services
+                " to contain "OUR.SERVICES". (0.2s)
+ And I should see 4 detailed service sections
+ -> skipped because of previous errors
+ -> duration: Scenario: Services page loads: 3.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 170.9ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Service_content_is_displayed_20260129_211523.png
+HTML saved: test-results/screenshots/Service_content_is_displayed_20260129_211523.html
+Current URL: http://localhost:5233/services
+Test Error: Expected buttonCount to be greater than 0 because Each service should have a 'Discuss.Service' button, but found 0.
+[xUnit.net 00:01:23.84]     Service content is displayed [FAIL]
+[xUnit.net 00:01:23.84]       Expected buttonCount to be greater than 0 because Each service should have a 'Discuss.Service' button, but found 0.
+[xUnit.net 00:01:23.84]       Stack Trace:
+[xUnit.net 00:01:23.84]            at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+[xUnit.net 00:01:23.84]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:01:23.84]            at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+[xUnit.net 00:01:23.84]            at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+[xUnit.net 00:01:23.84]            at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+[xUnit.net 00:01:23.84]            at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+[xUnit.net 00:01:23.84]            at FluentAssertions.Numeric.NumericAssertionsBase`3.BeGreaterThan(T expected, String because, Object[] becauseArgs)
+[xUnit.net 00:01:23.84]         C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ServicesSteps.cs(85,0): at JdhPro.Tests.E2E.StepDefinitions.ServicesSteps.ThenEachServiceShouldHaveAButton(String buttonText)
+[xUnit.net 00:01:23.84]            at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+[xUnit.net 00:01:23.84]            at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+[xUnit.net 00:01:23.84]            at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+[xUnit.net 00:01:23.84]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:23.84]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:23.84]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+[xUnit.net 00:01:23.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:23.84]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:01:23.84]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:01:23.84]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:01:23.84]            at JdhPro.Tests.E2E.Features.ServicesPageFeature.ScenarioCleanupAsync()
+[xUnit.net 00:01:23.84]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\ServicesPage.feature(16,0): at JdhPro.Tests.E2E.Features.ServicesPageFeature.ServiceContentIsDisplayed()
+[xUnit.net 00:01:23.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:23.84]       Output:
+[xUnit.net 00:01:23.84]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.6s
+[xUnit.net 00:01:23.84]         Given I navigate to "/services"
+[xUnit.net 00:01:23.84]         -> duration: ContactSteps.GivenINavigateTo("/services"): 2.5s
+[xUnit.net 00:01:23.84]         Then each service should have a title
+[xUnit.net 00:01:23.84]         And each service should have a description
+[xUnit.net 00:01:23.84]         And each service should have benefits
+[xUnit.net 00:01:23.84]         And each service should have a "Discuss.Service" button
+[xUnit.net 00:01:23.84]         -> error: Expected buttonCount to be greater than 0 because Each service should have a 'Discuss.Service' button, but found 0. (0.0s)
+[xUnit.net 00:01:23.84]         -> duration: Scenario: Service content is displayed: 3.1s
+[xUnit.net 00:01:23.84]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 1.0s
+-> duration: Feature: Services Page: 7.8s
+  Failed Service content is displayed [3 s]
+  Error Message:
+   Expected buttonCount to be greater than 0 because Each service should have a 'Discuss.Service' button, but found 0.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Numeric.NumericAssertionsBase`3.BeGreaterThan(T expected, String because, Object[] becauseArgs)
+   at JdhPro.Tests.E2E.StepDefinitions.ServicesSteps.ThenEachServiceShouldHaveAButton(String buttonText) in C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ServicesSteps.cs:line 85
+   at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+   at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+   at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.ServicesPageFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.ServicesPageFeature.ServiceContentIsDisplayed() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\ServicesPage.feature:line 16
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.6s
+ Given I navigate to "/services"
+ -> duration: ContactSteps.GivenINavigateTo("/services"): 2.5s
+ Then each service should have a title
+ And each service should have a description
+ And each service should have benefits
+ And each service should have a "Discuss.Service" button
+ -> error: Expected buttonCount to be greater than 0 because Each service should have a 'Discuss.Service' button, but found 0. (0.0s)
+ -> duration: Scenario: Service content is displayed: 3.1s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 1.0s
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Contact_form_validation_20260129_211530.png
+  Passed Contact form validation [5 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 2.2s
+ Given I navigate to "/contact"
+ -> duration: ContactSteps.GivenINavigateTo("/contact"): 2.5s
+ When I click "Send Message" without filling the form
+ -> duration: ContactSteps.WhenIClickWithoutFillingTheForm("Send Message"): 0.6s
+ Then I should see validation errors
+ -> duration: Scenario: Contact form validation: 5.3s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 141.0ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Contact_page_loads_20260129_211534.png
+  Passed Contact page loads [4 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 1.9s
+ Given I navigate to "/contact"
+ -> duration: ContactSteps.GivenINavigateTo("/contact"): 2.6s
+ Then I should see "Let's Build Something Amazing"
+ And I should see a contact form
+ -> duration: Scenario: Contact page loads: 4.5s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 125.9ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Contact_form_with_service_preselection_20260129_211538.png
+-> duration: Feature: Contact Page: 13.4s
+  Passed Contact form with service preselection [3 s]
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.6s
+ Given I navigate to "/contact?service=Technical Consulting"
+ -> duration: ContactSteps.GivenINavigateTo("/contact?service=..."): 2.5s
+ Then the service dropdown should have "Technical Consulting" selected
+ -> duration: Scenario: Contact form with service preselection: 3.2s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 134.0ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Projects_page_loads_within_acceptable_time_20260129_211541.png
+HTML saved: test-results/screenshots/Projects_page_loads_within_acceptable_time_20260129_211541.html
+Current URL: http://localhost:5233/projects
+Test Error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:01:40.39]     Projects page loads within acceptable time [FAIL]
+[xUnit.net 00:01:40.39]       Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:01:40.39]       Stack Trace:
+[xUnit.net 00:01:40.39]            at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+[xUnit.net 00:01:40.39]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+[xUnit.net 00:01:40.39]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:01:40.39]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:01:40.39]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:01:40.39]            at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ScenarioCleanupAsync()
+[xUnit.net 00:01:40.39]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\ProjectsPage.feature(20,0): at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ProjectsPageLoadsWithinAcceptableTime()
+[xUnit.net 00:01:40.39]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:40.39]       Output:
+[xUnit.net 00:01:40.39]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.7s
+[xUnit.net 00:01:40.39]         When I navigate to the projects page
+[xUnit.net 00:01:40.39]         -> duration: ProjectsSteps.WhenINavigateToTheProjectsPage(): 2.3s
+[xUnit.net 00:01:40.39]         Then the page should load within 5 seconds
+[xUnit.net 00:01:40.39]         -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+[xUnit.net 00:01:40.39]         And there should be no console errors
+[xUnit.net 00:01:40.39]         -> skipped because of previous errors
+[xUnit.net 00:01:40.39]         -> duration: Scenario: Projects page loads within acceptable time: 3.0s
+[xUnit.net 00:01:40.39]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 106.3ms
+  Failed Projects page loads within acceptable time [3 s]
+  Error Message:
+   Reqnroll.AmbiguousBindingException : Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+  Stack Trace:
+     at Reqnroll.Infrastructure.TestExecutionEngine.GetStepMatch(StepInstance stepInstance, List`1& candidatingMatches)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<ExecuteStepAsync>b__2()
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ProjectsPageLoadsWithinAcceptableTime() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\ProjectsPage.feature:line 20
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.7s
+ When I navigate to the projects page
+ -> duration: ProjectsSteps.WhenINavigateToTheProjectsPage(): 2.3s
+ Then the page should load within 5 seconds
+ -> binding error: Ambiguous step definitions found for step 'Then the page should load within 5 seconds': JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.PerformanceSteps.ThenThePageShouldLoadWithinSeconds(Int32), JdhPro.Tests.E2E:JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.ThenThePageShouldLoadWithinSeconds(Int32)
+ And there should be no console errors
+ -> skipped because of previous errors
+ -> duration: Scenario: Projects page loads within acceptable time: 3.0s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 106.3ms
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Projects_page_has_proper_navigation_20260129_211544.png
+HTML saved: test-results/screenshots/Projects_page_has_proper_navigation_20260129_211545.html
+Current URL: http://localhost:5233/
+Test Error: Expected projectsLink not to be <null> because Projects navigation link should exist.
+[xUnit.net 00:01:44.31]     Projects page has proper navigation [FAIL]
+[xUnit.net 00:01:44.31]       Expected projectsLink not to be <null> because Projects navigation link should exist.
+[xUnit.net 00:01:44.31]       Stack Trace:
+[xUnit.net 00:01:44.31]            at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+[xUnit.net 00:01:44.31]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:01:44.31]            at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+[xUnit.net 00:01:44.31]            at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+[xUnit.net 00:01:44.31]            at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+[xUnit.net 00:01:44.31]            at FluentAssertions.Execution.AssertionChain.FailWith(String message)
+[xUnit.net 00:01:44.31]            at FluentAssertions.Primitives.ReferenceTypeAssertions`2.NotBeNull(String because, Object[] becauseArgs)
+[xUnit.net 00:01:44.31]         C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ProjectsSteps.cs(44,0): at JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.WhenIClickTheProjectsNavigationLink()
+[xUnit.net 00:01:44.31]            at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+[xUnit.net 00:01:44.31]            at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+[xUnit.net 00:01:44.31]            at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+[xUnit.net 00:01:44.31]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:44.31]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:44.31]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+[xUnit.net 00:01:44.31]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:44.31]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:01:44.31]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:01:44.31]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:01:44.31]            at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ScenarioCleanupAsync()
+[xUnit.net 00:01:44.31]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\ProjectsPage.feature(15,0): at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ProjectsPageHasProperNavigation()
+[xUnit.net 00:01:44.31]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:44.31]       Output:
+[xUnit.net 00:01:44.31]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.7s
+[xUnit.net 00:01:44.31]         Given I am on the homepage
+[xUnit.net 00:01:44.31]         -> duration: PerformanceSteps.GivenIAmOnTheHomepage(): 2.9s
+[xUnit.net 00:01:44.31]         When I click the Projects navigation link
+[xUnit.net 00:01:44.31]         -> error: Expected projectsLink not to be <null> because Projects navigation link should exist. (0.0s)
+[xUnit.net 00:01:44.31]         Then I should be on the projects page
+[xUnit.net 00:01:44.31]         -> skipped because of previous errors
+[xUnit.net 00:01:44.31]         And the URL should contain "/projects"
+[xUnit.net 00:01:44.31]         -> skipped because of previous errors
+[xUnit.net 00:01:44.31]         -> duration: Scenario: Projects page has proper navigation: 3.6s
+[xUnit.net 00:01:44.31]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 0.4s
+  Failed Projects page has proper navigation [3 s]
+  Error Message:
+   Expected projectsLink not to be <null> because Projects navigation link should exist.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message)
+   at FluentAssertions.Primitives.ReferenceTypeAssertions`2.NotBeNull(String because, Object[] becauseArgs)
+   at JdhPro.Tests.E2E.StepDefinitions.ProjectsSteps.WhenIClickTheProjectsNavigationLink() in C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ProjectsSteps.cs:line 44
+   at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+   at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+   at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ProjectsPageHasProperNavigation() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\ProjectsPage.feature:line 15
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 0.7s
+ Given I am on the homepage
+ -> duration: PerformanceSteps.GivenIAmOnTheHomepage(): 2.9s
+ When I click the Projects navigation link
+ -> error: Expected projectsLink not to be <null> because Projects navigation link should exist. (0.0s)
+ Then I should be on the projects page
+ -> skipped because of previous errors
+ And the URL should contain "/projects"
+ -> skipped because of previous errors
+ -> duration: Scenario: Projects page has proper navigation: 3.6s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 0.4s
+
+
+[Browser Console info]: Debugging hotkey: Shift+Alt+D (when application has focus)
+Screenshot saved: test-results/screenshots/Projects_page_loads_successfully_20260129_211559.png
+HTML saved: test-results/screenshots/Projects_page_loads_successfully_20260129_211559.html
+Current URL: http://localhost:5233/projects
+Test Error: Timeout 10000ms exceeded.
+Call log:
+  - waiting for Locator("h1").First to be visible
+[xUnit.net 00:01:58.85]     Projects page loads successfully [FAIL]
+[xUnit.net 00:01:58.85]       System.TimeoutException : Timeout 10000ms exceeded.
+Call log:
+  - waiting for Locator("h1").First to be visible
+[xUnit.net 00:01:58.85]       Stack Trace:
+[xUnit.net 00:01:58.85]         /_/src/Playwright/Transport/Connection.cs(201,0): at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls)
+[xUnit.net 00:01:58.85]         /_/src/Playwright/Transport/Connection.cs(499,0): at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal, String title)
+[xUnit.net 00:01:58.85]         C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ServicesSteps.cs(26,0): at JdhPro.Tests.E2E.StepDefinitions.ServicesSteps.ThenIShouldSeeThePageTitle(String expectedTitle)
+[xUnit.net 00:01:58.85]            at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+[xUnit.net 00:01:58.85]            at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+[xUnit.net 00:01:58.85]            at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+[xUnit.net 00:01:58.85]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:58.85]            at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+[xUnit.net 00:01:58.85]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+[xUnit.net 00:01:58.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:58.85]            at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+[xUnit.net 00:01:58.85]            at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+[xUnit.net 00:01:58.85]            at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+[xUnit.net 00:01:58.85]            at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ScenarioCleanupAsync()
+[xUnit.net 00:01:58.85]         C:\git\jdhpro\JdhPro.Tests.E2E\Features\ProjectsPage.feature(9,0): at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ProjectsPageLoadsSuccessfully()
+[xUnit.net 00:01:58.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:58.85]       Output:
+[xUnit.net 00:01:58.85]         -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 1.4s
+[xUnit.net 00:01:58.85]         When I navigate to the projects page
+[xUnit.net 00:01:58.85]         -> duration: ProjectsSteps.WhenINavigateToTheProjectsPage(): 3.0s
+[xUnit.net 00:01:58.85]         Then I should see the page title "Projects"
+[xUnit.net 00:01:58.85]         -> error: Timeout 10000ms exceeded.
+Call log:
+  - waiting for Locator("h1").First to be visible (10.0s)
+[xUnit.net 00:01:58.85]         And the page should display correctly
+[xUnit.net 00:01:58.85]         -> skipped because of previous errors
+[xUnit.net 00:01:58.85]         -> duration: Scenario: Projects page loads successfully: 14.4s
+[xUnit.net 00:01:58.85]         -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 117.8ms
+-> duration: Feature: Projects Page: 21.6s
+E2E Test Run Completed.
+[xUnit.net 00:01:58.86]   Finished:    JdhPro.Tests.E2E
+  Failed Projects page loads successfully [14 s]
+  Error Message:
+   System.TimeoutException : Timeout 10000ms exceeded.
+Call log:
+  - waiting for Locator("h1").First to be visible
+  Stack Trace:
+     at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 201
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal, String title) in /_/src/Playwright/Transport/Connection.cs:line 499
+   at JdhPro.Tests.E2E.StepDefinitions.ServicesSteps.ThenIShouldSeeThePageTitle(String expectedTitle) in C:\git\jdhpro\JdhPro.Tests.E2E\StepDefinitions\ServicesSteps.cs:line 26
+   at Reqnroll.Bindings.AsyncMethodHelper.ConvertTaskOfT(Task task, Boolean getValue)
+   at Reqnroll.Bindings.BindingDelegateInvoker.InvokeDelegateAsync(Delegate bindingDelegate, Object[] invokeArgs, ExecutionContextHolder executionContext)
+   at Reqnroll.Bindings.BindingInvoker.InvokeBindingAsync(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.ExecuteStepMatchAsync(BindingMatch match, Object[] arguments, DurationHolder durationHolder)
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>b__7>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Reqnroll.Infrastructure.TestExecutionEngine.<>c__DisplayClass57_0.<<ExecuteStepAsync>g__HandleStepExecutionExceptions|0>d.MoveNext()
+   at Reqnroll.Infrastructure.TestExecutionEngine.OnAfterLastStepAsync()
+   at Reqnroll.TestRunner.CollectScenarioErrorsAsync()
+   at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ScenarioCleanupAsync()
+   at JdhPro.Tests.E2E.Features.ProjectsPageFeature.ProjectsPageLoadsSuccessfully() in C:\git\jdhpro\JdhPro.Tests.E2E\Features\ProjectsPage.feature:line 9
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ -> duration: Hooks.BeforeScenario(Reqnroll.Scenario...): 1.4s
+ When I navigate to the projects page
+ -> duration: ProjectsSteps.WhenINavigateToTheProjectsPage(): 3.0s
+ Then I should see the page title "Projects"
+ -> error: Timeout 10000ms exceeded.
+Call log:
+  - waiting for Locator("h1").First to be visible (10.0s)
+ And the page should display correctly
+ -> skipped because of previous errors
+ -> duration: Scenario: Projects page loads successfully: 14.4s
+ -> duration: Hooks.AfterScenario(Reqnroll.Scenario...): 117.8ms
+
+
+
+Test Run Failed.
+Total tests: 25
+     Passed: 16
+     Failed: 9
+ Total time: 1.9914 Minutes

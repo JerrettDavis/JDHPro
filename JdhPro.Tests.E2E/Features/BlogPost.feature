@@ -60,7 +60,7 @@ Scenario: Navigate between blog posts
   When I navigate to a blog post detail page
   Then I should see a "Previous Post" link (if available)
   And I should see a "Next Post" link (if available)
-  When I click "Next Post"
+  When I click the "Next Post" link in the blog post
   Then I should navigate to the next blog post
 
 @future @blog

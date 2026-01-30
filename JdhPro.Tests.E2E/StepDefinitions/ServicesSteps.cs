@@ -26,7 +26,9 @@ public class ServicesSteps
         await h1Locator.WaitForAsync(new() { State = WaitForSelectorState.Visible, Timeout = 10000 });
         
         var title = await h1Locator.TextContentAsync();
-        title.Should().Contain(expectedTitle);
+        // Normalize whitespace for comparison
+        var normalizedTitle = string.Join(" ", title!.Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries));
+        normalizedTitle.Should().Contain(expectedTitle, $"Expected h1 to contain '{expectedTitle}' but got '{normalizedTitle}'");
     }
 
     [Then(@"I should see (.*) detailed service sections")]
@@ -71,17 +73,23 @@ public class ServicesSteps
     [Then(@"each service should have a ""(.*)"" button")]
     public async Task ThenEachServiceShouldHaveAButton(string buttonText)
     {
-        // Try to find buttons (actual button elements) first
-        var buttons = Page.GetByRole(AriaRole.Button, new() { Name = buttonText, Exact = false });
-        var buttonCount = await buttons.CountAsync();
+        // Wait for service sections to load
+        await Page.WaitForSelectorAsync("[data-testid='service-section']", new() { Timeout = 10000 });
         
-        if (buttonCount == 0)
+        // Try to find buttons with the text (case-insensitive partial match)
+        var buttons = await Page.Locator("button").AllAsync();
+        var matchingButtons = new List<ILocator>();
+        
+        foreach (var button in buttons)
         {
-            // Fallback to links if no buttons found
-            var links = Page.GetByRole(AriaRole.Link, new() { Name = buttonText, Exact = false });
-            buttonCount = await links.CountAsync();
+            var text = await button.TextContentAsync();
+            if (text?.Contains(buttonText.Replace(" ", "."), StringComparison.OrdinalIgnoreCase) == true ||
+                text?.Contains(buttonText, StringComparison.OrdinalIgnoreCase) == true)
+            {
+                matchingButtons.Add(button);
+            }
         }
         
-        buttonCount.Should().BeGreaterThan(0, $"Each service should have a '{buttonText}' button");
+        matchingButtons.Count.Should().BeGreaterThan(0, $"Each service should have a button containing '{buttonText}'");
     }
 }
