@@ -387,7 +387,6 @@ class Build : NukeBuild
             var criticalFiles = new[]
             {
                 wwwroot / "index.html",
-                wwwroot / "_framework" / "blazor.webassembly.js",
                 wwwroot / "css" / "app.min.css",
                 wwwroot / "data" / "posts.json"
             };
