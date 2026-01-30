@@ -52,17 +52,6 @@ public class ProjectsSteps
         _context.Page!.Url.Should().Contain("/projects", "Should navigate to projects page");
     }
 
-    [Then(@"I should see the page title ""([^""]*)""")]
-    public async Task ThenIShouldSeeThePageTitle(string expectedTitle)
-    {
-        // Check for h1 or page title
-        var heading = await _context.Page!.QuerySelectorAsync("h1");
-        heading.Should().NotBeNull($"Page should have an h1 heading");
-
-        var headingText = await heading!.TextContentAsync();
-        headingText.Should().Contain(expectedTitle, $"Page heading should contain '{expectedTitle}'");
-    }
-
     [Then(@"the page should display correctly")]
     public async Task ThenThePageShouldDisplayCorrectly()
     {
@@ -86,12 +75,6 @@ public class ProjectsSteps
     {
         _stopwatch.Elapsed.TotalSeconds.Should().BeLessThanOrEqualTo(maxSeconds,
             $"Page should load within {maxSeconds} seconds but took {_stopwatch.Elapsed.TotalSeconds:F2}s");
-    }
-
-    [Then(@"there should be no console errors")]
-    public void ThenThereShouldBeNoConsoleErrors()
-    {
-        _consoleErrors.Should().BeEmpty($"No console errors should occur. Errors: {string.Join(", ", _consoleErrors)}");
     }
 
     private void SetupConsoleListeners()

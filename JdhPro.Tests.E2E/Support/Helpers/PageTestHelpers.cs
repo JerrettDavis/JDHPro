@@ -192,11 +192,13 @@ public static class PageTestHelpers
     /// </summary>
     public static async Task<string> GetComputedStyleAsync(IPage page, string selector, string property)
     {
-        return await page.EvaluateAsync<string>($@"
-            const element = document.querySelector('{selector}');
-            if (!element) return '';
-            return window.getComputedStyle(element).{property};
-        ");
+        return await page.EvaluateAsync<string>(@"
+            (args) => {
+                const element = document.querySelector(args.selector);
+                if (!element) return '';
+                return window.getComputedStyle(element)[args.property];
+            }
+        ", new { selector, property });
     }
 
     /// <summary>

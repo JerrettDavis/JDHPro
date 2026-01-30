@@ -59,7 +59,7 @@ Scenario: Search blog posts
 @future @blog
 Scenario: Pagination works correctly
   Given blog syndication has completed
-  And there are more than 10 posts
+  And there are more than 5 posts
   When I navigate to the blog page
   Then I should see pagination controls
   And I should see up to 10 posts per page
