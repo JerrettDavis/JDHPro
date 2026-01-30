@@ -112,7 +112,7 @@ jobs:
       - name: Start Web Application
         working-directory: JdhPro.Web
         run: |
-          dotnet bin/Release/net10.0/JdhPro.Web.dll &
+          nohup dotnet run --no-build --configuration Release > /tmp/app.log 2>&1 &
           APP_PID=$!
           echo "App started with PID $APP_PID"
           echo "Waiting for app to start..."
@@ -123,6 +123,8 @@ jobs:
             fi
             if [ $i -eq 30 ]; then
               echo "❌ App failed to start after 30 seconds"
+              echo "=== App Log ==="
+              cat /tmp/app.log
               kill $APP_PID 2>/dev/null || true
               exit 1
             fi
