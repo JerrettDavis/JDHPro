@@ -44,6 +44,10 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Install WASM workload
+        if: matrix.language == 'csharp'
+        run: dotnet workload install wasm-tools
+
       - name: Setup Node.js
         if: matrix.language == 'javascript'
         uses: actions/setup-node@v4
@@ -71,11 +75,3 @@ jobs:
           category: "/language:${{ matrix.language }}"
           # Upload results even if there are errors
           upload: always
-
-      - name: Upload analysis results
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ../results/${{ matrix.language }}.sarif
-          category: "/language:${{ matrix.language }}"
-        continue-on-error: true

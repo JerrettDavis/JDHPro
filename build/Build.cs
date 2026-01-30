@@ -80,8 +80,17 @@ class Build : NukeBuild
             DotNet("workload restore");
 
             Log.Information("Restoring .NET dependencies...");
-            DotNetRestore(s => s
-                .SetProjectFile(Solution));
+            if (Solution != null)
+            {
+                DotNetRestore(s => s
+                    .SetProjectFile(Solution));
+            }
+            else
+            {
+                // Restore all projects in the directory
+                DotNetRestore(s => s
+                    .SetProcessWorkingDirectory(RootDirectory));
+            }
 
             Log.Information("Restoring npm dependencies...");
             NpmInstall(s => s
@@ -121,10 +130,23 @@ class Build : NukeBuild
         {
             Log.Information("Running blog syndication...");
             
-            DotNetRun(s => s
-                .SetProjectFile(BuildToolsProject)
-                .SetNoRestore(true)
-                .SetConfiguration(Configuration));
+            if (BuildToolsProject != null)
+            {
+                DotNetRun(s => s
+                    .SetProjectFile(BuildToolsProject)
+                    .SetProcessWorkingDirectory(BuildToolsDirectory)
+                    .SetNoRestore(true)
+                    .SetConfiguration(Configuration));
+            }
+            else
+            {
+                // Run with explicit project file path and working directory
+                DotNetRun(s => s
+                    .SetProjectFile(BuildToolsDirectory / "JdhPro.BuildTools.csproj")
+                    .SetProcessWorkingDirectory(BuildToolsDirectory)
+                    .SetNoRestore(true)
+                    .SetConfiguration(Configuration));
+            }
 
             var postsJson = WebProjectDirectory / "wwwroot" / "data" / "posts.json";
             if (!postsJson.FileExists())
@@ -145,11 +167,23 @@ class Build : NukeBuild
         {
             Log.Information("Compiling solution...");
             
-            DotNetBuild(s => s
-                .SetProjectFile(Solution)
-                .SetConfiguration(Configuration)
-                .EnableNoRestore()
-                .SetVerbosity(DotNetVerbosity.minimal));
+            if (Solution != null)
+            {
+                DotNetBuild(s => s
+                    .SetProjectFile(Solution)
+                    .SetConfiguration(Configuration)
+                    .EnableNoRestore()
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
+            else
+            {
+                // Build all projects in the directory
+                DotNetBuild(s => s
+                    .SetProcessWorkingDirectory(RootDirectory)
+                    .SetConfiguration(Configuration)
+                    .EnableNoRestore()
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
 
             Log.Information("✅ Compilation completed");
         });
@@ -162,15 +196,31 @@ class Build : NukeBuild
         {
             Log.Information("Running unit tests...");
             
-            DotNetTest(s => s
-                .SetProjectFile(Solution)
-                .SetConfiguration(Configuration)
-                .EnableNoBuild()
-                .EnableNoRestore()
-                .SetFilter("FullyQualifiedName!~E2E")
-                .SetResultsDirectory(TestResultsDirectory)
-                .SetLoggers("trx;LogFileName=unit-tests.trx")
-                .SetVerbosity(DotNetVerbosity.minimal));
+            if (Solution != null)
+            {
+                DotNetTest(s => s
+                    .SetProjectFile(Solution)
+                    .SetConfiguration(Configuration)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetFilter("FullyQualifiedName!~E2E")
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .SetLoggers("trx;LogFileName=unit-tests.trx")
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
+            else
+            {
+                // Test all projects in the directory
+                DotNetTest(s => s
+                    .SetProcessWorkingDirectory(RootDirectory)
+                    .SetConfiguration(Configuration)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetFilter("FullyQualifiedName!~E2E")
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .SetLoggers("trx;LogFileName=unit-tests.trx")
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
 
             Log.Information("✅ Unit tests completed");
         });
@@ -185,16 +235,33 @@ class Build : NukeBuild
             Log.Warning("⚠️ E2E tests require the web app to be running separately");
             Log.Information("Run: cd JdhPro.Web && dotnet run");
             
-            DotNetTest(s => s
-                .SetProjectFile(E2ETestsProject)
-                .SetConfiguration(Configuration)
-                .EnableNoBuild()
-                .EnableNoRestore()
-                .SetResultsDirectory(TestResultsDirectory)
-                .SetLoggers("trx;LogFileName=e2e-tests.trx")
-                .SetProcessEnvironmentVariable("BaseUrl", "http://localhost:5233")
-                .SetProcessEnvironmentVariable("Headless", "true")
-                .SetVerbosity(DotNetVerbosity.normal));
+            if (E2ETestsProject != null)
+            {
+                DotNetTest(s => s
+                    .SetProjectFile(E2ETestsProject)
+                    .SetConfiguration(Configuration)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .SetLoggers("trx;LogFileName=e2e-tests.trx")
+                    .SetProcessEnvironmentVariable("BaseUrl", "http://localhost:5233")
+                    .SetProcessEnvironmentVariable("Headless", "true")
+                    .SetVerbosity(DotNetVerbosity.normal));
+            }
+            else
+            {
+                // Test with explicit project file path
+                DotNetTest(s => s
+                    .SetProjectFile(E2ETestsDirectory / "JdhPro.Tests.E2E.csproj")
+                    .SetConfiguration(Configuration)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .SetLoggers("trx;LogFileName=e2e-tests.trx")
+                    .SetProcessEnvironmentVariable("BaseUrl", "http://localhost:5233")
+                    .SetProcessEnvironmentVariable("Headless", "true")
+                    .SetVerbosity(DotNetVerbosity.normal));
+            }
 
             Log.Information("✅ E2E tests completed");
         });
@@ -207,15 +274,31 @@ class Build : NukeBuild
         {
             Log.Information("Publishing web application...");
             
-            DotNetPublish(s => s
-                .SetProject(WebProject)
-                .SetConfiguration(Configuration)
-                .SetOutput(PublishDirectory)
-                .EnableNoBuild()
-                .EnableNoRestore()
-                .SetProperty("DebugType", "None")
-                .SetProperty("DebugSymbols", "false")
-                .SetVerbosity(DotNetVerbosity.minimal));
+            if (WebProject != null)
+            {
+                DotNetPublish(s => s
+                    .SetProject(WebProject)
+                    .SetConfiguration(Configuration)
+                    .SetOutput(PublishDirectory)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetProperty("DebugType", "None")
+                    .SetProperty("DebugSymbols", "false")
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
+            else
+            {
+                // Publish with explicit project file path
+                DotNetPublish(s => s
+                    .SetProject(WebProjectDirectory / "JdhPro.Web.csproj")
+                    .SetConfiguration(Configuration)
+                    .SetOutput(PublishDirectory)
+                    .EnableNoBuild()
+                    .EnableNoRestore()
+                    .SetProperty("DebugType", "None")
+                    .SetProperty("DebugSymbols", "false")
+                    .SetVerbosity(DotNetVerbosity.minimal));
+            }
 
             Log.Information("✅ Publish completed");
             LogPublishInfo();

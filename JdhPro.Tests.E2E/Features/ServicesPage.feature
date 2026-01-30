@@ -13,4 +13,4 @@ Scenario: Service content is displayed
   Then each service should have a title
   And each service should have a description
   And each service should have benefits
-  And each service should have a "Discuss This Service" button
+  And each service should have a "Discuss.Service" button

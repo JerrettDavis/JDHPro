@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Tailwind CSS setup for JdhPro Blazor project",
   "scripts": {
+    "build": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.min.css --minify",
     "build:css": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.min.css --minify",
     "watch:css": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.min.css --watch"
   },

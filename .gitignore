@@ -97,3 +97,6 @@ artifacts/
 .nuke/*
 !.nuke
 *.tmp
+
+# Test output files
+test-output*.txt

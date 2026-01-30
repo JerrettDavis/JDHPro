@@ -42,6 +42,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: JdhPro.Web/package-lock.json
 
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
+
       - name: Cache .NET dependencies
         uses: actions/cache@v4
         with:

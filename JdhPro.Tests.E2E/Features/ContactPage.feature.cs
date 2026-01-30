@@ -159,7 +159,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.GivenAsync("I navigate to \"/contact\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 8
-  await testRunner.ThenAsync("I should see \"Let\'s Build Something Amazing\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+  await testRunner.ThenAsync("I should see \"LET\'S BUILD\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 9
   await testRunner.AndAsync("I should see a contact form", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -193,7 +193,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.GivenAsync("I navigate to \"/contact\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 13
-  await testRunner.WhenAsync("I click \"Send Message\" without filling the form", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+  await testRunner.WhenAsync("I click \"SEND.MESSAGE\" without filling the form", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 14
   await testRunner.ThenAsync("I should see validation errors", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

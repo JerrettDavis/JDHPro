@@ -236,7 +236,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.GivenAsync("I navigate to the homepage", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 21
-  await testRunner.WhenAsync("I click \"Start Your Project\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+  await testRunner.WhenAsync("I click \"Initialize Project\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 22
   await testRunner.ThenAsync("I should be scrolled to the contact section", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

@@ -57,6 +57,7 @@ public class BlogListingSteps
     }
 
     [Then(@"each post should display categories")]
+    [Then(@"each post should show categories")]
     public async Task ThenEachPostShouldDisplayCategories()
     {
         var categories = await _context.Page!.QuerySelectorAllAsync(".category, .categories, .tag");

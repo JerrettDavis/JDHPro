@@ -195,8 +195,8 @@ public class BlogPostSteps
         Console.WriteLine($"{linkText} link present: {link != null}");
     }
 
-    [When(@"I click ""([^""]*)""")]
-    public async Task WhenIClick(string linkText)
+    [When(@"I click the ""([^""]*)"" link in the blog post")]
+    public async Task WhenIClickLinkInBlogPost(string linkText)
     {
         var link = await _context.Page!.QuerySelectorAsync($"a:text('{linkText}')");
         link.Should().NotBeNull($"{linkText} link should exist");

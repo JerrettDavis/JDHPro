@@ -7,6 +7,11 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 env:
   DOTNET_VERSION: '10.0.x'
   NODE_VERSION: '20.x'
@@ -112,10 +117,24 @@ jobs:
       - name: Start Web Application
         working-directory: JdhPro.Web
         run: |
-          dotnet run --no-build --configuration Release &
+          nohup dotnet run --no-build --configuration Release > /tmp/app.log 2>&1 &
+          APP_PID=$!
+          echo "App started with PID $APP_PID"
           echo "Waiting for app to start..."
-          sleep 10
-          curl -f http://localhost:5233 || (echo "App failed to start" && exit 1)
+          for i in {1..30}; do
+            if curl -f http://localhost:5233 > /dev/null 2>&1; then
+              echo "✅ App is running!"
+              break
+            fi
+            if [ $i -eq 30 ]; then
+              echo "❌ App failed to start after 30 seconds"
+              echo "=== App Log ==="
+              cat /tmp/app.log
+              kill $APP_PID 2>/dev/null || true
+              exit 1
+            fi
+            sleep 1
+          done
         env:
           ASPNETCORE_ENVIRONMENT: Production
           ASPNETCORE_URLS: http://localhost:5233
@@ -258,6 +277,9 @@ jobs:
     if: always()
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Download test results
         uses: actions/download-artifact@v4
         with:

@@ -163,7 +163,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.WhenAsync("I navigate to the blog page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 12
-  await testRunner.ThenAsync("I should see the page title \"Blog\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+  await testRunner.ThenAsync("I should see the page title \"TECHNICAL.INSIGHTS\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 13
   await testRunner.AndAsync("the page should display blog posts", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -172,14 +172,19 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Xunit.SkippableFactAttribute(DisplayName="Blog posts are displayed from posts.json")]
+        [global::Xunit.SkippableFactAttribute(DisplayName="Blog posts are displayed from posts.json", Skip="Ignored")]
         [global::Xunit.TraitAttribute("FeatureTitle", "Blog Listing Page")]
         [global::Xunit.TraitAttribute("Description", "Blog posts are displayed from posts.json")]
+        [global::Xunit.TraitAttribute("Category", "future")]
+        [global::Xunit.TraitAttribute("Category", "blog")]
         [global::Xunit.TraitAttribute("Category", "future")]
         [global::Xunit.TraitAttribute("Category", "blog")]
         public async global::System.Threading.Tasks.Task BlogPostsAreDisplayedFromPosts_Json()
         {
             string[] tagsOfScenario = new string[] {
+                    "future",
+                    "blog",
+                    "ignore",
                     "future",
                     "blog"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
@@ -219,14 +224,19 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Xunit.SkippableFactAttribute(DisplayName="Blog posts link to detail pages")]
+        [global::Xunit.SkippableFactAttribute(DisplayName="Blog posts link to detail pages", Skip="Ignored")]
         [global::Xunit.TraitAttribute("FeatureTitle", "Blog Listing Page")]
         [global::Xunit.TraitAttribute("Description", "Blog posts link to detail pages")]
+        [global::Xunit.TraitAttribute("Category", "future")]
+        [global::Xunit.TraitAttribute("Category", "blog")]
         [global::Xunit.TraitAttribute("Category", "future")]
         [global::Xunit.TraitAttribute("Category", "blog")]
         public async global::System.Threading.Tasks.Task BlogPostsLinkToDetailPages()
         {
             string[] tagsOfScenario = new string[] {
+                    "future",
+                    "blog",
+                    "ignore",
                     "future",
                     "blog"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
@@ -298,14 +308,19 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Xunit.SkippableFactAttribute(DisplayName="Blog posts display metadata")]
+        [global::Xunit.SkippableFactAttribute(DisplayName="Blog posts display metadata", Skip="Ignored")]
         [global::Xunit.TraitAttribute("FeatureTitle", "Blog Listing Page")]
         [global::Xunit.TraitAttribute("Description", "Blog posts display metadata")]
+        [global::Xunit.TraitAttribute("Category", "future")]
+        [global::Xunit.TraitAttribute("Category", "blog")]
         [global::Xunit.TraitAttribute("Category", "future")]
         [global::Xunit.TraitAttribute("Category", "blog")]
         public async global::System.Threading.Tasks.Task BlogPostsDisplayMetadata()
         {
             string[] tagsOfScenario = new string[] {
+                    "future",
+                    "blog",
+                    "ignore",
                     "future",
                     "blog"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
@@ -383,14 +398,19 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Xunit.SkippableFactAttribute(DisplayName="Search blog posts")]
+        [global::Xunit.SkippableFactAttribute(DisplayName="Search blog posts", Skip="Ignored")]
         [global::Xunit.TraitAttribute("FeatureTitle", "Blog Listing Page")]
         [global::Xunit.TraitAttribute("Description", "Search blog posts")]
+        [global::Xunit.TraitAttribute("Category", "future")]
+        [global::Xunit.TraitAttribute("Category", "blog")]
         [global::Xunit.TraitAttribute("Category", "future")]
         [global::Xunit.TraitAttribute("Category", "blog")]
         public async global::System.Threading.Tasks.Task SearchBlogPosts()
         {
             string[] tagsOfScenario = new string[] {
+                    "future",
+                    "blog",
+                    "ignore",
                     "future",
                     "blog"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
@@ -424,14 +444,19 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Xunit.SkippableFactAttribute(DisplayName="Pagination works correctly")]
+        [global::Xunit.SkippableFactAttribute(DisplayName="Pagination works correctly", Skip="Ignored")]
         [global::Xunit.TraitAttribute("FeatureTitle", "Blog Listing Page")]
         [global::Xunit.TraitAttribute("Description", "Pagination works correctly")]
+        [global::Xunit.TraitAttribute("Category", "future")]
+        [global::Xunit.TraitAttribute("Category", "blog")]
         [global::Xunit.TraitAttribute("Category", "future")]
         [global::Xunit.TraitAttribute("Category", "blog")]
         public async global::System.Threading.Tasks.Task PaginationWorksCorrectly()
         {
             string[] tagsOfScenario = new string[] {
+                    "future",
+                    "blog",
+                    "ignore",
                     "future",
                     "blog"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
@@ -453,7 +478,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.GivenAsync("blog syndication has completed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 62
-  await testRunner.AndAsync("there are more than 10 posts", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+  await testRunner.AndAsync("there are more than 5 posts", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 63
   await testRunner.WhenAsync("I navigate to the blog page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
