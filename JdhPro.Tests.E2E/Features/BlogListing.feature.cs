@@ -453,7 +453,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
   await testRunner.GivenAsync("blog syndication has completed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 62
-  await testRunner.AndAsync("there are more than 10 posts", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+  await testRunner.AndAsync("there are more than 5 posts", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 63
   await testRunner.WhenAsync("I navigate to the blog page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
