@@ -1,7 +1,7 @@
 @using JdhPro.Web.Models
 
 <article class="tech-card bg-gray-900 border-@AccentColor/30 p-6 hover:border-@AccentColor/60 transition-all duration-300 group">
-    <a href="/blog/@Post.Id" class="block space-y-4">
+    <NavLink href="@($"blog/{Post.Id}")" class="block space-y-4">
         
         @* Header with date and source indicator *@
         <div class="flex items-center justify-between gap-3">
@@ -59,7 +59,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
         </div>
-    </a>
+    </NavLink>
 </article>
 
 @code {

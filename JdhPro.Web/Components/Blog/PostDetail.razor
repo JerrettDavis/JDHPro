@@ -95,12 +95,12 @@
                 <div class="flex-1 space-y-2">
                     <h4 class="font-bold text-white font-mono">ORIGINALLY.PUBLISHED</h4>
                     <p class="text-gray-300 text-sm leading-relaxed">
-                        This article was originally published at 
+                        This article was originally published at
                         <a href="@Post.CanonicalUrl" target="_blank" rel="noopener noreferrer" class="text-tech-orange hover:text-tech-orange/80 underline font-mono">
                             jerrettdavis.com
                         </a>
                     </p>
-                    <a href="@Post.CanonicalUrl" target="_blank" rel="noopener noreferrer" 
+                    <a href="@Post.CanonicalUrl" target="_blank" rel="noopener noreferrer"
                        class="inline-flex items-center gap-2 text-sm font-mono text-tech-orange hover:text-tech-orange/80 transition-colors">
                         <span>View original post</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,12 +121,12 @@
 
     @* Footer Actions *@
     <footer class="pt-8 border-t border-tech-cyan/30">
-        <a href="/blog" class="inline-flex items-center gap-2 text-tech-cyan hover:text-tech-lime transition-colors font-mono">
+        <NavLink href="blog" class="inline-flex items-center gap-2 text-tech-cyan hover:text-tech-lime transition-colors font-mono">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
             </svg>
             <span>BACK.TO.BLOG</span>
-        </a>
+        </NavLink>
     </footer>
 
 </article>

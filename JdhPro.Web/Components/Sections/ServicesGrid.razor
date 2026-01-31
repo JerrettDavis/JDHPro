@@ -3,7 +3,7 @@
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold text-primary dark:text-white mb-4">Our Services</h2>
             <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Comprehensive solutions designed to drive your business forward
+                We build software and solve technical problems
             </p>
         </div>
 
@@ -16,13 +16,13 @@
                     </div>
                     <h3 class="text-2xl font-bold text-primary dark:text-white mb-3">@service.Title</h3>
                     <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">@service.Description</p>
-                    <a href="/services" 
+                    <NavLink href="services"
                        class="inline-flex items-center text-secondary font-semibold hover:text-accent transition-colors duration-200">
                         Learn More
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
-                    </a>
+                    </NavLink>
                 </div>
             }
         </div>
@@ -43,25 +43,25 @@
         {
             Icon = "TC",
             Title = "Technical Consulting",
-            Description = "Expert guidance to optimize your technology stack and infrastructure. We help you make informed decisions that align with your business goals and maximize ROI."
+            Description = "We help you figure out which technologies make sense for your situation. No jargon, just honest advice based on what actually works."
         },
         new Service
         {
             Icon = "AD",
             Title = "Custom Application Development",
-            Description = "Tailored software solutions built from the ground up to meet your specific requirements. From concept to deployment, we deliver scalable, maintainable applications."
+            Description = "We build software that does what you need it to do. From initial idea to finished product, we focus on making it reliable and easy to maintain."
         },
         new Service
         {
             Icon = "AI",
             Title = "AI-Assisted Workflow Design",
-            Description = "Harness the power of artificial intelligence to streamline operations and boost productivity. We integrate cutting-edge AI tools into your existing workflows."
+            Description = "We integrate AI tools into your work processes where they actually make sense. The goal is to save you time and reduce repetitive tasks."
         },
         new Service
         {
             Icon = "PE",
             Title = "Process Engineering",
-            Description = "Systematic analysis and optimization of your business processes. We identify bottlenecks, eliminate waste, and implement efficient solutions that drive measurable results."
+            Description = "We analyze how your business operates and find ways to make it more efficient. We identify what's slowing you down and help you fix it."
         }
     };
 }

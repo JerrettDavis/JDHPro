@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JDH Productions</title>
     <script>
-        // Single Page Application redirect for GitHub Pages
-        // This script takes the current URL and redirects to index.html
-        // with the path encoded as a query parameter
-        sessionStorage.redirect = location.href;
+        // GitHub Pages 404 handling for Blazor WASM SPA
+        // Save the current path and redirect to index.html
+        sessionStorage.redirect = location.pathname + location.search + location.hash;
+        // This redirect path will be updated by the deploy workflow
+        location.replace('/');
     </script>
-    <meta http-equiv="refresh" content="0;URL='/'">
 </head>
 <body>
     <!-- GitHub Pages 404 redirect for Blazor SPA -->

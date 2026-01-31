@@ -77,7 +77,9 @@ jobs:
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
           sed -i 's|<base href="/" />|<base href="/'$REPO_NAME'/" />|g' publish/wwwroot/index.html
+          sed -i "s|location.replace('/');|location.replace('/$REPO_NAME/');|g" publish/wwwroot/404.html
           echo "Updated base href to /$REPO_NAME/"
+          echo "Updated 404.html redirect to /$REPO_NAME/"
 
       - name: Verify build output
         run: |

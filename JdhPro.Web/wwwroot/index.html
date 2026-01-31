@@ -8,11 +8,21 @@
     <base href="/" />
     <script>
         // Theme detection - runs before page render to prevent flash
+        // Default to dark mode since the site is designed with dark theme
         (function() {
-            const theme = localStorage.getItem('theme') || 
-                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            const theme = localStorage.getItem('theme') || 'dark';
             if (theme === 'dark') {
                 document.documentElement.classList.add('dark');
+            }
+        })();
+
+        // Handle 404 redirect for GitHub Pages SPA routing
+        (function() {
+            const redirect = sessionStorage.redirect;
+            delete sessionStorage.redirect;
+            if (redirect && redirect !== location.pathname + location.search + location.hash) {
+                // Use history API to restore the URL without reloading
+                history.replaceState(null, null, redirect);
             }
         })();
     </script>
@@ -373,7 +383,13 @@
         }
 
         // Start Blazor and hide loader when ready
-        Blazor.start().then(() => {
+        // Get the base path from the base tag
+        const baseElement = document.querySelector('base');
+        const basePath = baseElement ? baseElement.getAttribute('href') : '/';
+
+        Blazor.start({
+            applicationUrl: basePath
+        }).then(() => {
             // Give it a moment to render
             setTimeout(hideLoader, 100);
         }).catch((error) => {

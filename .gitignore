@@ -100,3 +100,10 @@ artifacts/
 
 # Test output files
 test-output*.txt
+
+# Claude temporary files
+tmpclaude-*
+
+# Test directories
+publish-test/
+.playwright-mcp/
