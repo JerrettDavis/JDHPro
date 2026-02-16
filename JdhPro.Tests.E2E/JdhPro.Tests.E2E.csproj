@@ -11,10 +11,10 @@
     <PackageReference Include="BoDi" Version="1.5.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="FluentAssertions" Version="8.8.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.57.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.58.0" />
     <PackageReference Include="Reqnroll" Version="3.3.3" />
     <PackageReference Include="Reqnroll.Microsoft.Extensions.DependencyInjection" Version="3.3.3" />
     <PackageReference Include="Reqnroll.xUnit" Version="3.3.3" />
