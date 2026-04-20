@@ -295,7 +295,7 @@ jobs:
         continue-on-error: true
 
       - name: Publish test summary
-        uses: dorny/test-reporter@v2
+        uses: dorny/test-reporter@v3
         if: always()
         with:
           name: Test Results
