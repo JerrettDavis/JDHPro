@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Tailwind CSS setup for JdhPro Blazor project",
   "scripts": {
-    "build": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.min.css --minify",
-    "build:css": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.min.css --minify",
-    "watch:css": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.min.css --watch"
+    "build": "npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.min.css --minify",
+    "build:css": "npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.min.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.min.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1",
     "@tailwindcss/typography": "^0.5.19",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.8",
