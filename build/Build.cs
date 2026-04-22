@@ -329,15 +329,25 @@ class Build : NukeBuild
             {
                 Log.Information($"Updating base href for GitHub Pages (/{RepositoryName}/)...");
                 
-                // Find the actual blazor.webassembly.*.js file
+                // Find the actual blazor.webassembly JS file.
+                // Newer .NET versions (10+) no longer fingerprint the filename with a hash,
+                // so fall back to the plain blazor.webassembly.js if no hashed variant exists.
                 var frameworkDir = wwwroot / "_framework";
                 var blazorWasmFiles = frameworkDir.GlobFiles("blazor.webassembly.*.js");
-                if (!blazorWasmFiles.Any())
+                string blazorWasmFile;
+                if (blazorWasmFiles.Any())
                 {
-                    throw new Exception("Could not find blazor.webassembly.*.js file in _framework directory");
+                    blazorWasmFile = blazorWasmFiles.First().Name;
+                }
+                else if ((frameworkDir / "blazor.webassembly.js").FileExists())
+                {
+                    blazorWasmFile = "blazor.webassembly.js";
+                }
+                else
+                {
+                    throw new Exception("Could not find blazor.webassembly.js (or fingerprinted variant) in _framework directory");
                 }
                 
-                var blazorWasmFile = blazorWasmFiles.First().Name;
                 Log.Information($"Found Blazor WASM file: {blazorWasmFile}");
                 
                 // Update index.html
