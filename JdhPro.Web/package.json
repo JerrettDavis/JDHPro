@@ -14,7 +14,7 @@
     "@tailwindcss/cli": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "autoprefixer": "^10.5.0",
-    "postcss": "^8.5.12",
+    "postcss": "^8.5.14",
     "tailwindcss": "^4.2.4"
   }
 }
