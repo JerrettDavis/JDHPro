@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="BoDi" Version="1.5.0" />
-    <PackageReference Include="coverlet.collector" Version="10.0.0" />
+    <PackageReference Include="coverlet.collector" Version="10.0.1" />
     <PackageReference Include="FluentAssertions" Version="8.9.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.7" />
