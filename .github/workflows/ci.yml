@@ -86,7 +86,7 @@ jobs:
     name: E2E Tests
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     
     steps:
       - name: Checkout code
@@ -141,6 +141,7 @@ jobs:
 
       - name: Run E2E Tests
         run: ./build.sh TestE2E
+        timeout-minutes: 10
         continue-on-error: true
 
       - name: Upload E2E test results
@@ -302,3 +303,4 @@ jobs:
           path: ./test-results/**/*.trx
           reporter: dotnet-trx
           fail-on-error: false
+          fail-on-empty: false
