@@ -36,7 +36,7 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           # Specify additional queries to run
-          queries: security-and-quality
+          queries: security-extended
 
       - name: Setup .NET
         if: matrix.language == 'csharp'
