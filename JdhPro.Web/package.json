@@ -13,8 +13,8 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
-    "autoprefixer": "^10.6.1",
-    "postcss": "^8.5.31",
+    "autoprefixer": "^10.6.2",
+    "postcss": "^8.5.32",
     "tailwindcss": "^4.3.1"
   }
 }
