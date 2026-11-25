@@ -6,7 +6,10 @@
             <nav class="brand-nav" aria-label="Primary">
                 <NavLink href="." Match="NavLinkMatch.All">Home</NavLink>
                 <NavLink href="services">Services</NavLink>
-                <NavLink href="blog">Blog</NavLink>
+                <NavLink href="products">Products</NavLink>
+                <NavLink href="projects">Work</NavLink>
+                <NavLink href="labs">Labs</NavLink>
+                <NavLink href="blog">Insights</NavLink>
                 <NavLink href="about">About</NavLink>
             </nav>
             <div class="brand-tools">
@@ -27,7 +30,10 @@
         <nav id="mobile-navigation" data-testid="mobile-menu" class="brand-mobile-nav" aria-label="Mobile primary" hidden="@(!mobileMenuOpen)">
             <NavLink href="." Match="NavLinkMatch.All" @onclick="CloseMobileMenu">Home</NavLink>
             <NavLink href="services" @onclick="CloseMobileMenu">Services</NavLink>
-            <NavLink href="blog" @onclick="CloseMobileMenu">Blog</NavLink>
+            <NavLink href="products" @onclick="CloseMobileMenu">Products</NavLink>
+            <NavLink href="projects" @onclick="CloseMobileMenu">Work</NavLink>
+            <NavLink href="labs" @onclick="CloseMobileMenu">Labs</NavLink>
+            <NavLink href="blog" @onclick="CloseMobileMenu">Insights</NavLink>
             <NavLink href="about" @onclick="CloseMobileMenu">About</NavLink>
             <NavLink href="contact" @onclick="CloseMobileMenu">Contact Us</NavLink>
         </nav>

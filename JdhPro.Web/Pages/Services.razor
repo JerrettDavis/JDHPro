@@ -15,17 +15,17 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-4xl mx-auto text-center space-y-6">
                 <div class="inline-block">
-                    <span class="text-tech-lime font-mono text-sm uppercase tracking-wider">/// Services.Directory</span>
+                    <span class="text-tech-lime font-mono text-sm uppercase tracking-wider">Capabilities</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
-                    OUR.SERVICES
+                    Our Services
                 </h1>
                 <p class="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
                     Technical solutions built for what you actually need
                 </p>
                 <div class="flex items-center justify-center gap-4 pt-4">
                     <div class="w-2 h-2 rounded-full bg-tech-cyan hex-pulse"></div>
-                    <span class="text-tech-cyan font-mono text-sm">READY.TO.DEPLOY</span>
+                    <span class="text-tech-cyan font-mono text-sm"></span>
                 </div>
             </div>
         </div>
@@ -43,10 +43,10 @@
             else if (_services.Any())
             {
                 @* Service Cards *@
-                <div class="space-y-16">
+                <div class="space-y-8">
                     @foreach (var (service, index) in _services.Select((s, i) => (s, i)))
                     {
-                        var accentColor = GetAccentColor(index);
+                        var accentColor = "tech-cyan";
                         
                         <article data-testid="service-section" id="@service.Id" class="scroll-mt-24">
                             <div class="tech-card bg-gray-900 border-@accentColor/30 p-8 md:p-12">
@@ -58,8 +58,8 @@
                                             <span class="text-4xl font-bold text-@accentColor font-mono">@GetServiceInitials(service.Icon)</span>
                                         </div>
                                         <div class="space-y-4">
-                                            <h2 class="text-3xl md:text-4xl font-bold text-white font-mono break-words">
-                                                @service.Title.Replace(" ", ".")
+                                            <h2 class="text-3xl md:text-4xl font-bold text-white break-words">
+                                                @service.Title
                                             </h2>
                                             <p class="text-lg text-gray-400">
                                                 @service.Summary
@@ -71,7 +71,7 @@
                                             <button 
                                                 @onclick="@(() => NavigateToContact(service.Title))"
                                                 class="inline-flex items-center gap-2 px-6 py-3 bg-@accentColor/10 border border-@accentColor/30 hover:bg-@accentColor hover:text-gray-950 text-@accentColor font-mono font-bold text-sm uppercase tracking-wide clip-corner-sm transition-all duration-200 group">
-                                                <span>Discuss.Service</span>
+                                                <span>Discuss service</span>
                                                 <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                                 </svg>
@@ -88,7 +88,7 @@
                                             <div>
                                                 <h3 class="text-lg font-bold text-white mb-4 font-mono flex items-center gap-2">
                                                     <span class="text-tech-lime">›</span>
-                                                    Key.Benefits
+                                                    Key benefits
                                                 </h3>
                                                 <ul class="space-y-3">
                                                     @foreach (var benefit in service.Benefits.Take(4))
@@ -117,7 +117,7 @@
                                             <div>
                                                 <h3 class="text-lg font-bold text-white mb-4 font-mono flex items-center gap-2">
                                                     <span class="text-@accentColor">›</span>
-                                                    Use.Cases
+                                                    Use cases
                                                 </h3>
                                                 <ul class="space-y-2">
                                                     @foreach (var useCase in service.UseCases.Take(4))
@@ -136,7 +136,7 @@
                                             <button 
                                                 @onclick="@(() => ToggleDetails(service.Id))"
                                                 class="text-@accentColor hover:text-white font-mono text-sm flex items-center gap-2 transition-colors">
-                                                <span>@(_expandedServices.Contains(service.Id) ? "[−]" : "[+]") @(_expandedServices.Contains(service.Id) ? "Hide" : "Show").Details</span>
+                                                <span>@(_expandedServices.Contains(service.Id) ? "[−]" : "[+]") @(_expandedServices.Contains(service.Id) ? "Hide" : "Show") details</span>
                                             </button>
                                         </div>
 
@@ -157,9 +157,18 @@
             else
             {
                 <div class="text-center py-20">
-                    <p class="text-xl text-gray-400 font-mono">No.Services.Available</p>
+                    <p class="text-xl text-gray-400 font-mono">No services available.</p>
                 </div>
             }
+        </div>
+    </section>
+
+    <section class="brand-section brand-surface">
+        <div class="brand-container">
+            <p class="brand-eyebrow">Design &amp; fabrication</p>
+            <h2 class="mt-3">Physical production through 3dprint4.me</h2>
+            <p class="brand-muted mt-3 mb-5">For custom 3D printing and fabrication, explore our dedicated venture.</p>
+            <a class="brand-button" href="https://3dprint4.me/">Visit 3dprint4.me</a>
         </div>
     </section>
 
@@ -169,8 +178,8 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-4xl mx-auto text-center space-y-8">
                 <h2 class="text-3xl md:text-5xl font-bold text-white font-mono">
-                    LET'S.BUILD<br/>
-                    <span class="text-tech-cyan">SOMETHING.TOGETHER</span>
+                    Let's build<br/>
+                    <span class="text-tech-cyan">something together</span>
                 </h2>
                 <p class="text-xl text-gray-400 max-w-2xl mx-auto">
                     Have a project in mind? Let's talk about how we can help.
@@ -178,7 +187,7 @@
                 <button 
                     @onclick="@(() => NavigateToContact())"
                     class="btn-tech">
-                    <span>GET.IN.TOUCH</span>
+                    <span>Get in touch</span>
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
@@ -224,7 +233,7 @@
 
     private void NavigateToContact(string? serviceName = null)
     {
-        var url = "/contact";
+        var url = "contact";
         if (!string.IsNullOrEmpty(serviceName))
         {
             url += $"?service={Uri.EscapeDataString(serviceName)}";
