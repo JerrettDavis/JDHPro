@@ -53,24 +53,8 @@ public class HomepageSteps
     [Then(@"I should see ""(.*)""")]
     public async Task ThenIShouldSee(string expectedText)
     {
-        // For homepage, scope to the services grid section to avoid finding duplicate text on other pages
-        var servicesSection = Page.Locator("text=Our Services").Locator("..").Locator("..");
-        if (await servicesSection.CountAsync() > 0)
-        {
-            // We're on homepage with ServicesGrid
-            var textLocator = servicesSection.GetByText(expectedText, new() { Exact = false }).First;
-            await textLocator.WaitForAsync(new() { State = WaitForSelectorState.Visible, Timeout = 15000 });
-            var isVisible = await textLocator.IsVisibleAsync();
-            isVisible.Should().BeTrue($"'{expectedText}' should be visible in the services section");
-        }
-        else
-        {
-            // Fallback to page-wide search
-            var textLocator = Page.GetByText(expectedText, new() { Exact = false }).First;
-            await textLocator.WaitForAsync(new() { State = WaitForSelectorState.Visible, Timeout = 15000 });
-            var isVisible = await textLocator.IsVisibleAsync();
-            isVisible.Should().BeTrue($"'{expectedText}' should be visible on the page");
-        }
+        var locator = Page.GetByText(expectedText, new() { Exact = false }).First;
+        await Assertions.Expect(locator).ToBeVisibleAsync(new() { Timeout = 15000 });
     }
 
     [When(@"I click ""(.*)""")]
@@ -96,12 +80,6 @@ public class HomepageSteps
     [Then(@"I should be scrolled to the contact section")]
     public async Task ThenIShouldBeScrolledToTheContactSection()
     {
-        // Wait a moment for scroll animation
-        await Task.Delay(500);
-        
-        // Check if contact section is in viewport
-        var contactSection = Page.Locator("#contact, [id*='contact']").First;
-        var isVisible = await contactSection.IsVisibleAsync();
-        isVisible.Should().BeTrue("Contact section should be visible after clicking CTA");
+        await Assertions.Expect(Page.Locator("#contact")).ToBeInViewportAsync(new() { Timeout = 5000 });
     }
 }

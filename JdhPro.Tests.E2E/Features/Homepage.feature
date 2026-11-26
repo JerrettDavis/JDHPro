@@ -5,18 +5,18 @@ Feature: Homepage
 
 Scenario: Homepage loads successfully
   Given I navigate to the homepage
-  Then I should see the hero heading "Engineering Tomorrow's"
-  And I should see the tagline containing "technical excellence"
+  Then I should see the hero heading "Ideas engineered."
+  And I should see the tagline containing "digital manufacturing"
 
-Scenario: Services grid displays all services
+Scenario: Capabilities grid displays four disciplines
   Given I navigate to the homepage
   Then I should see 4 service cards
-  And I should see "Technical Consulting"
-  And I should see "Custom Application Development"
-  And I should see "AI-Assisted Workflow Design"
-  And I should see "Process Engineering"
+  And I should see "Software engineering"
+  And I should see "AI & automation"
+  And I should see "Design & fabrication"
+  And I should see "Technical consulting"
 
-Scenario: Start Your Project CTA works
+Scenario: Start a project CTA works
   Given I navigate to the homepage
-  When I click "Initialize Project"
+  When I click "Start a project"
   Then I should be scrolled to the contact section
