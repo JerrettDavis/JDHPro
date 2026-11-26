@@ -11,8 +11,18 @@ from urllib.parse import quote, urlsplit
 from playwright.sync_api import sync_playwright, expect
 from serve import create_server
 
-THEMES = ("professional", "professional-dark", "vaporwave", "vaporwave-light",
-          "grayscale", "monochrome-light", "monochrome-dark")
+PALETTES = {
+    "professional": ("professional", "light"),
+    "professional-dark": ("professional", "dark"),
+    "vaporwave-light": ("vaporwave", "light"),
+    "vaporwave": ("vaporwave", "dark"),
+    "grayscale": ("grayscale", "light"),
+    "grayscale-dark": ("grayscale", "dark"),
+    "monochrome-light": ("monochrome", "light"),
+    "monochrome-dark": ("monochrome", "dark"),
+}
+THEMES = tuple(PALETTES)
+RESOLVED = {axes: theme for theme, axes in PALETTES.items()}
 VIEWPORTS = {"desktop": (1440, 900), "mobile": (390, 844)}
 ROUTES = [
     ("home", "/", "Ideas engineered."),
@@ -145,7 +155,9 @@ def main():
                                         raise RuntimeError("Page navigation did not return HTTP 2xx")
                                     ready(page, heading)
                                     expect(page.locator("html")).to_have_attribute("data-theme", theme)
-                                    expect(page.get_by_test_id("theme-select")).to_have_value(theme)
+                                    identity, mode = PALETTES[theme]
+                                    expect(page.get_by_test_id("identity-trigger")).to_have_attribute("data-identity", identity)
+                                    expect(page.get_by_test_id("mode-trigger")).to_have_attribute("data-mode", mode)
                                     if name == "home":
                                         expect(page.get_by_test_id("service-card")).to_have_count(4)
                                     elif name == "services":
@@ -172,7 +184,84 @@ def main():
                                 results.append(result)
                                 write_gallery(args.output, revision, results)
                                 print(f'{result["status"]}: {theme} {viewport} {name}', flush=True)
-                        # Show actual expanded navigation (all seven themes on mobile are captured above).
+                        # Review both independent icon menus on light and dark sites.
+                        if viewport in ("desktop", "mobile"):
+                            for theme in ("professional", "vaporwave"):
+                                identity, mode = PALETTES[theme]
+                                for axis, selected in (("mode", mode), ("identity", identity)):
+                                    errors.clear()
+                                    warnings.clear()
+                                    result = {"theme": theme, "viewport": viewport, "route": f"{axis}-picker",
+                                              "path": f"/?theme={theme}", "size": [width, height]}
+                                    image_path = f"screenshots/{theme}--{viewport}--{axis}-picker.png"
+                                    try:
+                                        page.goto(base + result["path"], wait_until="domcontentloaded")
+                                        ready(page, ROUTES[0][2])
+                                        trigger = page.get_by_test_id(f"{axis}-trigger")
+                                        panel = page.get_by_test_id(f"{axis}-panel")
+                                        expect(trigger).to_have_attribute(f"data-{axis}", selected)
+                                        expect(trigger).to_be_enabled()
+                                        if viewport == "desktop":
+                                            trigger.focus()
+                                            trigger.press("Enter")
+                                        else:
+                                            trigger.click()
+                                        expect(panel).to_be_visible()
+                                        expect(trigger).to_have_attribute("aria-expanded", "true")
+                                        expect(page.get_by_test_id(f"{axis}-option-{selected}")).to_be_focused()
+                                        bounds = panel.bounding_box()
+                                        if not bounds or bounds["x"] < 0 or bounds["y"] < 0 or bounds["x"] + bounds["width"] > width + 1 or bounds["y"] + bounds["height"] > height + 1:
+                                            raise RuntimeError("Appearance menu extends outside the viewport")
+                                        page.screenshot(path=str(args.output / image_path), animations="disabled")
+                                        result["image"] = image_path
+                                        page.keyboard.press("Escape")
+                                        expect(panel).not_to_be_visible()
+                                        expect(trigger).to_be_focused()
+                                        trigger.click()
+                                        next_value = ("dark" if mode == "light" else "light") if axis == "mode" else "grayscale"
+                                        page.get_by_test_id(f"{axis}-option-{next_value}").click()
+                                        expect(panel).not_to_be_visible()
+                                        expected_identity = next_value if axis == "identity" else identity
+                                        expected_mode = next_value if axis == "mode" else mode
+                                        expect(page.locator("html")).to_have_attribute("data-theme", RESOLVED[(expected_identity, expected_mode)])
+                                        expect(page.get_by_test_id("identity-trigger")).to_have_attribute("data-identity", expected_identity)
+                                        expect(page.get_by_test_id("mode-trigger")).to_have_attribute("data-mode", expected_mode)
+                                        expect(trigger).to_be_focused()
+                                        # Canonical identity/mode URLs and persisted selections survive reload.
+                                        page.reload(wait_until="domcontentloaded")
+                                        ready(page, ROUTES[0][2])
+                                        expect(page.locator("html")).to_have_attribute("data-theme", RESOLVED[(expected_identity, expected_mode)])
+                                    except Exception as exc:
+                                        errors.append(str(exc)[:1500])
+                                    result.update(status="failed" if errors else "passed", errors=list(errors), warnings=list(warnings))
+                                    results.append(result)
+                                    write_gallery(args.output, revision, results)
+
+                        # System mode must resolve independently of the selected identity.
+                        if viewport == "desktop":
+                            errors.clear()
+                            warnings.clear()
+                            result = {"theme": "vaporwave", "viewport": viewport, "route": "system-mode",
+                                      "path": "/?identity=vaporwave&mode=system", "size": [width, height]}
+                            try:
+                                page.emulate_media(color_scheme="dark")
+                                page.goto(base + result["path"], wait_until="domcontentloaded")
+                                ready(page, ROUTES[0][2])
+                                expect(page.locator("html")).to_have_attribute("data-theme", "vaporwave")
+                                expect(page.get_by_test_id("mode-trigger")).to_have_attribute("data-mode", "system")
+                                page.emulate_media(color_scheme="light")
+                                expect(page.locator("html")).to_have_attribute("data-theme", "vaporwave-light")
+                                expect(page.get_by_test_id("identity-trigger")).to_have_attribute("data-identity", "vaporwave")
+                                image_path = "screenshots/vaporwave--desktop--system-mode.png"
+                                page.screenshot(path=str(args.output / image_path), animations="disabled")
+                                result["image"] = image_path
+                            except Exception as exc:
+                                errors.append(str(exc)[:1500])
+                            result.update(status="failed" if errors else "passed", errors=list(errors), warnings=list(warnings))
+                            results.append(result)
+                            write_gallery(args.output, revision, results)
+                            page.emulate_media(color_scheme="light")
+                        # Show actual expanded navigation (all eight palettes on mobile are captured above).
                         if viewport == "mobile":
                             errors.clear()
                             warnings.clear()

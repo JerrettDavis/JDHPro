@@ -1,27 +1,120 @@
 @inject IJSRuntime JS
 
-<label class="sr-only" for="brand-theme">Website theme</label>
-<select id="brand-theme" data-testid="theme-select" class="brand-theme-select" @bind="selection" @bind:after="ApplyAsync">
-    <option value="professional">Professional</option>
-    <option value="professional-dark">Professional dark</option>
-    <option value="vaporwave">Vaporwave</option>
-    <option value="vaporwave-light">Vaporwave light</option>
-    <option value="grayscale">Grayscale</option>
-    <option value="monochrome-light">Black on white</option>
-    <option value="monochrome-dark">White on black</option>
-    <option value="system">System appearance</option>
-</select>
+<div class="brand-appearance" role="group" aria-label="Website appearance">
+    <button id="brand-mode-trigger" data-testid="mode-trigger" data-mode="@mode" type="button"
+            class="brand-appearance-trigger" popovertarget="brand-mode-panel"
+            aria-haspopup="dialog" aria-controls="brand-mode-panel" aria-expanded="false"
+            aria-label="@($"Color mode: {ModeLabel}")" title="@($"Color mode: {ModeLabel}")" disabled="@(!ready)">
+        <AppearanceModeIcon Mode="@mode" />
+    </button>
+    <span class="brand-appearance-divider" aria-hidden="true"></span>
+    <button id="brand-identity-trigger" data-testid="identity-trigger" data-identity="@identity" type="button"
+            class="brand-appearance-trigger" popovertarget="brand-identity-panel"
+            aria-haspopup="dialog" aria-controls="brand-identity-panel" aria-expanded="false"
+            aria-label="@($"Brand identity: {IdentityLabel}")" title="@($"Brand identity: {IdentityLabel}")" disabled="@(!ready)">
+        <svg class="brand-appearance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M12 3a9 9 0 1 0 0 18h1.1a1.9 1.9 0 0 0 1.6-2.9 1.6 1.6 0 0 1 1.4-2.4H18a3 3 0 0 0 3-3A9.4 9.4 0 0 0 12 3Z" />
+            <circle cx="7.5" cy="11.8" r="1.35" fill="var(--brand-logo-accent)" stroke="none" />
+            <circle cx="10.5" cy="7.5" r="1.35" fill="var(--brand-mark)" stroke="none" />
+            <circle cx="15.6" cy="8.5" r="1.35" fill="var(--brand-logo-accent)" stroke="none" />
+        </svg>
+    </button>
+</div>
+
+<section id="brand-mode-panel" data-testid="mode-panel" data-appearance-trigger="brand-mode-trigger"
+         popover="auto" class="brand-appearance-panel" role="dialog" aria-labelledby="brand-mode-heading">
+    <h2 id="brand-mode-heading">Color mode</h2>
+    <div class="brand-appearance-options" role="group" aria-label="Color mode">
+        @foreach (var option in Modes)
+        {
+            <button @key="option.Id" type="button" class="brand-appearance-option"
+                    data-testid="@($"mode-option-{option.Id}")"
+                    aria-pressed="@(mode == option.Id ? "true" : "false")"
+                    @onclick="() => SetModeAsync(option.Id)">
+                <AppearanceModeIcon Mode="@option.Id" />
+                <span class="brand-appearance-label">@option.Label</span>
+                <span class="brand-appearance-check" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 8 3 3 6-6" /></svg>
+                </span>
+            </button>
+        }
+    </div>
+</section>
+
+<section id="brand-identity-panel" data-testid="identity-panel" data-appearance-trigger="brand-identity-trigger"
+         popover="auto" class="brand-appearance-panel" role="dialog" aria-labelledby="brand-identity-heading">
+    <h2 id="brand-identity-heading">Brand identity</h2>
+    <div class="brand-appearance-options" role="group" aria-label="Brand identity">
+        @foreach (var option in Identities)
+        {
+            <button @key="option.Id" type="button" class="brand-appearance-option"
+                    data-testid="@($"identity-option-{option.Id}")"
+                    aria-pressed="@(identity == option.Id ? "true" : "false")"
+                    @onclick="() => SetIdentityAsync(option.Id)">
+                <span class="brand-theme-preview brand-identity-swatch" data-preview-theme="@option.Sample" aria-hidden="true">
+                    <span></span><span></span>
+                </span>
+                <span class="brand-appearance-label">@option.Label</span>
+                <span class="brand-appearance-check" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 8 3 3 6-6" /></svg>
+                </span>
+            </button>
+        }
+    </div>
+</section>
 
 @code {
-    private string selection = "professional";
+    private sealed record ModeOption(string Id, string Label);
+    private sealed record IdentityOption(string Id, string Label, string Sample);
+
+    private static readonly ModeOption[] Modes =
+    [
+        new("light", "Light"),
+        new("dark", "Dark"),
+        new("system", "System")
+    ];
+
+    private static readonly IdentityOption[] Identities =
+    [
+        new("professional", "Professional", "professional"),
+        new("vaporwave", "Vaporwave", "vaporwave"),
+        new("grayscale", "Grayscale", "grayscale"),
+        new("monochrome", "Black & White", "monochrome-light")
+    ];
+
+    private string identity = "professional";
+    private string mode = "light";
+    private bool ready;
+
+    private string ModeLabel => Modes.First(option => option.Id == mode).Label;
+    private string IdentityLabel => Identities.First(option => option.Id == identity).Label;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        selection = await JS.InvokeAsync<string>("jdhTheme.get");
+        ReadAppearance(await JS.InvokeAsync<string[]>("jdhTheme.getAppearance"));
+        ready = true;
         StateHasChanged();
     }
 
-    private async Task ApplyAsync() =>
-        await JS.InvokeVoidAsync("jdhTheme.set", selection);
+    private void ReadAppearance(string[] values)
+    {
+        identity = values[0];
+        mode = values[1];
+    }
+
+    private async Task SetModeAsync(string value)
+    {
+        ReadAppearance(await JS.InvokeAsync<string[]>("jdhTheme.setPreference", "mode", value));
+        await JS.InvokeVoidAsync("jdhTheme.closePicker", "brand-mode-panel");
+    }
+
+    private async Task SetIdentityAsync(string value)
+    {
+        ReadAppearance(await JS.InvokeAsync<string[]>("jdhTheme.setPreference", "identity", value));
+        await JS.InvokeVoidAsync("jdhTheme.closePicker", "brand-identity-panel");
+    }
 }
