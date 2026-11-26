@@ -1,134 +1,120 @@
 @inject IJSRuntime JS
 
-<div class="brand-appearance">
-    <button id="brand-theme-trigger" data-testid="theme-select" data-theme-choice="@selection"
-            type="button" class="brand-theme-trigger" popovertarget="brand-theme-panel"
-            aria-haspopup="dialog" aria-controls="brand-theme-panel" aria-expanded="false"
-            aria-label="@($"Appearance: {CurrentLabel}")" title="Change appearance" disabled="@(!ready)">
-        <span class="brand-theme-indicator" aria-hidden="true">
-            <span></span><span></span><span></span>
-        </span>
-        <span class="brand-theme-trigger-label">@CurrentLabel</span>
-        <svg class="brand-theme-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor"
-             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m4 6 4 4 4-4" />
+<div class="brand-appearance" role="group" aria-label="Website appearance">
+    <button id="brand-mode-trigger" data-testid="mode-trigger" data-mode="@mode" type="button"
+            class="brand-appearance-trigger" popovertarget="brand-mode-panel"
+            aria-haspopup="dialog" aria-controls="brand-mode-panel" aria-expanded="false"
+            aria-label="@($"Color mode: {ModeLabel}")" title="@($"Color mode: {ModeLabel}")" disabled="@(!ready)">
+        <AppearanceModeIcon Mode="@mode" />
+    </button>
+    <span class="brand-appearance-divider" aria-hidden="true"></span>
+    <button id="brand-identity-trigger" data-testid="identity-trigger" data-identity="@identity" type="button"
+            class="brand-appearance-trigger" popovertarget="brand-identity-panel"
+            aria-haspopup="dialog" aria-controls="brand-identity-panel" aria-expanded="false"
+            aria-label="@($"Brand identity: {IdentityLabel}")" title="@($"Brand identity: {IdentityLabel}")" disabled="@(!ready)">
+        <svg class="brand-appearance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M12 3a9 9 0 1 0 0 18h1.1a1.9 1.9 0 0 0 1.6-2.9 1.6 1.6 0 0 1 1.4-2.4H18a3 3 0 0 0 3-3A9.4 9.4 0 0 0 12 3Z" />
+            <circle cx="7.5" cy="11.8" r="1.35" fill="var(--brand-logo-accent)" stroke="none" />
+            <circle cx="10.5" cy="7.5" r="1.35" fill="var(--brand-mark)" stroke="none" />
+            <circle cx="15.6" cy="8.5" r="1.35" fill="var(--brand-logo-accent)" stroke="none" />
         </svg>
     </button>
+</div>
 
-    <section id="brand-theme-panel" data-testid="theme-panel" popover="auto"
-             class="brand-theme-panel" role="dialog" aria-labelledby="brand-theme-heading">
-        <div class="brand-theme-panel-heading">
-            <div>
-                <h2 id="brand-theme-heading">Appearance</h2>
-                <p>Choose your JDH identity.</p>
-            </div>
-            <button type="button" class="brand-theme-close" popovertarget="brand-theme-panel"
-                    popovertargetaction="hide" aria-label="Close appearance picker">
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"
-                     stroke-linecap="round" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>
-            </button>
-        </div>
-
-        @foreach (var family in Families)
+<section id="brand-mode-panel" data-testid="mode-panel" data-appearance-trigger="brand-mode-trigger"
+         popover="auto" class="brand-appearance-panel" role="dialog" aria-labelledby="brand-mode-heading">
+    <h2 id="brand-mode-heading">Color mode</h2>
+    <div class="brand-appearance-options" role="group" aria-label="Color mode">
+        @foreach (var option in Modes)
         {
-            <div class="brand-theme-family" role="group" aria-label="@family.Label">
-                <h3>@family.Label</h3>
-                <div class="@(family.Options.Length == 3 ? "brand-theme-options brand-theme-options-three" : "brand-theme-options")">
-                    @foreach (var option in family.Options)
-                    {
-                        <button @key="option.Id" type="button" class="brand-theme-option"
-                                data-testid="@($"theme-option-{option.Id}")" aria-label="@option.Label"
-                                aria-pressed="@(selection == option.Id ? "true" : "false")"
-                                @onclick="() => ApplyAsync(option.Id)">
-                            <span class="brand-theme-preview" data-preview-theme="@option.Id" aria-hidden="true">
-                                <span class="brand-theme-preview-header">
-                                    <span class="brand-theme-preview-logo"></span>
-                                    <span class="brand-theme-preview-nav"></span>
-                                </span>
-                                <span class="brand-theme-preview-body">
-                                    <span class="brand-theme-preview-copy">
-                                        <span class="brand-theme-preview-title"></span>
-                                        <span class="brand-theme-preview-line"></span>
-                                        <span class="brand-theme-preview-button"></span>
-                                    </span>
-                                    <span class="brand-theme-preview-art"></span>
-                                </span>
-                            </span>
-                            <span class="brand-theme-option-label">
-                                <span>@option.ShortLabel</span>
-                                <span class="brand-theme-check" aria-hidden="true">
-                                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"
-                                         stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 8 3 3 6-6" /></svg>
-                                </span>
-                            </span>
-                        </button>
-                    }
-                </div>
-            </div>
-        }
-
-        <div class="brand-theme-system-wrap">
-            <button type="button" class="brand-theme-system" data-testid="theme-option-system"
-                    aria-label="System appearance" aria-pressed="@(selection == "system" ? "true" : "false")"
-                    @onclick='() => ApplyAsync("system")'>
-                <span class="brand-theme-system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="13" rx="2" />
-                        <path d="M12 17v4M8 21h8M12 5v11" />
-                        <path d="M12 5h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7z" fill="currentColor" stroke="none" opacity=".28" />
-                    </svg>
-                </span>
-                <span class="brand-theme-system-copy"><strong>System appearance</strong><span>Follow your device's light or dark mode.</span></span>
-                <span class="brand-theme-check" aria-hidden="true">
+            <button @key="option.Id" type="button" class="brand-appearance-option"
+                    data-testid="@($"mode-option-{option.Id}")"
+                    aria-pressed="@(mode == option.Id ? "true" : "false")"
+                    @onclick="() => SetModeAsync(option.Id)">
+                <AppearanceModeIcon Mode="@option.Id" />
+                <span class="brand-appearance-label">@option.Label</span>
+                <span class="brand-appearance-check" aria-hidden="true">
                     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"
                          stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 8 3 3 6-6" /></svg>
                 </span>
             </button>
-        </div>
-    </section>
-</div>
+        }
+    </div>
+</section>
+
+<section id="brand-identity-panel" data-testid="identity-panel" data-appearance-trigger="brand-identity-trigger"
+         popover="auto" class="brand-appearance-panel" role="dialog" aria-labelledby="brand-identity-heading">
+    <h2 id="brand-identity-heading">Brand identity</h2>
+    <div class="brand-appearance-options" role="group" aria-label="Brand identity">
+        @foreach (var option in Identities)
+        {
+            <button @key="option.Id" type="button" class="brand-appearance-option"
+                    data-testid="@($"identity-option-{option.Id}")"
+                    aria-pressed="@(identity == option.Id ? "true" : "false")"
+                    @onclick="() => SetIdentityAsync(option.Id)">
+                <span class="brand-theme-preview brand-identity-swatch" data-preview-theme="@option.Sample" aria-hidden="true">
+                    <span></span><span></span>
+                </span>
+                <span class="brand-appearance-label">@option.Label</span>
+                <span class="brand-appearance-check" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 8 3 3 6-6" /></svg>
+                </span>
+            </button>
+        }
+    </div>
+</section>
 
 @code {
-    private sealed record ThemeOption(string Id, string Label, string ShortLabel);
-    private sealed record ThemeFamily(string Label, ThemeOption[] Options);
+    private sealed record ModeOption(string Id, string Label);
+    private sealed record IdentityOption(string Id, string Label, string Sample);
 
-    private static readonly ThemeFamily[] Families =
+    private static readonly ModeOption[] Modes =
     [
-        new("Professional", [
-            new("professional", "Professional", "Light"),
-            new("professional-dark", "Professional dark", "Dark")
-        ]),
-        new("Vaporwave", [
-            new("vaporwave-light", "Vaporwave light", "Light"),
-            new("vaporwave", "Vaporwave", "Dark")
-        ]),
-        new("Neutral", [
-            new("grayscale", "Grayscale", "Grayscale"),
-            new("monochrome-light", "Black on white", "Black on white"),
-            new("monochrome-dark", "White on black", "White on black")
-        ])
+        new("light", "Light"),
+        new("dark", "Dark"),
+        new("system", "System")
     ];
 
-    private string selection = "professional";
+    private static readonly IdentityOption[] Identities =
+    [
+        new("professional", "Professional", "professional"),
+        new("vaporwave", "Vaporwave", "vaporwave"),
+        new("grayscale", "Grayscale", "grayscale"),
+        new("monochrome", "Black & White", "monochrome-light")
+    ];
+
+    private string identity = "professional";
+    private string mode = "light";
     private bool ready;
 
-    private string CurrentLabel => selection == "system"
-        ? "System"
-        : Families.SelectMany(f => f.Options).FirstOrDefault(o => o.Id == selection)?.Label ?? "Professional";
+    private string ModeLabel => Modes.First(option => option.Id == mode).Label;
+    private string IdentityLabel => Identities.First(option => option.Id == identity).Label;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        selection = await JS.InvokeAsync<string>("jdhTheme.get");
+        ReadAppearance(await JS.InvokeAsync<string[]>("jdhTheme.getAppearance"));
         ready = true;
         StateHasChanged();
     }
 
-    private async Task ApplyAsync(string value)
+    private void ReadAppearance(string[] values)
     {
-        await JS.InvokeVoidAsync("jdhTheme.set", value);
-        selection = value;
-        await JS.InvokeVoidAsync("jdhTheme.closePicker");
+        identity = values[0];
+        mode = values[1];
+    }
+
+    private async Task SetModeAsync(string value)
+    {
+        ReadAppearance(await JS.InvokeAsync<string[]>("jdhTheme.setPreference", "mode", value));
+        await JS.InvokeVoidAsync("jdhTheme.closePicker", "brand-mode-panel");
+    }
+
+    private async Task SetIdentityAsync(string value)
+    {
+        ReadAppearance(await JS.InvokeAsync<string[]>("jdhTheme.setPreference", "identity", value));
+        await JS.InvokeVoidAsync("jdhTheme.closePicker", "brand-identity-panel");
     }
 }
