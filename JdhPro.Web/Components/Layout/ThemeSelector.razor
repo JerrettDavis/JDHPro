@@ -1,0 +1,27 @@
+@inject IJSRuntime JS
+
+<label class="sr-only" for="brand-theme">Website theme</label>
+<select id="brand-theme" data-testid="theme-select" class="brand-theme-select" @bind="selection" @bind:after="ApplyAsync">
+    <option value="professional">Professional</option>
+    <option value="professional-dark">Professional dark</option>
+    <option value="vaporwave">Vaporwave</option>
+    <option value="vaporwave-light">Vaporwave light</option>
+    <option value="grayscale">Grayscale</option>
+    <option value="monochrome-light">Black on white</option>
+    <option value="monochrome-dark">White on black</option>
+    <option value="system">System appearance</option>
+</select>
+
+@code {
+    private string selection = "professional";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        selection = await JS.InvokeAsync<string>("jdhTheme.get");
+        StateHasChanged();
+    }
+
+    private async Task ApplyAsync() =>
+        await JS.InvokeVoidAsync("jdhTheme.set", selection);
+}
