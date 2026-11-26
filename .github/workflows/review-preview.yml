@@ -1,0 +1,166 @@
+name: PR review preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review, edited]
+  workflow_dispatch:
+
+# No production deployment, external deployment credentials, or write token in the build.
+permissions:
+  contents: read
+
+concurrency:
+  group: review-preview-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    name: Build and snapshot review site
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      site_url: ${{ steps.site.outputs.artifact-url }}
+      gallery_url: ${{ steps.gallery.outputs.artifact-url }}
+      revision: ${{ steps.revision.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # For pull_request, checkout the synthetic merge commit (base + PR).
+          persist-credentials: false
+      - id: revision
+        name: Record checked-out revision
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20.x'
+          cache: npm
+          cache-dependency-path: JdhPro.Web/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
+      - name: Install locked frontend dependencies
+        working-directory: JdhPro.Web
+        run: npm ci
+      - name: Publish exactly as the production build
+        id: publish
+        run: |
+          dotnet publish JdhPro.Web/JdhPro.Web.csproj -c Release -o "$RUNNER_TEMP/jdhpro-publish" --nologo
+          test -f "$RUNNER_TEMP/jdhpro-publish/wwwroot/index.html"
+          test -f "$RUNNER_TEMP/jdhpro-publish/wwwroot/css/app.min.css"
+          test -d "$RUNNER_TEMP/jdhpro-publish/wwwroot/_framework"
+          mkdir -p review-site/site
+          cp -a "$RUNNER_TEMP/jdhpro-publish/wwwroot/." review-site/site/
+          cp scripts/review-preview/serve.py review-site/
+          cp scripts/review-preview/REVIEW.md review-site/README.md
+          python scripts/review-preview/metadata.py review-site/revision.json
+
+      - name: Upload runnable site
+        uses: actions/upload-artifact@v7
+        id: site
+        with:
+          name: review-site-${{ github.run_id }}-${{ github.run_attempt }}
+          path: review-site/
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Install pinned Playwright and Chromium
+        run: |
+          python -m pip install -r scripts/review-preview/requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Capture review gallery and check runtime
+        run: python scripts/review-preview/capture.py --site review-site/site --revision review-site/revision.json --output review-gallery
+
+      - name: Upload screenshot gallery and diagnostics (including on smoke failure)
+        if: always() && steps.publish.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        id: gallery
+        with:
+          name: review-gallery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: review-gallery/
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Publish review links
+        if: always()
+        env:
+          SITE_URL: ${{ steps.site.outputs.artifact-url }}
+          GALLERY_URL: ${{ steps.gallery.outputs.artifact-url }}
+          REVISION: ${{ steps.revision.outputs.sha }}
+        run: |
+          {
+            echo "## Review this delivery"
+            echo ""
+            echo "Revision: \`$REVISION\`"
+            if [ -n "$GALLERY_URL" ]; then
+              echo "- [Download screenshot gallery]($GALLERY_URL) — extract and open index.html."
+            fi
+            if [ -n "$SITE_URL" ]; then
+              echo "- [Download interactive site]($SITE_URL) — extract and run python serve.py."
+            fi
+            echo ""
+            echo "Artifacts are retained for 14 days. This workflow never deploys to the production domain."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  comment:
+    name: Link preview in pull request
+    needs: preview
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && needs.preview.result != 'cancelled'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      # Deliberately do not checkout or execute PR code in the write-permission job.
+      - uses: actions/github-script@v7
+        env:
+          SITE_URL: ${{ needs.preview.outputs.site_url }}
+          GALLERY_URL: ${{ needs.preview.outputs.gallery_url }}
+          REVISION: ${{ needs.preview.outputs.revision }}
+          RESULT: ${{ needs.preview.result }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const { data: current } = await github.rest.pulls.get({ owner, repo, pull_number: issue_number });
+            if (current.state !== 'open' ||
+                current.head.sha !== context.payload.pull_request.head.sha ||
+                current.base.sha !== context.payload.pull_request.base.sha) {
+              core.info('A newer head or base is available; skipping stale preview comment.');
+              return;
+            }
+            const marker = '<!-- jdhpro-review-preview -->';
+            const run = process.env.GITHUB_SERVER_URL + '/' + process.env.GITHUB_REPOSITORY + '/actions/runs/' + process.env.GITHUB_RUN_ID;
+            const status = process.env.RESULT === 'success' ? 'Passed' : 'Failed or incomplete';
+            const lines = [
+              marker,
+              '### Review preview',
+              '',
+              '**Build / browser smoke:** ' + status,
+              '**Built merge revision:** `' + (process.env.REVISION || 'not available') + '`',
+              '[Workflow run and summary](' + run + ')',
+              '',
+              process.env.GALLERY_URL
+                ? '- [Screenshot gallery](' + process.env.GALLERY_URL + ') — extract and open index.html.'
+                : '- Screenshot gallery unavailable; inspect the workflow logs.',
+              process.env.SITE_URL
+                ? '- [Interactive site](' + process.env.SITE_URL + ') — extract and run python serve.py.'
+                : '- Interactive build unavailable; inspect the publish step.',
+              '',
+              'Gallery and site artifacts expire after 14 days. No production deployment.'
+            ];
+            const body = lines.join('\n');
+            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number, per_page: 100 });
+            const existing = comments.find(c => c.user?.login === 'github-actions[bot]' && c.body?.startsWith(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
