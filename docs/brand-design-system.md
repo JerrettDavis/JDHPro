@@ -26,3 +26,14 @@ Review checklist:
 - Run existing build + E2E workflow; new Website themes feature covers basic
   persistence and mobile selector availability. Visual/contrast checks are
   required before merge.
+
+## Appearance control
+
+The header uses a compact palette chip and a native, non-modal auto popover.
+Its grouped miniature previews use the same CSS custom properties as the site
+rather than a separate color catalog. The selected option is marked and exposes
+aria-pressed. Enter/Space opens the picker, Tab moves through its buttons, and
+Escape, an outside click, the close button or choosing an option dismisses it.
+Selection retains the existing storage and URL behavior. System appearance is
+separate from the seven fixed identities. Modern browsers with native HTML
+popover support are required; review Safari and Firefox in addition to Chromium.

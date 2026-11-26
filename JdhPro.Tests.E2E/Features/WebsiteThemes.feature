@@ -30,3 +30,18 @@ Scenario: Theme selection is available on mobile
   Then the website theme selector should remain visible
   When I select the website theme "professional-dark"
   Then the resolved website theme should be "professional-dark"
+
+Scenario: Appearance picker supports keyboard dismissal
+  Given I navigate to the homepage
+  When I open the appearance picker with the keyboard
+  Then the active theme option should have keyboard focus
+  When I dismiss the appearance picker with Escape
+  Then the resolved website theme should be "professional"
+
+Scenario: System appearance follows the device
+  Given the device uses dark appearance
+  And I navigate to the homepage
+  When I select the website theme "system"
+  Then the resolved website theme should be "professional-dark"
+  When I reload the website
+  Then the resolved website theme should be "professional-dark"

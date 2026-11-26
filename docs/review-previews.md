@@ -28,7 +28,9 @@ PR comment for same-repository PRs). Once the run finishes:
 Seven brand themes on desktop (1440 x 900) and mobile (390 x 844), for Home,
 Services, Products, Projects, Labs, Insights, About, Contact and a sample
 article if the checked-in post catalog is nonempty. All seven homepage themes
-also captured at tablet (768 x 1024); one expanded mobile menu capture.
+also captured at tablet (768 x 1024); one expanded mobile menu capture. The
+appearance picker is captured open on desktop and mobile in Professional and
+Vaporwave, with keyboard dismissal, focus restoration and selection smoke checks.
 Full-page PNGs use real Chromium rendering with reduced motion. The script
 waits for WASM startup, actual page headings, content loading and theme
 application. It checks service counts and contact form presence, records JS

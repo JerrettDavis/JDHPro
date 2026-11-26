@@ -145,7 +145,7 @@ def main():
                                         raise RuntimeError("Page navigation did not return HTTP 2xx")
                                     ready(page, heading)
                                     expect(page.locator("html")).to_have_attribute("data-theme", theme)
-                                    expect(page.get_by_test_id("theme-select")).to_have_value(theme)
+                                    expect(page.get_by_test_id("theme-select")).to_have_attribute("data-theme-choice", theme)
                                     if name == "home":
                                         expect(page.get_by_test_id("service-card")).to_have_count(4)
                                     elif name == "services":
@@ -172,6 +172,47 @@ def main():
                                 results.append(result)
                                 write_gallery(args.output, revision, results)
                                 print(f'{result["status"]}: {theme} {viewport} {name}', flush=True)
+                        # Capture the actual open appearance picker on light and dark identities.
+                        if viewport in ("desktop", "mobile"):
+                            for theme in ("professional", "vaporwave"):
+                                errors.clear()
+                                warnings.clear()
+                                result = {"theme": theme, "viewport": viewport, "route": "appearance-picker",
+                                          "path": f"/?theme={theme}", "size": [width, height]}
+                                image_path = f"screenshots/{theme}--{viewport}--appearance.png"
+                                try:
+                                    page.goto(base + result["path"], wait_until="domcontentloaded")
+                                    ready(page, ROUTES[0][2])
+                                    trigger = page.get_by_test_id("theme-select")
+                                    panel = page.get_by_test_id("theme-panel")
+                                    expect(trigger).to_have_attribute("data-theme-choice", theme)
+                                    if viewport == "desktop":
+                                        trigger.focus()
+                                        trigger.press("Enter")
+                                    else:
+                                        trigger.click()
+                                    expect(panel).to_be_visible()
+                                    expect(trigger).to_have_attribute("aria-expanded", "true")
+                                    expect(page.get_by_test_id(f"theme-option-{theme}")).to_be_focused()
+                                    bounds = panel.bounding_box()
+                                    if not bounds or bounds["x"] < 0 or bounds["y"] < 0 or bounds["x"] + bounds["width"] > width + 1 or bounds["y"] + bounds["height"] > height + 1:
+                                        raise RuntimeError("Appearance picker extends outside the viewport")
+                                    page.screenshot(path=str(args.output / image_path), animations="disabled")
+                                    result["image"] = image_path
+                                    page.keyboard.press("Escape")
+                                    expect(panel).not_to_be_visible()
+                                    expect(trigger).to_be_focused()
+                                    trigger.click()
+                                    page.get_by_test_id("theme-option-grayscale").click()
+                                    expect(panel).not_to_be_visible()
+                                    expect(page.locator("html")).to_have_attribute("data-theme", "grayscale")
+                                    expect(trigger).to_have_attribute("data-theme-choice", "grayscale")
+                                    expect(trigger).to_be_focused()
+                                except Exception as exc:
+                                    errors.append(str(exc)[:1500])
+                                result.update(status="failed" if errors else "passed", errors=list(errors), warnings=list(warnings))
+                                results.append(result)
+                                write_gallery(args.output, revision, results)
                         # Show actual expanded navigation (all seven themes on mobile are captured above).
                         if viewport == "mobile":
                             errors.clear()

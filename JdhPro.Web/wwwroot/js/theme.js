@@ -25,7 +25,45 @@
   apply();
   media.addEventListener('change', () => { if (choice === 'system') apply(); });
 
+  // Native auto popover provides light-dismiss and Escape; keep the top-layer
+  // panel within the viewport and anchor it to the real trigger.
+  const picker = () => document.getElementById('brand-theme-panel');
+  const trigger = () => document.getElementById('brand-theme-trigger');
+
+  function positionPicker() {
+    const panel = picker(), button = trigger();
+    if (!panel || !button) return;
+    const margin = 12;
+    const width = Math.min(390, window.innerWidth - margin * 2);
+    const rect = button.getBoundingClientRect();
+    const left = Math.max(margin, Math.min(rect.right - width, window.innerWidth - width - margin));
+    const top = rect.bottom + 10;
+    panel.style.setProperty('--picker-left', left + 'px');
+    panel.style.setProperty('--picker-right', 'auto');
+    panel.style.setProperty('--picker-top', top + 'px');
+    panel.style.setProperty('--picker-height', Math.max(0, window.innerHeight - top - margin) + 'px');
+  }
+
+  document.addEventListener('beforetoggle', event => {
+    if (event.target === picker() && event.newState === 'open') positionPicker();
+  }, true);
+  document.addEventListener('toggle', event => {
+    const panel = picker(), button = trigger();
+    if (!panel || !button || event.target !== panel) return;
+    const open = event.newState === 'open';
+    button.setAttribute('aria-expanded', String(open));
+    if (open) panel.querySelector('[aria-pressed="true"]')?.focus({ preventScroll: true });
+  }, true);
+  window.addEventListener('resize', () => {
+    if (picker()?.matches(':popover-open')) positionPicker();
+  });
+
   window.jdhTheme = {
+    closePicker() {
+      const panel = picker();
+      if (panel?.matches(':popover-open')) panel.hidePopover();
+      trigger()?.focus({ preventScroll: true });
+    },
     get: () => choice,
     set(value) {
       if (!valid(value)) return;
